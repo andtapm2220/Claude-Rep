@@ -80,6 +80,32 @@ No falta ninguna figura respecto al año pasado.
 
 ---
 
+## 2 bis. Cotejo contra la presentación del 22-10
+
+La lámina **21 (Inversión Pública, 2018 – 2027 (P))** trae exactamente los mismos
+datos del Excel de cuadros, y **confirma la lista de proyectos de 3.6.7**:
+
+| Proyecto | Presentación | Informe |
+|---|---|---|
+| ENDE – Central Hidroeléctrica Río Miguillas | Bs754,9 MM | Bs755 MM |
+| MIN-OPSV – Inversión Sectorial de Apoyo a Infraestructura de Educación | Bs636,5 MM | Bs636 MM |
+| YPFB – Explotación áreas Mamoré I y Surubí | Bs362,7 MM | Bs363 MM |
+| YPFB – Distribución nacional de gas natural por redes | Bs339,1 MM | Bs339 MM |
+| ABEN – Centro de Investigación y Desarrollo en Tecnología Nuclear | Bs327,1 MM | Bs327 MM |
+
+También coinciden las participaciones por nivel institucional (Empresas Públicas
+30,43%, Órganos del Estado 24,25%, Adm. Departamental y Universidades 23,59%,
+Entidades Descentralizadas 21,72%) y el desglose de la Administración
+Departamental (Municipios 55,6%, Gobernaciones 42,0%, Universidades 1,8%,
+GAR 0,6%, GAIOC 0,0%).
+
+**Detalle de fechas**: la lámina cita corte al **23-10-2026** y el Excel de cuadros
+al **24-10-2026**. El informe usa 24-10, que es el corte posterior.
+
+**La lámina 20** tiene además la serie histórica de inversión pública 2006–2027
+(2026 P: 23.666 · 2026 R: 20.340 · 2027 P: 17.632). No está en el informe; si se
+quiere incorporar como gráfico adicional, el dato ya está disponible.
+
 ## 3. Qué se cambió en esta pasada
 
 - Se retiraron los cuatro marcadores pendientes de la parte de Fernando:
@@ -93,6 +119,14 @@ No falta ninguna figura respecto al año pasado.
 - **El tipo de cambio pasó a nota al pie del Gráfico N° 12:**
   *"Conversión referencial a dólares al tipo de cambio de Bs15,10 por dólar utilizado
   en la formulación del Proyecto de PGE 2027."*
+- **El Gráfico N° 12 se rehízo con el lenguaje visual de la presentación**: dos
+  anillos con la paleta institucional del PGE (naranja ED7D31, azul 5B9BD5, oro
+  FFC000 y verde 70AD47, los mismos acentos del tema de la presentación), con
+  etiqueta directa de nombre, monto y participación en cada porción, y el total al
+  centro. Izquierda por nivel institucional, derecha por fuente de financiamiento.
+  Se dejan fuera de las tortas, y se declaran en la nota, Instituciones Financieras
+  (Bs2,4 MM), Instituciones de Seguridad Social (sin inversión) y Financiamiento
+  Interno (Bs0,1 MM), igual que hace la lámina 21.
 
 **La parte de Fernando queda sin marcadores pendientes.** Los que siguen en el
 informe son de 3.7 (unidades DGPGP), 3.9 y 3.11 (UEP) y los campos administrativos
@@ -108,10 +142,9 @@ del encabezado y del cierre (H.R., iniciales, Adj.).
 2. **Tipo de cambio en conflicto.** El texto usa **Bs15,10/USD**; la Tabla N° 1 de
    Marcos fija **Bs13,3/USD**. Con 13,3 los Bs17.632 millones serían **USD1.326
    millones**, no 1.168. Hay que decidir cuál rige en todo el informe.
-3. **Dos cifras no verificables con lo disponible**: los Bs71.240 millones de
-   Ingresos de Operación de YPFB (3.5.2) y la lista de proyectos de inversión de
-   3.6.7 (Miguillas 755, MOPSV 636, Mamoré/Surubí 363, redes de gas 339, ABEN 327).
-   Necesitan la base de recursos y la de proyectos.
+3. **Queda una sola cifra sin verificar**: los **Bs71.240 millones** de Ingresos de
+   Operación de YPFB en 3.5.2. La lista de proyectos de 3.6.7 ya quedó confirmada
+   con la lámina 21 de la presentación.
 4. **Detalle menor**: el Gráfico N° 9 incluye IT (7.959) y GA (2.674), que el texto
    no menciona al enumerar "los principales impuestos". No es un error, pero se
    podría completar la enumeración.
