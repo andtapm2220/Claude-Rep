@@ -8,8 +8,9 @@ De v8 se conservan: la carátula, el encabezado, el membrete, los estilos, los t
 con su numeración, las marcas de responsable y **solo las secciones que todavía nadie
 entregó**.
 
-Verificación automática: los **188 párrafos** de Marcos (117), Daniela (35),
-Rebeca (29) y Miguel (7) están en v9 palabra por palabra. 36 páginas.
+Verificación automática: los **198 párrafos** de Marcos (117), Daniela (35),
+Rebeca (29), Miguel (7) y el documento de DISTRIBUCIÓN (10) están en v9 palabra
+por palabra. 43 páginas.
 
 ---
 
@@ -32,15 +33,17 @@ Rebeca (29) y Miguel (7) están en v9 palabra por palabra. 36 páginas.
 | 3.6.3 Sueldos y Salarios | Rebeca |
 | 3.6.5 Bienes y Servicios | Daniela |
 | 3.6.8 Otros Gastos | Rebeca |
+| 3.6.6 Prestaciones de la Seguridad Social | DISTRIBUCIÓN |
 | 3.8 ETA y Universidades Públicas | Miguel |
+| 3.10 Incentivo a las exportaciones (CEDEIM) | DISTRIBUCIÓN |
 | 3.12 Continuidad de las Políticas Sociales | Rebeca |
+| 4. Conclusiones | DISTRIBUCIÓN |
 
 ## 2. Secciones que siguen tal cual de v8 (nadie las entregó todavía)
 
 3.5 Presupuesto de Recursos (3.5.1, 3.5.2, 3.5.3) · 3.6.4 Aportes a la Seguridad
-Social · 3.6.6 Prestaciones de la Seguridad Social · 3.6.7 Gastos de Capital ·
-3.7 Gasto Social y Productivo · 3.9 Aportes de Capital · 3.10 CEDEIM ·
-3.11 Subvención a Hidrocarburos y Alimentos · 4. Conclusiones.
+Social · 3.6.7 Gastos de Capital · 3.7 Gasto Social y Productivo · 3.9 Aportes de
+Capital · 3.11 Subvención a Hidrocarburos y Alimentos.
 
 ## 3. Qué se eliminó de v8
 
@@ -79,7 +82,53 @@ Todas las llamadas del texto ("ver Gráfico N° …", "ver Tabla N° …") queda
 
 ---
 
-## 5. Advertencias — requieren tu decisión
+## 5. Formato unificado (v9)
+
+- **Cuerpo del informe a 12 pt** (antes 11 pt), Century Gothic: párrafos, viñetas,
+  títulos y los pies de gráfico/tabla. **Las tablas y el membrete no se tocaron**,
+  para no romper su maquetación.
+- **Notas al pie de cada gráfico y tabla estandarizadas** en los 19 bloques del
+  informe: mismo orden (**Fuente → Elaboración → notas aclaratorias**), mismo
+  cuerpo (**8 pt**), misma tipografía, etiqueta "Fuente:"/"Elaboración:" en negrita
+  y el resto en redonda, alineadas a la izquierda y sin espaciado entre líneas.
+  Antes convivían dos formatos: 7 pt con etiqueta en negrita y 5 pt sin negrita
+  (los de Rebeca), y en su bloque las notas iban antes de la fuente.
+- **Texto del documento de DISTRIBUCIÓN pasado a color negro.** Venía en azul
+  (548DD4 y 4F81BD) en sus 115 fragmentos; se dejó el color del resto del informe.
+
+## 6. Qué se completó de la parte de FERNANDO
+
+Con el Excel `cuadros_Fernando_base24-10.xlsx`:
+
+- **Gráfico N° 12 construido** (estaba marcado "HACER" con un marcador vacío), con
+  los dos cuadros de la hoja *Gráfico 12 inversión*: inversión por **nivel
+  institucional** (con número de proyectos) y por **fuente de financiamiento**,
+  sobre un total de Bs17.632,1 millones y 4.131 proyectos. Barras horizontales
+  ordenadas de mayor a menor, con valor y participación en cada barra.
+- **Unidad corregida**: el subtítulo decía "(En millones de dólares americanos…)"
+  y ahora dice "(En millones de bolivianos…)", porque el Excel está en bolivianos.
+- **Fuente del gráfico actualizada** a "Proyecto de PGE 2027 (base de gastos, corte
+  al 24-10-2026)" y se añadieron las notas metodológicas del propio Excel (criterio
+  de inversión y agrupación de fuentes). Se quitó la nota del tipo de cambio, que
+  ya no aplica al estar el gráfico en bolivianos.
+- **Tablas N° 3 y N° 4 cotejadas** contra las hojas *Tabla 2* y *Tabla 3* del Excel:
+  coinciden en todas las celdas, no hubo que cambiar nada.
+- **Párrafo de fuentes de financiamiento verificado**: el 46,0% / 33,8% / 20,3% del
+  texto cuadra exactamente con el Excel (8.103,1 / 5.954,2 / 3.574,7 sobre 17.632,1).
+
+### Lo que NO se completó, y por qué
+
+No hay dato en el Excel ni en los documentos para estos marcadores, así que se
+dejaron como están en vez de inventar texto:
+
+| Dónde | Qué falta |
+|---|---|
+| 3.5.2 | `[COMPLETAR: explicación del incremento]` de los Ingresos de Operación de YPFB (Bs71.240 MM) |
+| 3.5.2 | `[COMPLETAR: supuestos de la proyección]` de la recaudación tributaria 2027 |
+| 3.5.3 | `[COMPLETAR: explicación de la reducción]` del 44,5% en Otras Fuentes Internas |
+| 3.6.7 | El reparto por sector (productivo 41,7%, social 33,0%, infraestructura 22,5%, multisectorial 2,8%) no está en el Excel: no se pudo verificar ni graficar |
+
+## 7. Advertencias — requieren tu decisión
 
 1. **Las cifras de los compañeros no coinciden con las que traía v8.** v9 toma las
    de ellos. Principales diferencias:
@@ -115,6 +164,12 @@ Todas las llamadas del texto ("ver Gráfico N° …", "ver Tabla N° …") queda
    tabla/gráfico editable de Word. Los de Marcos son imágenes EMF; los de Rebeca y
    Miguel sí son gráficos nativos.
 
-7. **Se mantuvieron** las marcas de responsable en los títulos —(MARCO), (DANIELA),
+7. **Tipo de cambio en conflicto (3.6.7).** El texto dice que la inversión de
+   Bs17.632 millones equivale a USD1.168 millones, lo que implica Bs15,10 por dólar.
+   Pero la Tabla N° 1 de Marcos fija el tipo de cambio 2027 en **Bs13,3 por dólar**,
+   con lo que esos Bs17.632 millones serían **USD1.326 millones**. Hay que decidir
+   cuál rige; por eso el gráfico quedó en bolivianos.
+
+8. **Se mantuvieron** las marcas de responsable en los títulos —(MARCO), (DANIELA),
    (FERNANDO), (REBECA), (SILVIA), (UEP)…— y el resaltado amarillo/verde que traían
    los documentos originales. Decime si querés que los saque en un v10.
