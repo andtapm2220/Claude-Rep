@@ -3,27 +3,43 @@
 #  Completa/ajusta cada sección. El CV completo va en config/cv.md.
 # ─────────────────────────────────────────────────────────────────────────────
 
-nombre: "Tu Nombre"
+nombre: "Fernando Tapia Magne"
 resumen: >
-  COMPLETAR: 2-4 líneas sobre quién eres profesionalmente, años de experiencia,
-  especialidad y qué tipo de rol buscas ahora.
+  Ingeniero Financiero (UPB) con Maestría en Business & Technology (VUB, Bruselas). Hoy Analista Presupuestario
+  en el Ministerio de Economía y Finanzas Públicas (PGE). Antes: cofundador y responsable financiero de una
+  e-commerce, analista de portafolio de microfinanzas (USD 12M+ en desembolsos), supply chain en París.
+  Inglés y francés C1. Busca dar el siguiente paso en finanzas / finanzas públicas / FP&A, idealmente en
+  organismos internacionales, banca, consultoría o roles remotos pagados en USD/EUR.
 
-# Cargos objetivo (en el orden en que te interesan)
 roles_objetivo:
-  - "COMPLETAR: p. ej. Analista económico"
-  - "COMPLETAR: p. ej. Analista de datos"
+  - "Especialista / Analista en finanzas públicas o gestión fiscal"
+  - "Consultor en presupuesto, finanzas públicas o gestión de proyectos (BID, Banco Mundial, CAF, ONU, cooperación)"
+  - "Analista financiero / FP&A"
+  - "Analista de presupuesto y control de gestión"
+  - "Analista de riesgos o inversiones (banca, microfinanzas, fondos)"
+  - "Business analyst / analista de datos financieros"
+  - "Oficial de programa o de finanzas en ONG o cooperación"
 
-# Palabras clave que suben la prioridad (se usan en el prefiltro barato y
-# como búsquedas en Get on Board / Remotive). Mezcla español e inglés.
 keywords:
-  - analista
-  - economista
-  - datos
-  - finanzas
   - presupuesto
-  - data analyst
+  - finanzas publicas
+  - gestion fiscal
+  - analista financiero
+  - FP&A
+  - planificacion financiera
+  - control de gestion
+  - consultor
+  - especialista financiero
+  - microfinanzas
+  - inversiones
+  - riesgo
+  - business analyst
+  - financial analyst
+  - budget
+  - public finance
+  - analista de datos
+  - power bi
 
-# Si alguna de estas aparece en el TÍTULO, la oferta se descarta sin gastar en Claude.
 excluir_titulo:
   - vendedor
   - mercaderista
@@ -31,26 +47,37 @@ excluir_titulo:
   - cajero
   - chofer
   - courier
+  - mensajero
   - guardia
   - almacen
   - promotor
   - call center
   - asesor telefonico
   - auxiliar de lavado
+  - enfermer
+  - medico
+  - docente
+  - ingeniero civil
+  - mecanico
+  - cocinero
 
-seniority: "COMPLETAR: junior | semi-senior | senior | jefatura"
-salario_minimo_bs: 0          # mensual en Bs; 0 = no filtrar
-ciudades: ["La Paz", "El Alto"] # presencial/híbrido aceptable
+seniority: "semi-senior (unos 4-5 años de experiencia profesional; ha liderado equipo de 10)"
+salario_minimo_bs: 0          # COMPLETAR si quieres filtrar por sueldo mínimo mensual en Bs
+ciudades: ["La Paz", "El Alto"]
 acepta_remoto: true
-paises_region: ["Bolivia", "Peru", "Chile", "Colombia", "Argentina", "Mexico"]  # para presencial regional
-idiomas: ["Español (nativo)", "Inglés (COMPLETAR nivel)"]
+paises_region: ["Bolivia"]    # presencial fuera de Bolivia: agrega países si te mudarías
+idiomas: ["Español (nativo)", "Inglés (C1)", "Francés (C1)"]
 
-# Cosas que para ti son deal-breakers o preferencias fuertes (Claude las tiene en cuenta)
 preferencias: |
-  COMPLETAR. Ejemplos:
-  - Prefiero sector financiero, consultoría o sector público.
-  - No quiero roles de ventas puras ni con metas comerciales.
-  - Me interesan roles donde use Excel avanzado, Python/SQL o Power BI.
+  - Prioridad alta: organismos internacionales y banca de desarrollo (BID, Banco Mundial, CAF, FONPLATA, ONU),
+    cooperación (incluida la francófona: AFD, Enabel, Embajadas de Francia y Bélgica, donde su francés C1 suma),
+    roles de finanzas públicas / presupuesto / gestión fiscal, y FP&A remoto pagado en USD o EUR.
+  - También interesan: banca y microfinanzas (riesgos, inversiones, planificación financiera), consultoras
+    (Big 4), empresas multinacionales en Bolivia, análisis de negocio / datos financieros, innovación.
+  - El puesto debe ser un paso adelante respecto a su rol actual en el MEFP (más responsabilidad, mejor paga
+    o proyección internacional). Consultorías por producto valen si son de organismos serios.
+  - No le interesan: ventas puras con metas comerciales, call center, cargos operativos/administrativos
+    básicos, contabilidad pura sin análisis, ni puestos junior por debajo de su nivel.
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Configuración del agente
@@ -64,6 +91,23 @@ agente:
   cartas_para_top: 5        # redacta carta de presentación para las N mejores
 
 fuentes:
+  # Feed oficial de vacantes del PNUD en Bolivia (con fecha de cierre)
+  pnud:
+    enabled: true
+    countries: ["BOL"]
+
+  # Vigía de páginas de convocatorias sin API. Agrega aquí cualquier página que quieras vigilar
+  # (url + nombre). Cada día avisa los enlaces nuevos y lee el HTML o el PDF de los TDR.
+  vigia:
+    enabled: true
+    pages:
+      - {name: "Redesma/CEBEM", url: "https://cebem.org/?page_id=12999", link_must_contain: "/boletin/2026/", max_new: 25}
+      - {name: "UNITAS", url: "https://redunitas.org/download-category/convocatorias/", org: "Red UNITAS"}
+      - {name: "WCS Bolivia", url: "https://bolivia.wcs.org/es-es/Nosotros/oportunidades-Laborales.aspx", org: "WCS Bolivia"}
+      # Agrega las de entidades que te interesen, p. ej.:
+      # - {name: "BCB", url: "https://www.bcb.gob.bo/...convocatorias...", org: "Banco Central de Bolivia"}
+      # - {name: "MEFP", url: "https://www.economiayfinanzas.gob.bo/...", org: "MEFP"}
+
   # Lee las alertas que te llegan al Gmail. Crea alertas en LinkedIn, Trabajando, Trabajópolis,
   # Computrabajo, Indeed... y el agente las procesa. Cubre los sitios que bloquean bots.
   email_alerts:
@@ -75,7 +119,7 @@ fuentes:
   # Bajo volumen a propósito: sólo últimas 24 h, 1 página por búsqueda, pausas de 4-9 s.
   linkedin:
     enabled: true
-    queries: ["economista", "analista financiero", "analista de datos"]
+    queries: ["analista financiero", "finanzas", "presupuesto", "financial analyst"]
     locations: ["Bolivia"]
     time_range: r86400        # últimas 24 h
     max_details: 30
@@ -89,7 +133,8 @@ fuentes:
   explorador_web:
     enabled: true
     themes: [organismos_internacionales, cooperacion_y_embajadas, ong_y_fundaciones,
-             sector_publico_y_financiero, redes_sociales_publicas, busqueda_general]
+             sector_publico_y_financiero, redes_sociales_publicas, busqueda_general,
+             remoto_usd_eur, cooperacion_francofona_y_europea]
     max_searches_per_theme: 5
     # model: "claude-sonnet-5-5"   # descomenta para bajar el costo del explorador
     extra_themes: {}               # p. ej. {mineria: "Empresas mineras en Bolivia: San Cristóbal, ..."}
@@ -102,7 +147,7 @@ fuentes:
   computrabajo:
     enabled: true
     regions: ["la-paz"]              # bo.computrabajo.com/empleos-en-<slug>
-    keyword_pages: ["economista", "analista"]  # bo.computrabajo.com/trabajo-de-<slug>
+    keyword_pages: ["analista-financiero", "analista", "finanzas"]  # bo.computrabajo.com/trabajo-de-<slug>
     max_pages: 4
     max_details: 80
   trabajopolis:

@@ -4,3 +4,4 @@ config/cv.pdf
 __pycache__/
 .pytest_cache/
 .env
+config/cv.local.md

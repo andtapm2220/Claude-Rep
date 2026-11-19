@@ -8,6 +8,9 @@ Todos los días, a las 07:43 (hora de Bolivia), el agente:
    - **Tus alertas por email** (Gmail): LinkedIn, Trabajando, Trabajópolis, Indeed… Creas alertas en cada portal y el agente las lee.
    - **Explorador web con Claude**, el reemplazo de "buscar en Google": organismos internacionales (ONU, BID, Banco Mundial, CAF), embajadas y cooperación (GIZ, JICA, AECID, COSUDE…), ONG, sector público y financiero (ministerios, BCB, ASFI, SICOES), publicaciones **públicas** de Facebook y LinkedIn, y una búsqueda general de tus cargos.
    - **ReliefWeb** (ONU/OCHA): ONG y cooperación en Bolivia, si configuras el appname.
+   - **PNUD**: feed oficial de vacantes en Bolivia, con fecha de cierre.
+   - **Vigía de páginas**: boletín Redesma/CEBEM (FAO, Helvetas, IICA, Ayuda en Acción…), UNITAS, WCS y
+     cualquier página de convocatorias que agregues (MEFP, BCB, ASFI, embajadas). Lee también los PDF de los TDR.
    - **Lo que tú le mandes al bot:** pegas un enlace o el texto de una oferta (por ejemplo, un post de un grupo de Facebook) y te responde con la evaluación.
 2. **Unifica duplicados**: si la misma oferta aparece en dos portales, queda una sola, y eso suma confianza.
 3. **Verifica** que sea real y vigente: fecha de publicación, fecha de cierre, empresa identificable, si la web de la empresa existe, si el email es del dominio de la empresa, y patrones de estafa (pedir pagos, multinivel, "gana Bs X desde casa", sólo WhatsApp…).
@@ -16,7 +19,20 @@ Todos los días, a las 07:43 (hora de Bolivia), el agente:
 6. **Redacta** una carta de presentación para las mejores.
 7. **Te avisa por Telegram** con la lista detallada y botones: 🌐 Ver oferta · ✉️ Postular por email · 🙈 Descartar.
 8. **Registra** todo en Google Sheets para que lleves el seguimiento.
-9. Cada 2 horas revisa tus botones. Si apretaste **✉️ Postular**, envía la postulación por email (carta + CV en PDF) desde tu cuenta.
+9. Cada hora revisa tus botones. Si apretaste **✉️ Postular**, envía la postulación por email (carta + CV en PDF)
+   desde tu cuenta, y te manda el **checklist según el tipo de empleador**:
+   - **Estado:** CV firmado, respaldos, declaración jurada, SICOES.
+   - **ONU/BID:** registro en su portal.
+   - **ONG:** CV de 3 páginas, pretensión salarial y referencias.
+   - **Remoto:** CV en inglés y forma de cobro.
+10. **Cada lunes, "pituto inteligente":** Claude busca señales de contratación que llegan *antes* de la convocatoria
+    (préstamos nuevos del BID, Banco Mundial y CAF, programas de cooperación, empresas que se expanden). Te sugiere
+    5 organizaciones, a quién escribirle, un enlace de búsqueda en LinkedIn y un mensaje listo. Va por el canal por
+    donde se consigue la mayoría de los empleos en la región: los contactos.
+
+### Tu CV
+- Localmente se lee de `config/cv.local.md`, que **no se sube al repo**. En GitHub, pega ese texto en el secreto `CV_TEXT`.
+- Revisa las viñetas de tu rol actual en el MEFP: están marcadas con `VALIDAR`.
 
 > **¿Por qué no postula sólo?** La investigación previa mostró que los bots de postulación masiva
 > rinden igual o peor que postular poco y bien. Por ejemplo, 5.000 postulaciones automáticas dieron

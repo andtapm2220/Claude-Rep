@@ -13,12 +13,36 @@ from . import json_ld, parse_iso
 log = logging.getLogger(__name__)
 
 
+def pdf_to_job(url: str, data: bytes, source: str) -> Job | None:
+    """Términos de referencia / convocatorias en PDF (muy común en Bolivia)."""
+    import io
+
+    from pypdf import PdfReader
+
+    try:
+        reader = PdfReader(io.BytesIO(data))
+        text = "\n".join((p.extract_text() or "") for p in reader.pages[:8])
+    except Exception as e:
+        log.info("PDF ilegible %s: %s", url, e)
+        return None
+    text = re.sub(r"[ \t]+", " ", re.sub(r"\n\s*\n+", "\n", text)).strip()
+    if len(text) < 100:
+        return None  # PDF escaneado (imagen): sin texto
+    first = next((ln.strip() for ln in text.splitlines() if len(ln.strip()) > 15), url)
+    return Job(source=source, url=url, title=first[:200], description=text[:8000],
+               apply_emails=find_emails(text), apply_url=url)
+
+
 def page_to_job(url: str, http: Http, source: str = "manual") -> Job | None:
     try:
-        html = http.text(url)
+        r = http.get(url)
     except Exception as e:
         log.info("no se pudo abrir %s: %s", url, e)
         return None
+    if "pdf" in r.headers.get("content-type", "").lower() or r.content[:5] == b"%PDF-":
+        return pdf_to_job(url, r.content, source)
+    r.encoding = r.encoding if r.encoding and r.encoding.lower() != "iso-8859-1" else "utf-8"
+    html = r.text
     posts = json_ld(html, "JobPosting")
     if posts:
         p = posts[0]

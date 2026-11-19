@@ -52,6 +52,18 @@ DEFAULT_THEMES = {
         "de empleo en La Paz/Bolivia, páginas de empresas e instituciones) y site:linkedin.com/posts (reclutadores y "
         "organizaciones anunciando vacantes). Sólo lo que aparezca en los resultados de búsqueda."
     ),
+    "remoto_usd_eur": (
+        "Empleos REMOTOS pagados en USD/EUR abiertos a candidatos en Bolivia/LatAm para finanzas: FP&A, financial "
+        "analyst, budget analyst, business analyst, finance operations. Empresas que contratan en LatAm vía Deel/"
+        "Remote.com, startups, consultoras y organismos con trabajo remoto. Incluye Workana/Upwork solo si es un "
+        "proyecto sustancial de análisis financiero."
+    ),
+    "cooperacion_francofona_y_europea": (
+        "Organizaciones francófonas y europeas con presencia en Bolivia o la región donde el francés/inglés C1 es "
+        "ventaja: AFD, Enabel (Bélgica), Embajadas de Francia y Bélgica, Alianza Francesa, Unión Europea, Expertise "
+        "France, IRD, Médicos del Mundo, Handicap International, OCDE, y programas de la UE en LatAm (EUROsociAL, "
+        "que trabaja finanzas públicas y fiscalidad)."
+    ),
     "busqueda_general": (
         "Búsqueda general tipo Google de los cargos objetivo del candidato + 'convocatoria', 'vacancia', 'se busca', "
         "'trabaja con nosotros' en Bolivia, priorizando lo publicado en los últimos 15 días."

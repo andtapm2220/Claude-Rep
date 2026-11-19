@@ -4,6 +4,10 @@ from __future__ import annotations
 from .models import Job, norm
 
 
+# Fuentes ya seleccionadas para el perfil (o institucionales): no se descartan por ubicación ni palabras clave
+CURATED = ("web:", "alerta:", "vigia:", "pnud", "reliefweb", "manual")
+
+
 def prefilter(jobs: list[Job], profile: dict) -> list[Job]:
     excl = [norm(x) for x in profile.get("excluir_titulo", [])]
     kws = [norm(k) for k in profile.get("keywords", [])]
@@ -22,7 +26,8 @@ def prefilter(jobs: list[Job], profile: dict) -> list[Job]:
         if age is not None and age > max_age:
             continue
         loc = norm(f"{j.location} {j.country}")
-        in_place = (
+        curated = j.source.startswith(CURATED)
+        in_place = curated or (
             j.remote and remote_ok
             or any(c in loc for c in cities)
             or j.country.upper() in ("BO",) and not cities
@@ -30,7 +35,7 @@ def prefilter(jobs: list[Job], profile: dict) -> list[Job]:
         )
         if not in_place:
             continue
-        s = 3.0 if j.source.startswith(("web:", "alerta:")) else 0.0
+        s = 3.0 if curated else 0.0
         for r in roles:
             if r in title:
                 s += 6

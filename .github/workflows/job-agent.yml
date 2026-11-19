@@ -3,11 +3,12 @@ name: job-agent
 on:
   schedule:
     - cron: "43 11 * * *"     # búsqueda diaria: 07:43 hora de Bolivia (UTC-4)
+    - cron: "23 12 * * 1"     # lunes 08:23 Bolivia: sugerencias de contactos (pituto)
     - cron: "17 * * * *"      # cada hora: tus botones de Telegram y los enlaces/textos que le mandes al bot
   workflow_dispatch:
     inputs:
       command:
-        description: "run | poll"
+        description: "run | poll | network"
         default: run
 
 # Nunca dos corridas a la vez: comparten la misma base de datos de estado.
@@ -62,7 +63,11 @@ jobs:
         run: |
           CMD="${{ github.event.inputs.command }}"
           if [ -z "$CMD" ]; then
-            if [ "${{ github.event.schedule }}" = "43 11 * * *" ]; then CMD=run; else CMD=poll; fi
+            case "${{ github.event.schedule }}" in
+              "43 11 * * *") CMD=run ;;
+              "23 12 * * 1") CMD=network ;;
+              *) CMD=poll ;;
+            esac
           fi
           python -m jobagent "$CMD"
 

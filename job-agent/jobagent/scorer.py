@@ -42,8 +42,13 @@ LETTER_SCHEMA = {
         "email_subject": {"type": "string"},
         "cover_letter": {"type": "string"},
         "cv_highlights": {"type": "array", "items": {"type": "string"}},
+        "employer_type": {"type": "string", "enum": ["sector_publico", "organismo_internacional", "ong_cooperacion",
+                                                      "banca_finanzas", "empresa_privada", "remoto_extranjero"]},
+        "checklist": {"type": "array", "items": {"type": "string"},
+                      "description": "Pasos y documentos concretos para postular a ESTA convocatoria"},
+        "letter_language": {"type": "string", "enum": ["es", "en", "fr"]},
     },
-    "required": ["email_subject", "cover_letter", "cv_highlights"],
+    "required": ["email_subject", "cover_letter", "cv_highlights", "employer_type", "checklist", "letter_language"],
     "additionalProperties": False,
 }
 
@@ -140,7 +145,19 @@ def draft_application(job: Job, profile: dict, cv: str, model: str) -> dict | No
         "sin inventar experiencia que no esté en el CV. cover_letter: 180-260 palabras, lista para "
         "pegar en un email (saludo, por qué encaja con 2-3 logros concretos del CV conectados a "
         "requisitos de la oferta, cierre con disponibilidad). email_subject: corto e incluye el cargo. "
-        "cv_highlights: 3-5 viñetas del CV que conviene destacar/mover arriba para esta oferta.\n\n"
+        "cv_highlights: 3-5 viñetas del CV que conviene destacar/mover arriba para esta oferta. "
+        "Escribe la carta en el idioma de la convocatoria (letter_language). "
+        "Clasifica employer_type y arma checklist según cómo se postula realmente en Bolivia: "
+        "sector_publico -> formulario/hoja de vida en el formato de la entidad, FIRMADA (sin firma descalifica), "
+        "fotocopias de respaldo de experiencia general y específica, título en provisión nacional, declaración jurada, "
+        "CI, sobre cerrado o SICOES si aplica, respetar el plazo exacto; organismo_internacional -> registro en su "
+        "portal (Quantum/PNUD, Inspira/ONU, ERA/EE.UU., Workday/BID), formato P11/CV propio, 'experiencia específica' "
+        "medida en años, referencias; ong_cooperacion -> CV de máximo 3 páginas, carta con pretensión salarial, 3 "
+        "referencias, propuesta técnica/económica si es consultoría por producto; banca_finanzas / empresa_privada -> "
+        "CV de 1-2 páginas con logros cuantificados, LinkedIn actualizado, pretensión salarial si la piden; "
+        "remoto_extranjero -> CV en inglés, LinkedIn en inglés, disponibilidad horaria, forma de cobro (Deel/Payoneer). "
+        "Incluye en el checklist cualquier requisito específico que aparezca en la oferta (fecha límite, código, "
+        "documentos). No inventes requisitos que la oferta contradiga.\n\n"
         + _job_block(job)
     )
     try:

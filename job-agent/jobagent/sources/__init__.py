@@ -56,9 +56,12 @@ def relative_date(text: str, now: datetime | None = None) -> datetime | None:
 
 
 def all_fetchers() -> dict[str, Fetcher]:
-    from . import computrabajo, email_alerts, explorer, getonbrd, linkedin, reliefweb, remotive, trabajito, trabajopolis
+    from . import (computrabajo, email_alerts, explorer, getonbrd, linkedin, reliefweb, remotive, trabajito,
+                   trabajopolis, undp, watch)
 
     return {
+        "pnud": undp.fetch,
+        "vigia": watch.fetch,
         "email_alerts": email_alerts.fetch,
         "linkedin": linkedin.fetch,
         "reliefweb": reliefweb.fetch,

@@ -34,7 +34,8 @@ log = logging.getLogger("jobagent")
 
 def load_profile() -> tuple[dict, str]:
     profile = yaml.safe_load((ROOT / "config/profile.yaml").read_text(encoding="utf-8"))
-    cv = os.environ.get("CV_TEXT") or (ROOT / "config/cv.md").read_text(encoding="utf-8")
+    local = ROOT / "config/cv.local.md"  # no se sube al repo (.gitignore)
+    cv = os.environ.get("CV_TEXT") or (local if local.exists() else ROOT / "config/cv.md").read_text(encoding="utf-8")
     return profile, cv
 
 
@@ -118,7 +119,9 @@ def cmd_run(args) -> int:
                 out.parent.mkdir(parents=True, exist_ok=True)
                 out.write_text(f"# {j.title} — {j.company}\n{j.url}\n\n**Asunto:** {letter['email_subject']}\n\n"
                                f"{letter['cover_letter']}\n\n## Destacar del CV\n"
-                               + "".join(f"- {h}\n" for h in letter["cv_highlights"]), encoding="utf-8")
+                               + "".join(f"- {h}\n" for h in letter["cv_highlights"])
+                               + f"\n## Cómo postular ({letter.get('employer_type', '')})\n"
+                               + "".join(f"- [ ] {c}\n" for c in letter.get("checklist", [])), encoding="utf-8")
 
     # 6. Notificar
     header = (f"🗂️ <b>Ofertas del {datetime.now().date()}</b>\n"
@@ -143,6 +146,29 @@ def cmd_run(args) -> int:
     out.parent.mkdir(exist_ok=True)
     out.write_text(digest_markdown(picks, stats), encoding="utf-8")
     log.info("Listo: %d recomendadas. Resumen en %s", len(picks), out)
+    return 0
+
+
+def checklist_text(letter: dict) -> str:
+    items = letter.get("checklist") or []
+    if not items:
+        return ""
+    return "\n\n📋 <b>Checklist para esta postulación</b>\n" + "\n".join(f"☐ {html.escape(c)}" for c in items)
+
+
+def cmd_network(args) -> int:
+    from .networking import format_message, weekly_targets
+
+    profile, cv = load_profile()
+    tg = Telegram()
+    model = (profile.get("fuentes", {}).get("explorador_web", {}) or {}).get("model") or profile.get("agente", {}).get("modelo", "claude-opus-5-5")
+    targets = weekly_targets(profile, cv, model)
+    for part in format_message(targets):
+        tg.send(part)
+    out = ROOT / "output" / f"pituto_{datetime.now().date()}.json"
+    out.parent.mkdir(exist_ok=True)
+    out.write_text(json.dumps(targets, ensure_ascii=False, indent=1), encoding="utf-8")
+    log.info("Pituto: %d organizaciones sugeridas", len(targets))
     return 0
 
 
@@ -228,11 +254,11 @@ def cmd_poll(args) -> int:
                 store.set_status(key, "postulado"); sheets.set_status(key, "postulado")
                 tg.answer_callback(cb["id"], "Postulación enviada ✅")
                 tg.send(f"✅ Postulación enviada a <b>{html.escape(to)}</b> para <b>{html.escape(job['title'])}</b>\n"
-                        f"Asunto: {html.escape(letter['email_subject'])}")
+                        f"Asunto: {html.escape(letter['email_subject'])}" + checklist_text(letter))
             else:
                 tg.answer_callback(cb["id"], "SMTP no configurado: te mando la carta para copiar")
                 tg.send(f"📝 Para: {html.escape(to)}\nAsunto: {html.escape(letter['email_subject'])}\n\n"
-                        f"{html.escape(letter['cover_letter'])}")
+                        f"{html.escape(letter['cover_letter'])}" + checklist_text(letter))
     store.kv_set("tg_offset", str(offset))
     store.commit()
     return 0
@@ -255,9 +281,10 @@ def main(argv=None) -> int:
     r.add_argument("--no-llm", action="store_true", help="no usar Claude (sólo prefiltro)")
     r.add_argument("--limit-sources", type=int, default=0, help="prueba rápida: N detalles por fuente")
     sub.add_parser("poll")
+    sub.add_parser("network", help="sugerencias semanales de contactos (pituto)")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
-    return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid}[args.cmd](args)
+    return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network}[args.cmd](args)
 
 
 if __name__ == "__main__":
