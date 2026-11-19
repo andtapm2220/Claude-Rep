@@ -1,0 +1,6 @@
+state/
+output/
+config/cv.pdf
+__pycache__/
+.pytest_cache/
+.env
