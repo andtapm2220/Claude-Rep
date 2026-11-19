@@ -30,7 +30,7 @@ def prefilter(jobs: list[Job], profile: dict) -> list[Job]:
         )
         if not in_place:
             continue
-        s = 0.0
+        s = 3.0 if j.source.startswith(("web:", "alerta:")) else 0.0
         for r in roles:
             if r in title:
                 s += 6

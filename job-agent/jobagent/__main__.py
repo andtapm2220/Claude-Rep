@@ -11,6 +11,7 @@ import html
 import json
 import logging
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -145,6 +146,40 @@ def cmd_run(args) -> int:
     return 0
 
 
+def evaluate_manual(text: str, profile: dict, cv: str, store: Store, tg: Telegram) -> None:
+    """Le mandas al bot un enlace (p. ej. un post de Facebook o una página de una ONG) o el texto
+    de una oferta, y te responde con la evaluación y los botones de siempre."""
+    from .sources.generic import page_to_job
+
+    urls = re.findall(r"https?://\S+", text)
+    jobs: list[Job] = []
+    for u in urls[:5]:
+        j = page_to_job(u, Http(delay=0.5), source="manual")
+        if j and len(j.description) < 300 and len(text) > 300:
+            j.description = text  # la página no dejó leer (p. ej. Facebook): usa el texto que pegaste
+        jobs.append(j or Job(source="manual", url=u, title="Oferta compartida", description=text, apply_url=u))
+    if not urls:
+        if len(text) < 80:
+            tg.send("Mándame el enlace de una oferta o pega su texto completo y la evalúo. 🔎")
+            return
+        first = text.strip().splitlines()[0][:120]
+        jobs.append(Job(source="manual", url=f"manual://{abs(hash(text))}", title=first, description=text))
+    agent = profile.get("agente", {})
+    for j in jobs:
+        verify(j, max_age_days=agent.get("max_antiguedad_dias", 21))
+    if os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"):
+        from .scorer import score_jobs
+
+        score_jobs(jobs, profile, cv, agent.get("modelo", "claude-opus-5-5"))
+    for i, j in enumerate(jobs, 1):
+        if j.score is None:
+            tg.send(f"No pude evaluar {html.escape(j.url)} (¿falta ANTHROPIC_API_KEY?)")
+            continue
+        store.save(j, status="notificado")
+        body, buttons = job_message(j, i)
+        tg.send("🔎 <b>Evaluación de lo que me enviaste</b>\n\n" + body, buttons)
+
+
 def cmd_poll(args) -> int:
     profile, cv = load_profile()
     store, tg = Store(ROOT / "state/jobs.db"), Telegram()
@@ -154,6 +189,10 @@ def cmd_poll(args) -> int:
     offset = int(store.kv_get("tg_offset", "0"))
     for upd in tg.updates(offset):
         offset = max(offset, upd["update_id"] + 1)
+        msg = upd.get("message") or {}
+        if msg.get("text") and str(msg["chat"]["id"]) == str(tg.chat_id) and not msg["text"].startswith("/"):
+            evaluate_manual(msg["text"], profile, cv, store, tg)
+            continue
         cb = upd.get("callback_query")
         if not cb or str(cb["message"]["chat"]["id"]) != str(tg.chat_id):
             continue  # sólo obedece a tu propio chat

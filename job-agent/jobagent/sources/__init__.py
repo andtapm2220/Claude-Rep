@@ -42,25 +42,30 @@ def relative_date(text: str, now: datetime | None = None) -> datetime | None:
 
     t = norm(text)
     now = now or datetime.now(timezone.utc)
-    if "hoy" in t or "minuto" in t or "ahora" in t:
+    if any(w in t for w in ("hoy", "minuto", "ahora", "minute", "just now", "today")):
         return now
-    if "ayer" in t:
+    if "ayer" in t or "yesterday" in t:
         return now - timedelta(days=1)
-    m = re.search(r"(\d+)\s*(hora|dia|semana|mes)", t)
+    m = re.search(r"(\d+)\s*(hora|hour|dia|day|semana|week|mes|month)", t)
     if not m:
         return None
-    n, unit = int(m.group(1)), m.group(2)
+    n = int(m.group(1))
+    unit = {"hour": "hora", "day": "dia", "week": "semana", "month": "mes"}.get(m.group(2), m.group(2))
     return now - {"hora": timedelta(hours=n), "dia": timedelta(days=n),
                   "semana": timedelta(weeks=n), "mes": timedelta(days=30 * n)}[unit]
 
 
 def all_fetchers() -> dict[str, Fetcher]:
-    from . import computrabajo, getonbrd, remotive, trabajito, trabajopolis
+    from . import computrabajo, email_alerts, explorer, getonbrd, linkedin, reliefweb, remotive, trabajito, trabajopolis
 
     return {
+        "email_alerts": email_alerts.fetch,
+        "linkedin": linkedin.fetch,
+        "reliefweb": reliefweb.fetch,
         "trabajito": trabajito.fetch,
         "computrabajo": computrabajo.fetch,
         "trabajopolis": trabajopolis.fetch,
         "getonbrd": getonbrd.fetch,
         "remotive": remotive.fetch,
+        "explorador_web": explorer.fetch,  # al final: es la fuente más cara
     }

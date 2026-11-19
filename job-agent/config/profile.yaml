@@ -64,6 +64,36 @@ agente:
   cartas_para_top: 5        # redacta carta de presentación para las N mejores
 
 fuentes:
+  # Lee las alertas que te llegan al Gmail. Crea alertas en LinkedIn, Trabajando, Trabajópolis,
+  # Computrabajo, Indeed... y el agente las procesa. Cubre los sitios que bloquean bots.
+  email_alerts:
+    enabled: true
+    days: 2
+    portals: [linkedin, computrabajo, trabajando, trabajopolis, indeed, bumeran, glassdoor, getonbrd]
+
+  # LinkedIn sin iniciar sesión (no usa tu cuenta => no hay cuenta que banear).
+  # Bajo volumen a propósito: sólo últimas 24 h, 1 página por búsqueda, pausas de 4-9 s.
+  linkedin:
+    enabled: true
+    queries: ["economista", "analista financiero", "analista de datos"]
+    locations: ["Bolivia"]
+    time_range: r86400        # últimas 24 h
+    max_details: 30
+
+  # ONU/ONG/cooperación por país (requiere secreto RELIEFWEB_APPNAME aprobado, gratis)
+  reliefweb:
+    enabled: true
+
+  # "Google" con Claude: busca en organismos internacionales, embajadas, cooperación, ONG,
+  # sector público, posts públicos de Facebook/LinkedIn y búsqueda general.
+  explorador_web:
+    enabled: true
+    themes: [organismos_internacionales, cooperacion_y_embajadas, ong_y_fundaciones,
+             sector_publico_y_financiero, redes_sociales_publicas, busqueda_general]
+    max_searches_per_theme: 5
+    # model: "claude-sonnet-5-5"   # descomenta para bajar el costo del explorador
+    extra_themes: {}               # p. ej. {mineria: "Empresas mineras en Bolivia: San Cristóbal, ..."}
+
   trabajito:
     enabled: true
     regions: ["la-paz", "bolivia"]   # slugs de trabajito.com.bo/empleos/<slug>

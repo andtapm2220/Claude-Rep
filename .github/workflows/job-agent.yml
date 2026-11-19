@@ -3,7 +3,7 @@ name: job-agent
 on:
   schedule:
     - cron: "43 11 * * *"     # búsqueda diaria: 07:43 hora de Bolivia (UTC-4)
-    - cron: "17 */2 * * *"    # cada 2 h: procesa tus botones de Telegram (postular/descartar)
+    - cron: "17 * * * *"      # cada hora: tus botones de Telegram y los enlaces/textos que le mandes al bot
   workflow_dispatch:
     inputs:
       command:
@@ -56,6 +56,9 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           CV_TEXT: ${{ secrets.CV_TEXT }}
+          IMAP_USER: ${{ secrets.IMAP_USER }}
+          IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+          RELIEFWEB_APPNAME: ${{ secrets.RELIEFWEB_APPNAME }}
         run: |
           CMD="${{ github.event.inputs.command }}"
           if [ -z "$CMD" ]; then

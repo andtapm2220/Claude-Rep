@@ -18,7 +18,8 @@ FLAG_TXT = {
     "en_varios_portales": "aparece en varios portales", "empresa_verificada_portal": "empresa verificada por el portal",
     "email_dominio_empresa": "email con dominio de la empresa", "empresa_anonima": "empresa anónima",
     "email_gratuito": "contacto con email gratuito", "sin_fecha": "sin fecha de publicación",
-    "descripcion_pobre": "descripción muy corta", "web_empresa_no_resuelve": "la web de la empresa no responde",
+    "descripcion_pobre": "descripción muy corta",
+    "url_en_resultados_busqueda": "enlace real encontrado en buscador", "alerta_oficial_portal": "llegó por tu alerta oficial del portal", "web_empresa_no_resuelve": "la web de la empresa no responde",
 }
 
 
