@@ -23,7 +23,7 @@ JOBISH = re.compile(
     r"convocatoria|consultor|vacan|t[eé]rminos de referencia|\btdr\b|requiere|busca|invita|contrataci[oó]n|"
     r"especialista|oficial|t[eé]cnic[oa]|coordinador|responsable|analista|asistente|cargo|puesto|job|vacancy|"
     r"position|hiring|recruit", re.I)
-NOISE = re.compile(r"@|facebook\.com|twitter\.com|x\.com|instagram|youtube|whatsapp|mailto:|javascript:|#$|/tag/|/category/(?!convoc)", re.I)
+NOISE = re.compile(r"@|facebook\.com|twitter\.com|x\.com|instagram|youtube|whatsapp|mailto:|javascript:|#$|/tag/|/page/\d+/?$|/category/", re.I)
 
 
 def extract_links(html: str, base: str, must_contain: str | None = None) -> list[tuple[str, str]]:
