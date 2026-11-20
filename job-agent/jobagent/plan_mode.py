@@ -61,7 +61,7 @@ def _web_jobs(path: Path, http: Http, is_seen) -> list[Job]:
     return jobs
 
 
-def collect(root: Path, profile: dict, limit_sources: int = 0) -> dict:
+def collect(root: Path, profile: dict, limit_sources: int = 0, max_cands: int | None = None) -> dict:
     agent = profile.get("agente", {})
     store = Store(root / "state/jobs.db")
     http = Http()
@@ -86,7 +86,8 @@ def collect(root: Path, profile: dict, limit_sources: int = 0) -> dict:
     for j in found:
         verify(j, max_age_days=agent.get("max_antiguedad_dias", 21))
     ranked = [j for j in prefilter(found, profile) if "vencida" not in j.flags]
-    cands = select_candidates(ranked, agent.get("max_para_claude", 40), agent.get("max_vigia", 15))
+    total = max_cands or agent.get("max_para_claude", 40)
+    cands = select_candidates(ranked, total, min(agent.get("max_vigia", 15), total))
     cand_keys = {j.key for j in cands}
 
     (root / "state").mkdir(exist_ok=True)
@@ -109,7 +110,8 @@ def collect(root: Path, profile: dict, limit_sources: int = 0) -> dict:
     return summary
 
 
-def publish(root: Path, profile: dict) -> dict:
+def publish(root: Path, profile: dict, parcial: bool = False) -> dict:
+    """parcial=True: guarda solo lo ya puntuado y deja el resto pendiente (corridas largas que pueden cortarse)."""
     agent = profile.get("agente", {})
     pending = json.loads((root / "state/pending.json").read_text(encoding="utf-8"))
     scores = {s["id"]: s for s in json.loads((root / "state/scores.json").read_text(encoding="utf-8"))}
@@ -131,7 +133,9 @@ def publish(root: Path, profile: dict) -> dict:
     pick_keys = {j.key for j in picks}
     for j in found:
         if j.key in cand and j.score is None:
-            continue  # candidata sin puntaje: se reintenta mañana
+            continue  # candidata sin puntaje: se reintenta después
+        if parcial and j.score is None:
+            continue  # en modo parcial, las no candidatas se guardan al final
         store.save(j, status="notificado" if j.key in pick_keys else "visto")
     store.kv_set("last_run", datetime.now(timezone.utc).isoformat())
     store.commit()
@@ -153,12 +157,22 @@ def publish(root: Path, profile: dict) -> dict:
                      j.salary, j.valid_through.date().isoformat() if j.valid_through else "", j.source,
                      ", ".join(j.apply_emails), j.summary, j.url, "nuevo"])
     (root / "output").mkdir(exist_ok=True)
-    (root / f"output/ofertas_{today}.md").write_text("\n".join(md), encoding="utf-8")
+    mode = "a" if parcial else "w"
+    with open(root / f"output/ofertas_{today}.md", mode, encoding="utf-8") as fh:
+        fh.write("\n".join(md) + "\n")
     (root / "output/sheet_rows.json").write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
-    for f in ("pending.json", "scores.json", "web_jobs.json"):
-        (root / "state" / f).unlink(missing_ok=True)
+    if parcial:
+        done = {j.key for j in found if j.score is not None}
+        pending["found"] = [d for d, j in zip(pending["found"], found) if j.key not in done]
+        pending["candidates"] = [k for k in pending["candidates"] if k not in done]
+        (root / "state/pending.json").write_text(json.dumps(pending, ensure_ascii=False), encoding="utf-8")
+        (root / "state/scores.json").unlink(missing_ok=True)
+    else:
+        for f in ("pending.json", "scores.json", "web_jobs.json"):
+            (root / "state" / f).unlink(missing_ok=True)
     top = [{"titulo": j.title, "empresa": j.company, "puntaje": j.score} for j in picks[:3]]
-    summary = {"recomendadas": len(picks), "nuevas": len(found), "top": top,
+    summary = {"recomendadas": len(picks), "nuevas": len(found), "top": top, "parcial": parcial,
+               "pendientes": len(pending["candidates"]) if parcial else 0,
                "resumen": f"output/ofertas_{today}.md", "filas_planilla": len(rows)}
     log.info("publish: %s", summary)
     return summary

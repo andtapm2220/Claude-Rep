@@ -153,7 +153,7 @@ def cmd_collect(args) -> int:
     from .plan_mode import collect
 
     profile, _ = load_profile()
-    print(json.dumps(collect(ROOT, profile, args.limit_sources), ensure_ascii=False))
+    print(json.dumps(collect(ROOT, profile, args.limit_sources, args.max), ensure_ascii=False))
     return 0
 
 
@@ -161,7 +161,8 @@ def cmd_rotacion(args) -> int:
     from . import directorio
 
     profile, _ = load_profile()
-    picked = directorio.rotation(directorio.load(ROOT, profile))
+    entries = directorio.load(ROOT, profile)
+    picked = directorio.everyone(entries) if args.todo else directorio.rotation(entries)
     md = directorio.rotation_markdown(picked)
     (ROOT / "output").mkdir(exist_ok=True)
     (ROOT / "output/rotacion_hoy.md").write_text(md, encoding="utf-8")
@@ -173,7 +174,7 @@ def cmd_publish(args) -> int:
     from .plan_mode import publish
 
     profile, _ = load_profile()
-    print(json.dumps(publish(ROOT, profile), ensure_ascii=False))
+    print(json.dumps(publish(ROOT, profile, args.parcial), ensure_ascii=False))
     return 0
 
 
@@ -312,8 +313,11 @@ def main(argv=None) -> int:
     sub.add_parser("network", help="sugerencias semanales de contactos (pituto)")
     c = sub.add_parser("collect", help="modo plan: recolecta y verifica sin IA")
     c.add_argument("--limit-sources", type=int, default=0)
-    sub.add_parser("publish", help="modo plan: aplica state/scores.json y genera el resumen")
-    sub.add_parser("rotacion", help="empleadores del directorio que toca buscar hoy")
+    c.add_argument("--max", type=int, default=None, help="máximo de candidatas para evaluar")
+    pb = sub.add_parser("publish", help="modo plan: aplica state/scores.json y genera el resumen")
+    pb.add_argument("--parcial", action="store_true", help="guarda lo puntuado y deja el resto pendiente")
+    ro = sub.add_parser("rotacion", help="empleadores del directorio que toca buscar hoy")
+    ro.add_argument("--todo", action="store_true", help="todo el directorio (corrida profunda del domingo)")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
     return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network,

@@ -43,6 +43,13 @@ def rotation(entries: list[dict], today: date | None = None) -> list[dict]:
     return picked
 
 
+def everyone(entries: list[dict]) -> list[dict]:
+    """Todo el directorio sin página vigilable ni agregador (corrida profunda), alta primero."""
+    order = {"alta": 0, "media": 1, "baja": 2, "mensual": 3}
+    pending = [e for e in entries if not e.get("empleo_url") and not e.get("cubierto_por")]
+    return sorted(pending, key=lambda e: (order.get(e["prioridad"], 9), e["nombre"]))
+
+
 def rotation_markdown(picked: list[dict], today: date | None = None) -> str:
     today = today or date.today()
     lines = [f"# Rotación de empleadores para hoy ({today})",

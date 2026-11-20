@@ -120,3 +120,20 @@ def test_watch_rss_and_link_pattern():
     html = '<a href="/jobs/1249113">New job: Consultant IDB</a><a href="/about">About</a>'
     assert watch.extract_links(html, "https://www.impactpool.org/countries/Bolivia", link_pattern=r"/jobs/\d+") == [
         ("https://www.impactpool.org/jobs/1249113", "New job: Consultant IDB")]
+
+
+def test_publish_parcial_keeps_unscored(tmp_path):
+    import json as _json
+
+    from jobagent.models import job_to_dict
+    from jobagent.plan_mode import publish
+    (tmp_path / "state").mkdir()
+    a = Job(source="t", url="https://x/a", title="A", description="d" * 300)
+    b = Job(source="t", url="https://x/b", title="B", description="d" * 300)
+    (tmp_path / "state/pending.json").write_text(_json.dumps(
+        {"stats": {}, "found": [job_to_dict(a), job_to_dict(b)], "candidates": [a.key, b.key]}))
+    (tmp_path / "state/scores.json").write_text(_json.dumps([{"id": a.key, "score": 80, "verdict": "postular_ya"}]))
+    out = publish(tmp_path, {"agente": {"confianza_minima": 0}}, parcial=True)
+    assert out["recomendadas"] == 1 and out["pendientes"] == 1
+    left = _json.loads((tmp_path / "state/pending.json").read_text())
+    assert left["candidates"] == [b.key] and len(left["found"]) == 1
