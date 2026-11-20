@@ -13,7 +13,9 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
 1. **Preparar:** `cd /home/user/Claude-Rep && git pull --ff-only origin claude/vigilant-archimedes-nvd4mi`.
    Luego `cd job-agent && pip install -q -r requirements.txt`.
 2. **Leer** el CV desde Drive y `config/profile.yaml`.
-3. **Buscar en la web, como en Google** (unas 6-8 búsquedas con WebSearch, en español, inglés y francés). Temas:
+3. **Buscar en la web, como en Google.** Primero corre `python -m jobagent rotacion` y busca los empleadores del
+   directorio que tocan hoy (embajadas, organismos, mineras, transnacionales), agrupando 2-3 por búsqueda. Después,
+   unas 4-6 búsquedas más (en español, inglés y francés) sobre estos temas:
    - consultorías de finanzas públicas, presupuesto o gestión fiscal en Bolivia (BID, Banco Mundial, CAF, FONPLATA,
      ONU, UE/EUROsociAL, GIZ, AFD, Enabel);
    - vacantes de finanzas en organismos internacionales, banca y microfinanzas en La Paz;

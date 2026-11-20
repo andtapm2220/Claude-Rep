@@ -4,6 +4,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 nombre: "Fernando Tapia Magne"
+directorio: config/directorio.yaml   # embajadas, organismos, mineras y transnacionales
 resumen: >
   Ingeniero Financiero (UPB) con Maestría en Business & Technology (VUB, Bruselas). Hoy Analista Presupuestario
   en el Ministerio de Economía y Finanzas Públicas (PGE). Antes: cofundador y responsable financiero de una

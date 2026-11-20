@@ -1,0 +1,131 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  DIRECTORIO de empleadores a vigilar: embajadas, organismos, mineras y
+#  transnacionales en Bolivia.
+#
+#  - Con `empleo_url`: el vigía revisa esa página TODOS los días (gratis).
+#  - Sin `empleo_url`: entra en la ROTACIÓN; cada día Claude busca en la web
+#    unos cuantos (los de prioridad alta, más seguido).
+#  - verificado: si = confirmado en fuentes en nov-2026; verificar = sale del
+#    conocimiento general de Claude y la rotación lo confirma (o lo descarta).
+#  Agrega, quita o cambia prioridades libremente.
+# ─────────────────────────────────────────────────────────────────────────────
+
+embajadas:   # 34 embajadas en La Paz según Wikipedia (nov-2026) + otras misiones
+  - {nombre: "Estados Unidos", prioridad: alta, verificado: si, empleo_url: "https://erajobs.state.gov/dos-era/bol/vacancysearch/searchVacancies.hms", nota: "Postulación por sistema ERA"}
+  - {nombre: "Unión Europea (Delegación)", prioridad: alta, verificado: si, empleo_url: "https://www.eeas.europa.eu/eeas/vacantes_es?s=159&f%5B0%5D=vacancy_site%3ABolivia", nota: "Agentes locales; piden francés o inglés B2"}
+  - {nombre: "España", prioridad: alta, verificado: si, empleo_url: "https://www.exteriores.gob.es/Embajadas/lapaz/es/Embajada/Paginas/Ofertas-de-empleo.aspx"}
+  - {nombre: "España (Consulado Santa Cruz)", prioridad: media, verificado: si, empleo_url: "https://www.exteriores.gob.es/Consulados/santacruzdelasierra/es/Consulado/Paginas/Ofertas-de-empleo.aspx"}
+  - {nombre: "Francia", prioridad: alta, verificado: si, nota: "Tu francés C1 es ventaja; sitio bo.diplomatie.gouv.fr sin sección de empleo"}
+  - {nombre: "Suiza (Embajada y COSUDE)", prioridad: alta, verificado: si, nota: "Página de vacantes bloquea acceso automático; publica PDFs de convocatorias"}
+  - {nombre: "Alemania (Embajada, GIZ, KfW)", prioridad: alta, verificado: si}
+  - {nombre: "Reino Unido", prioridad: media, verificado: si, nota: "Vacantes en el portal FCDO Local Staff (fco.tal.net)"}
+  - {nombre: "Japón (Embajada y JICA)", prioridad: media, verificado: si}
+  - {nombre: "Bélgica (oficina de desarrollo / Enabel)", prioridad: alta, verificado: si, nota: "Embajada cerrada en 2020; sigue la cooperación"}
+  - {nombre: "Canadá (oficina de programación)", prioridad: media, verificado: si}
+  - {nombre: "Suecia", prioridad: baja, verificado: si, nota: "Cierra atención al público el 23-nov-2026"}
+  - {nombre: "Italia (Embajada y AICS)", prioridad: media, verificado: si}
+  - {nombre: "Corea del Sur (Embajada y KOICA)", prioridad: media, verificado: si}
+  - {nombre: "Santa Sede (Nunciatura)", prioridad: baja, verificado: si}
+  - {nombre: "Orden de Malta", prioridad: baja, verificado: si}
+  - {nombre: "Brasil", prioridad: media, verificado: si}
+  - {nombre: "Argentina", prioridad: media, verificado: si}
+  - {nombre: "México", prioridad: media, verificado: si}
+  - {nombre: "Perú", prioridad: media, verificado: si}
+  - {nombre: "Colombia", prioridad: media, verificado: si}
+  - {nombre: "Chile (Consulado General)", prioridad: media, verificado: si}
+  - {nombre: "Ecuador", prioridad: baja, verificado: si}
+  - {nombre: "Paraguay", prioridad: baja, verificado: si}
+  - {nombre: "Uruguay", prioridad: baja, verificado: si}
+  - {nombre: "Panamá", prioridad: baja, verificado: si}
+  - {nombre: "Costa Rica", prioridad: baja, verificado: si}
+  - {nombre: "República Dominicana", prioridad: baja, verificado: si}
+  - {nombre: "El Salvador", prioridad: baja, verificado: si}
+  - {nombre: "Nicaragua", prioridad: baja, verificado: si}
+  - {nombre: "Cuba", prioridad: baja, verificado: si}
+  - {nombre: "Venezuela", prioridad: baja, verificado: si}
+  - {nombre: "China", prioridad: media, verificado: si}
+  - {nombre: "India", prioridad: baja, verificado: si}
+  - {nombre: "Rusia", prioridad: baja, verificado: si}
+  - {nombre: "Turquía", prioridad: baja, verificado: si}
+  - {nombre: "Irán", prioridad: baja, verificado: si}
+  - {nombre: "Egipto", prioridad: baja, verificado: si}
+  - {nombre: "Palestina", prioridad: baja, verificado: si}
+
+organismos_internacionales:
+  - {nombre: "BID / BID Invest", prioridad: alta, verificado: si, nota: "jobs.iadb.org; aprobó USD 4.100 M para Bolivia"}
+  - {nombre: "Banco Mundial / IFC", prioridad: alta, verificado: si, nota: "Aprobó USD 500 M de apoyo presupuestario el 12-nov-2026"}
+  - {nombre: "CAF - Banco de Desarrollo de América Latina", prioridad: alta, verificado: si}
+  - {nombre: "FONPLATA", prioridad: alta, verificado: verificar}
+  - {nombre: "FMI (oficina en Bolivia)", prioridad: alta, verificado: verificar}
+  - {nombre: "PNUD", prioridad: alta, verificado: si, nota: "Ya cubierto por su feed RSS"}
+  - {nombre: "UNICEF", prioridad: media, verificado: si}
+  - {nombre: "FAO", prioridad: media, verificado: si}
+  - {nombre: "OIT", prioridad: media, verificado: verificar}
+  - {nombre: "OPS/OMS", prioridad: media, verificado: si}
+  - {nombre: "ONU Mujeres", prioridad: media, verificado: si}
+  - {nombre: "UNFPA", prioridad: media, verificado: si}
+  - {nombre: "PMA / WFP", prioridad: media, verificado: si}
+  - {nombre: "OIM", prioridad: media, verificado: verificar}
+  - {nombre: "ACNUR", prioridad: baja, verificado: verificar}
+  - {nombre: "UNODC", prioridad: media, verificado: verificar}
+  - {nombre: "IICA", prioridad: media, verificado: si}
+  - {nombre: "EUROsociAL (finanzas públicas y fiscalidad)", prioridad: alta, verificado: verificar}
+  - {nombre: "AFD (Agencia Francesa de Desarrollo)", prioridad: alta, verificado: verificar}
+  - {nombre: "AECID (Cooperación Española)", prioridad: alta, verificado: verificar}
+  - {nombre: "Helvetas / Swisscontact", prioridad: media, verificado: si}
+
+mineras:
+  - {nombre: "Minera San Cristóbal (San Cristobal Mining)", prioridad: alta, verificado: si, nota: "Mayor minera privada; estudia ampliación"}
+  - {nombre: "Sinchi Wayra / Santacruz Silver Mining", prioridad: alta, verificado: si}
+  - {nombre: "Sociedad Minera Illapa", prioridad: alta, verificado: si}
+  - {nombre: "Empresa Minera Manquiri (Andean Precious Metals) - San Bartolomé", prioridad: alta, verificado: si}
+  - {nombre: "New Pacific Metals (Silver Sand, Carangas)", prioridad: media, verificado: si}
+  - {nombre: "Eloro Resources (Iska Iska)", prioridad: media, verificado: si}
+  - {nombre: "COMIBOL", prioridad: media, verificado: si, nota: "Estatal"}
+  - {nombre: "Empresa Minera Huanuni", prioridad: baja, verificado: verificar, nota: "Estatal"}
+  - {nombre: "Empresa Minera Colquiri", prioridad: baja, verificado: verificar, nota: "Estatal"}
+  - {nombre: "Empresa Metalúrgica Vinto", prioridad: baja, verificado: verificar, nota: "Estatal"}
+  - {nombre: "YLB - Yacimientos de Litio Bolivianos", prioridad: media, verificado: si, nota: "Estatal; contratos con CBC (CATL) y Uranium One sin ratificar"}
+  - {nombre: "CBC Investment (consorcio CATL) - litio", prioridad: media, verificado: si}
+  - {nombre: "Uranium One (Rosatom) - litio", prioridad: baja, verificado: si}
+
+hidrocarburos_y_energia:
+  - {nombre: "YPFB y subsidiarias (Andina, Chaco, Transporte, Refinación)", prioridad: media, verificado: si, nota: "Estatal"}
+  - {nombre: "Repsol Bolivia", prioridad: alta, verificado: si}
+  - {nombre: "Petrobras Bolivia", prioridad: media, verificado: si, nota: "Reportes de salida de hecho del país: confirmar"}
+  - {nombre: "TotalEnergies EP Bolivie", prioridad: alta, verificado: verificar}
+  - {nombre: "Pluspetrol Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Shell Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Vintage Petroleum Boliviana", prioridad: baja, verificado: verificar}
+  - {nombre: "Canacol Energy", prioridad: baja, verificado: verificar}
+  - {nombre: "ENDE (y filiales)", prioridad: baja, verificado: si, nota: "Estatal"}
+
+transnacionales:
+  # Finanzas y auditoría (las más afines a tu perfil)
+  - {nombre: "PwC Bolivia", prioridad: alta, verificado: verificar}
+  - {nombre: "Deloitte Bolivia", prioridad: alta, verificado: verificar}
+  - {nombre: "EY Bolivia", prioridad: alta, verificado: verificar}
+  - {nombre: "KPMG Bolivia", prioridad: alta, verificado: verificar}
+  - {nombre: "BDO Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Banco de Crédito de Bolivia (BCP / Credicorp)", prioridad: alta, verificado: si}
+  - {nombre: "Visa / Mastercard (oficinas regionales)", prioridad: baja, verificado: verificar}
+  # Telecomunicaciones y tecnología
+  - {nombre: "Tigo Bolivia (Millicom)", prioridad: alta, verificado: verificar}
+  - {nombre: "Viva / Nuevatel", prioridad: media, verificado: si}
+  - {nombre: "PedidosYa (Delivery Hero)", prioridad: media, verificado: si}
+  - {nombre: "BairesDev", prioridad: media, verificado: si, nota: "Contrata remoto desde La Paz"}
+  - {nombre: "Yango", prioridad: baja, verificado: verificar}
+  - {nombre: "Huawei Bolivia", prioridad: baja, verificado: verificar}
+  # Consumo masivo, industria y agroindustria
+  - {nombre: "CBN - Cervecería Boliviana Nacional (AB InBev)", prioridad: alta, verificado: verificar}
+  - {nombre: "Embol (embotelladora Coca-Cola)", prioridad: alta, verificado: verificar}
+  - {nombre: "PIL Andina (Grupo Gloria)", prioridad: media, verificado: verificar}
+  - {nombre: "SOBOCE (Grupo Gloria)", prioridad: media, verificado: si}
+  - {nombre: "Itacamba Cemento (Votorantim)", prioridad: baja, verificado: verificar}
+  - {nombre: "Unilever Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Nestlé Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Cargill Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "ADM-SAO", prioridad: media, verificado: verificar}
+  - {nombre: "Bayer / Syngenta (agro)", prioridad: baja, verificado: verificar}
+  - {nombre: "Laboratorios Bagó Bolivia", prioridad: baja, verificado: verificar}
+  - {nombre: "DHL / FedEx", prioridad: baja, verificado: si}

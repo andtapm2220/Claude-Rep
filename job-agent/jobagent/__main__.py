@@ -157,6 +157,18 @@ def cmd_collect(args) -> int:
     return 0
 
 
+def cmd_rotacion(args) -> int:
+    from . import directorio
+
+    profile, _ = load_profile()
+    picked = directorio.rotation(directorio.load(ROOT, profile))
+    md = directorio.rotation_markdown(picked)
+    (ROOT / "output").mkdir(exist_ok=True)
+    (ROOT / "output/rotacion_hoy.md").write_text(md, encoding="utf-8")
+    print(md)
+    return 0
+
+
 def cmd_publish(args) -> int:
     from .plan_mode import publish
 
@@ -301,10 +313,12 @@ def main(argv=None) -> int:
     c = sub.add_parser("collect", help="modo plan: recolecta y verifica sin IA")
     c.add_argument("--limit-sources", type=int, default=0)
     sub.add_parser("publish", help="modo plan: aplica state/scores.json y genera el resumen")
+    sub.add_parser("rotacion", help="empleadores del directorio que toca buscar hoy")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
     return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network,
-            "collect": cmd_collect, "publish": cmd_publish}[args.cmd](args)
+            "collect": cmd_collect, "publish": cmd_publish,
+            "rotacion": cmd_rotacion}[args.cmd](args)
 
 
 if __name__ == "__main__":

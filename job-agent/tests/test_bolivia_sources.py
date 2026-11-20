@@ -94,3 +94,19 @@ def test_deadline_in_text_takes_latest():
     d = deadline_in_text(t)
     assert (d.month, d.day) == (11, 27)
     assert deadline_in_text("sin fechas") is None
+
+
+def test_directorio_rotation_covers_everyone_in_14_days():
+    from datetime import date, timedelta
+
+    from jobagent import directorio
+    entries = ([{"nombre": f"A{i}", "prioridad": "alta", "categoria": "x"} for i in range(9)]
+               + [{"nombre": f"M{i}", "prioridad": "media", "categoria": "y"} for i in range(14)]
+               + [{"nombre": f"B{i}", "prioridad": "baja", "categoria": "z"} for i in range(14)]
+               + [{"nombre": "W", "prioridad": "alta", "categoria": "x", "empleo_url": "https://w"}])
+    d0 = date(2026, 11, 20)
+    days = [directorio.rotation(entries, d0 + timedelta(d)) for d in range(14)]
+    seen = {e["nombre"] for day in days for e in day}
+    assert len(seen) == 37 and "W" not in seen  # la que tiene página vigilada no entra en la rotación
+    assert all(len(day) <= 3 + 2 + 1 for day in days)
+    assert directorio.watch_pages(entries)[0]["url"] == "https://w"
