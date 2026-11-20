@@ -1,0 +1,53 @@
+# Tarea diaria del agente de empleo (modo plan de Claude, sin API key)
+
+Instrucciones que sigue Claude Code en la sesión programada cada mañana. Todo corre dentro del plan de
+Claude del usuario: la IA es la propia sesión; el código Python solo hace lo mecánico.
+
+## Datos fijos
+- Repo: `/home/user/Claude-Rep`, carpeta `job-agent/`, rama `claude/vigilant-archimedes-nvd4mi`.
+- CV (Google Doc, conector Google Drive): id `1iOGErM1n7C9gjhvAAH5i1xZbUj2RKTJB5_q-aB8RcL0`.
+- Planilla (conector Google Sheets): id `18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY`, hoja `Hoja 1`.
+- Perfil y preferencias: `job-agent/config/profile.yaml`.
+
+## Pasos
+1. **Preparar:** `cd /home/user/Claude-Rep && git pull --ff-only origin claude/vigilant-archimedes-nvd4mi`.
+   Luego `cd job-agent && pip install -q -r requirements.txt`.
+2. **Leer** el CV desde Drive y `config/profile.yaml`.
+3. **Buscar en la web, como en Google** (unas 6-8 búsquedas con WebSearch, en español, inglés y francés). Temas:
+   - consultorías de finanzas públicas, presupuesto o gestión fiscal en Bolivia (BID, Banco Mundial, CAF, FONPLATA,
+     ONU, UE/EUROsociAL, GIZ, AFD, Enabel);
+   - vacantes de finanzas en organismos internacionales, banca y microfinanzas en La Paz;
+   - FP&A o financial analyst remoto para LatAm pagado en USD/EUR;
+   - publicaciones públicas en Facebook o LinkedIn con convocatorias de finanzas en La Paz.
+
+   Solo cuentan convocatorias concretas y **abiertas** cuya URL apareció en los resultados. Nunca inventes URLs.
+   Guárdalas en `state/web_jobs.json` como una lista de objetos con estos campos: `theme`, `url`, `title`,
+   `organization`, `location`, `remote`, `posted_date` (AAAA-MM-DD o vacío), `deadline` (AAAA-MM-DD o vacío),
+   `description`, `contact_email`.
+4. **Recolectar:** `python -m jobagent collect` (tarda 5-8 min; usa un timeout de 10 min). Genera `output/candidatas.md`.
+5. **Puntuar:** lee `output/candidatas.md` y evalúa cada `id` contra el CV y el perfil, como reclutador honesto y exigente:
+   - 80+ = cumple casi todo y es lo que busca; 60-79 vale la pena; 40-59 parcial; menos de 40 no encaja.
+   - Licitaciones para empresas, eventos o puestos operativos van como `descartar`.
+   - `red_flags` lista señales de estafa u oferta fantasma.
+
+   Escribe `state/scores.json` como una lista de objetos con estos campos: `id`, `score`, `verdict`
+   (postular_ya | vale_la_pena | parcial | descartar), `reasons` (lista), `gaps` (lista), `red_flags` (lista),
+   `summary` (1-2 frases en español).
+6. **Publicar:** `python -m jobagent publish`. Genera `output/ofertas_<fecha>.md` y `output/sheet_rows.json`.
+7. **Planilla:** agrega las filas de `output/sheet_rows.json` a la planilla con `append_values` (rango `Hoja 1!A1`).
+8. **Informe en la sesión:** escribe las ofertas recomendadas, cada una con cargo, organización, puntaje, por qué
+   encaja, brechas, fecha de cierre y enlace. Para las 3 mejores, agrega:
+   - un borrador de email de postulación (en el idioma de la oferta, sin inventar experiencia);
+   - el checklist según el tipo de empleador (Estado: CV firmado, respaldos y declaración jurada; ONU o BID:
+     registro en su portal; ONG: CV de 3 páginas, pretensión salarial y referencias; remoto: CV en inglés).
+9. **Avisar:** envía una notificación al celular (PushNotification), de una línea, con el número de recomendadas y la mejor.
+10. **Guardar memoria:** ejecuta `git add -f state/jobs.db`, luego
+    `git commit -m "job-agent: estado <fecha>"` y `git push origin claude/vigilant-archimedes-nvd4mi`,
+    reintentando si falla la red.
+11. **Solo los lunes, pituto:** busca señales de contratación de las últimas semanas (préstamos o proyectos
+    nuevos del BID, BM, CAF o FONPLATA con Bolivia, programas de cooperación, ONG con fondos nuevos, empresas que
+    se expanden). Propón 5 organizaciones donde el perfil tenga ventaja; para cada una, a qué cargo escribirle, un
+    enlace de búsqueda de personas en LinkedIn y un mensaje corto que pida una conversación, no trabajo directo.
+
+Si una fuente falla, sigue con las demás y menciónalo en el informe. Si no hay recomendadas, dilo en una línea
+y no envíes notificación.

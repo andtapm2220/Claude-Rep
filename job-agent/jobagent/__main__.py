@@ -149,6 +149,22 @@ def cmd_run(args) -> int:
     return 0
 
 
+def cmd_collect(args) -> int:
+    from .plan_mode import collect
+
+    profile, _ = load_profile()
+    print(json.dumps(collect(ROOT, profile, args.limit_sources), ensure_ascii=False))
+    return 0
+
+
+def cmd_publish(args) -> int:
+    from .plan_mode import publish
+
+    profile, _ = load_profile()
+    print(json.dumps(publish(ROOT, profile), ensure_ascii=False))
+    return 0
+
+
 def checklist_text(letter: dict) -> str:
     items = letter.get("checklist") or []
     if not items:
@@ -282,9 +298,13 @@ def main(argv=None) -> int:
     r.add_argument("--limit-sources", type=int, default=0, help="prueba rápida: N detalles por fuente")
     sub.add_parser("poll")
     sub.add_parser("network", help="sugerencias semanales de contactos (pituto)")
+    c = sub.add_parser("collect", help="modo plan: recolecta y verifica sin IA")
+    c.add_argument("--limit-sources", type=int, default=0)
+    sub.add_parser("publish", help="modo plan: aplica state/scores.json y genera el resumen")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
-    return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network}[args.cmd](args)
+    return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network,
+            "collect": cmd_collect, "publish": cmd_publish}[args.cmd](args)
 
 
 if __name__ == "__main__":

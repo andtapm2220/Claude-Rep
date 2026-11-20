@@ -1,4 +1,5 @@
-state/
+state/*
+!state/jobs.db
 output/
 config/cv.pdf
 __pycache__/

@@ -65,3 +65,15 @@ class Job:
         now = now or datetime.now(timezone.utc)
         posted = self.posted_at if self.posted_at.tzinfo else self.posted_at.replace(tzinfo=timezone.utc)
         return (now - posted).total_seconds() / 86400
+
+
+def job_to_dict(job: Job) -> dict:
+    return {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in job.__dict__.items()}
+
+
+def job_from_dict(d: dict) -> Job:
+    fields = {k: v for k, v in d.items() if k in Job.__dataclass_fields__}
+    for k in ("posted_at", "valid_through"):
+        if fields.get(k):
+            fields[k] = datetime.fromisoformat(fields[k])
+    return Job(**fields)
