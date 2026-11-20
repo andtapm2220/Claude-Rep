@@ -2,7 +2,7 @@
 
 - Los que tienen `empleo_url` los revisa el vigía a diario.
 - Los que tienen `cubierto_por` ya llegan por otra fuente diaria (p. ej. Impactpool) y no se buscan aparte.
-- El resto entra en una rotación: alta a diario, media cada 3 días, baja cada 7.
+- El resto entra en una rotación: alta a diario, media cada 3 días, baja cada 7, mensual cada 30.
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from pathlib import Path
 
 import yaml
 
-CADA = {"alta": 1, "media": 3, "baja": 7}
+CADA = {"alta": 1, "media": 3, "baja": 7, "mensual": 30}
 
 
 def load(root: Path, profile: dict) -> list[dict]:
@@ -47,7 +47,7 @@ def rotation_markdown(picked: list[dict], today: date | None = None) -> str:
     today = today or date.today()
     lines = [f"# Rotación de empleadores para hoy ({today})",
              f"{len(picked)} empleadores sin página de empleo vigilable. Busca convocatorias ABIERTAS de cada uno "
-             "(agrupa 3-4 por búsqueda, p. ej. \"<empresa> Bolivia convocatoria OR vacante OR empleo 2026\"). "
+             "(agrupa 4-5 por búsqueda; los bancos y SAFI se pueden juntar en una sola con OR, p. ej. \"<empresa> Bolivia convocatoria OR vacante OR empleo 2026\"). "
              "Si un empleador ya no opera en Bolivia, anótalo en el informe para sacarlo del directorio.\n"]
     for cat in sorted({e["categoria"] for e in picked}):
         lines.append(f"## {cat}")

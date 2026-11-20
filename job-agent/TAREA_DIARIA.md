@@ -14,7 +14,7 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
    Luego `cd job-agent && pip install -q -r requirements.txt`.
 2. **Leer** el CV desde Drive y `config/profile.yaml`.
 3. **Buscar en la web, como en Google.** Primero corre `python -m jobagent rotacion` y busca los empleadores del
-   directorio que tocan hoy (embajadas, organismos, mineras, transnacionales), agrupando 3-4 por búsqueda. Después,
+   directorio que tocan hoy (embajadas, organismos, mineras, transnacionales), agrupando 4-5 por búsqueda (bancos y SAFI juntos con OR). Después,
    unas 4-6 búsquedas más (en español, inglés y francés) sobre estos temas:
    - consultorías de finanzas públicas, presupuesto o gestión fiscal en Bolivia (BID, Banco Mundial, CAF, FONPLATA,
      ONU, UE/EUROsociAL, GIZ, AFD, Enabel);
