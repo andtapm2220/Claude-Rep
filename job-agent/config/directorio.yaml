@@ -10,6 +10,11 @@
 #  Agrega, quita o cambia prioridades libremente.
 # ─────────────────────────────────────────────────────────────────────────────
 
+agregadores:   # una sola página que trae vacantes de MUCHOS empleadores en Bolivia
+  - {nombre: "Impactpool - Bolivia", prioridad: alta, verificado: si, empleo_url: "https://www.impactpool.org/countries/Bolivia", link_pattern: "/jobs/\\d+", max_new: 30, org: "", nota: "ONU, BID, Banco Mundial, UNV, ONG internacionales"}
+  - {nombre: "BID - feed de vacantes Bolivia", prioridad: alta, verificado: si, empleo_url: "https://jobs.iadb.org/services/rss/job/?locale=es_ES&keywords=(Bolivia)", tipo: rss, org: "BID"}
+  - {nombre: "EY - vacantes Bolivia", prioridad: alta, verificado: si, empleo_url: "https://careers.ey.com/ey/search/?q=&locationsearch=Bolivia", link_pattern: "/ey/job/", org: "EY"}
+
 embajadas:   # 34 embajadas en La Paz según Wikipedia (nov-2026) + otras misiones
   - {nombre: "Estados Unidos", prioridad: alta, verificado: si, empleo_url: "https://erajobs.state.gov/dos-era/bol/vacancysearch/searchVacancies.hms", nota: "Postulación por sistema ERA"}
   - {nombre: "Unión Europea (Delegación)", prioridad: alta, verificado: si, empleo_url: "https://www.eeas.europa.eu/eeas/vacantes_es?s=159&f%5B0%5D=vacancy_site%3ABolivia", nota: "Agentes locales; piden francés o inglés B2"}
@@ -52,22 +57,22 @@ embajadas:   # 34 embajadas en La Paz según Wikipedia (nov-2026) + otras mision
   - {nombre: "Palestina", prioridad: baja, verificado: si}
 
 organismos_internacionales:
-  - {nombre: "BID / BID Invest", prioridad: alta, verificado: si, nota: "jobs.iadb.org; aprobó USD 4.100 M para Bolivia"}
-  - {nombre: "Banco Mundial / IFC", prioridad: alta, verificado: si, nota: "Aprobó USD 500 M de apoyo presupuestario el 12-nov-2026"}
+  - {nombre: "BID / BID Invest", cubierto_por: Impactpool, prioridad: alta, verificado: si, nota: "jobs.iadb.org; aprobó USD 4.100 M para Bolivia"}
+  - {nombre: "Banco Mundial / IFC", cubierto_por: Impactpool, prioridad: alta, verificado: si, nota: "Aprobó USD 500 M de apoyo presupuestario el 12-nov-2026"}
   - {nombre: "CAF - Banco de Desarrollo de América Latina", prioridad: alta, verificado: si}
   - {nombre: "FONPLATA", prioridad: alta, verificado: verificar}
   - {nombre: "FMI (oficina en Bolivia)", prioridad: alta, verificado: verificar}
-  - {nombre: "PNUD", prioridad: alta, verificado: si, nota: "Ya cubierto por su feed RSS"}
-  - {nombre: "UNICEF", prioridad: media, verificado: si}
-  - {nombre: "FAO", prioridad: media, verificado: si}
-  - {nombre: "OIT", prioridad: media, verificado: verificar}
-  - {nombre: "OPS/OMS", prioridad: media, verificado: si}
-  - {nombre: "ONU Mujeres", prioridad: media, verificado: si}
-  - {nombre: "UNFPA", prioridad: media, verificado: si}
-  - {nombre: "PMA / WFP", prioridad: media, verificado: si}
-  - {nombre: "OIM", prioridad: media, verificado: verificar}
-  - {nombre: "ACNUR", prioridad: baja, verificado: verificar}
-  - {nombre: "UNODC", prioridad: media, verificado: verificar}
+  - {nombre: "PNUD", cubierto_por: Impactpool, prioridad: alta, verificado: si, nota: "Ya cubierto por su feed RSS"}
+  - {nombre: "UNICEF", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "FAO", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "OIT", cubierto_por: Impactpool, prioridad: media, verificado: verificar}
+  - {nombre: "OPS/OMS", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "ONU Mujeres", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "UNFPA", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "PMA / WFP", cubierto_por: Impactpool, prioridad: media, verificado: si}
+  - {nombre: "OIM", cubierto_por: Impactpool, prioridad: media, verificado: verificar}
+  - {nombre: "ACNUR", cubierto_por: Impactpool, prioridad: baja, verificado: verificar}
+  - {nombre: "UNODC", cubierto_por: Impactpool, prioridad: media, verificado: verificar}
   - {nombre: "IICA", prioridad: media, verificado: si}
   - {nombre: "EUROsociAL (finanzas públicas y fiscalidad)", prioridad: alta, verificado: verificar}
   - {nombre: "AFD (Agencia Francesa de Desarrollo)", prioridad: alta, verificado: verificar}
@@ -104,7 +109,7 @@ transnacionales:
   # Finanzas y auditoría (las más afines a tu perfil)
   - {nombre: "PwC Bolivia", prioridad: alta, verificado: verificar}
   - {nombre: "Deloitte Bolivia", prioridad: alta, verificado: verificar}
-  - {nombre: "EY Bolivia", prioridad: alta, verificado: verificar}
+  - {nombre: "EY Bolivia", cubierto_por: Impactpool, prioridad: alta, verificado: verificar}
   - {nombre: "KPMG Bolivia", prioridad: alta, verificado: verificar}
   - {nombre: "BDO Bolivia", prioridad: media, verificado: verificar}
   - {nombre: "Banco de Crédito de Bolivia (BCP / Credicorp)", prioridad: alta, verificado: si}

@@ -97,6 +97,7 @@ agente:
   max_antiguedad_dias: 21   # ofertas más viejas se descartan (señal de "oferta fantasma")
   modelo: "claude-opus-5-5" # para bajar costo ~40x: "claude-haiku-5-5"
   cartas_para_top: 5        # redacta carta de presentación para las N mejores
+  max_vigia: 20             # máximo de candidatas del vigía (Impactpool, BID, EY, embajadas, ONG) por día
 
 fuentes:
   # Feed oficial de vacantes del PNUD en Bolivia (con fecha de cierre)

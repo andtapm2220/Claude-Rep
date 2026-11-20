@@ -108,5 +108,15 @@ def test_directorio_rotation_covers_everyone_in_14_days():
     days = [directorio.rotation(entries, d0 + timedelta(d)) for d in range(14)]
     seen = {e["nombre"] for day in days for e in day}
     assert len(seen) == 37 and "W" not in seen  # la que tiene página vigilada no entra en la rotación
-    assert all(len(day) <= 3 + 2 + 1 for day in days)
+    assert all(sum(e["prioridad"] == "alta" for e in day) == 9 for day in days)  # alta: todos los días
     assert directorio.watch_pages(entries)[0]["url"] == "https://w"
+
+
+def test_watch_rss_and_link_pattern():
+    rss = """<rss><channel><item><title><![CDATA[PEC Consultant (La Paz, BO)]]></title>
+      <link>https://jobs.iadb.org/job/1</link><description><![CDATA[<p>Plazo: hasta el 30 de noviembre de 2026</p>]]></description></item></channel></rss>"""
+    assert watch.parse_rss(rss) == [("https://jobs.iadb.org/job/1", "PEC Consultant (La Paz, BO)",
+                                     "<p>Plazo: hasta el 30 de noviembre de 2026</p>")]
+    html = '<a href="/jobs/1249113">New job: Consultant IDB</a><a href="/about">About</a>'
+    assert watch.extract_links(html, "https://www.impactpool.org/countries/Bolivia", link_pattern=r"/jobs/\d+") == [
+        ("https://www.impactpool.org/jobs/1249113", "New job: Consultant IDB")]

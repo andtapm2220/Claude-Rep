@@ -27,7 +27,21 @@ JOBISH = re.compile(
 NOISE = re.compile(r"contrataciondelestado|/login|/accountcreation|forgotpassword|@|facebook\.com|twitter\.com|x\.com|instagram|youtube|whatsapp|mailto:|javascript:|#$|/tag/|/page/\d+/?$|/category/", re.I)
 
 
-def extract_links(html: str, base: str, must_contain: str | None = None) -> list[tuple[str, str]]:
+def parse_rss(xml: str) -> list[tuple[str, str, str]]:
+    """Feed RSS genérico -> [(link, título, descripción)]."""
+    out = []
+    for item in re.findall(r"<item\b.*?</item>", xml, re.S):
+        def tag(n):
+            m = re.search(rf"<{n}[^>]*>(.*?)</{n}>", item, re.S)
+            v = re.sub(r"<!\[CDATA\[(.*?)\]\]>", r"\1", m.group(1), flags=re.S) if m else ""
+            return unescape(v).strip()
+        if tag("link"):
+            out.append((tag("link"), " ".join(unescape(re.sub(r"<[^>]+>", " ", tag("title"))).split()), tag("description")))
+    return out
+
+
+def extract_links(html: str, base: str, must_contain: str | None = None,
+                  link_pattern: str | None = None) -> list[tuple[str, str]]:
     out, seen = [], set()
     for href, inner in re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', html, re.S | re.I):
         text = " ".join(unescape(re.sub(r"<[^>]+>", " ", inner)).split())
@@ -36,7 +50,10 @@ def extract_links(html: str, base: str, must_contain: str | None = None) -> list
             continue
         if must_contain and must_contain not in url:
             continue
-        if not JOBISH.search(f"{text} {url}"):
+        if link_pattern:
+            if not re.search(link_pattern, url):
+                continue
+        elif not JOBISH.search(f"{text} {url}"):
             continue
         key = re.sub(r"[?#].*$", "", url)
         if key in seen:
@@ -63,7 +80,24 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
         except Exception as e:
             log.warning("vigía %s: no se pudo abrir (%s)", name, e)
             continue
-        links = extract_links(html, url, page.get("link_must_contain"))
+        if page.get("tipo") == "rss":
+            from ..http import find_emails, html_to_text
+
+            items = [(u, t, d) for u, t, d in parse_rss(html) if not is_seen(u)][: page.get("max_new", 15)]
+            log.info("vigía %s (RSS): %d nuevas", name, len(items))
+            for u, t, d in items:
+                desc = html_to_text(d)
+                j = Job(source=f"vigia:{name}", url=u, title=t[:200], company=page.get("org", ""), country="BO",
+                        location=page.get("location", "Bolivia"), description=desc[:8000], apply_url=u,
+                        apply_emails=find_emails(desc), flags=["fuente_oficial"])
+                j.posted_at = spanish_date(desc[:1500])
+                j.valid_through = deadline_in_text(desc)
+                jobs.append(j)
+            continue
+        links = extract_links(html, url, page.get("link_must_contain"), page.get("link_pattern"))
+        # Impactpool y similares marcan estado en el texto del enlace
+        links = [(u, re.sub(r"^(new job|closing soon|job is closed)\s*:?\s*", "", t, flags=re.I))
+                 for u, t in links if not re.match(r"job is closed|closed", t, re.I)]
         new = [(u, t) for u, t in links if not is_seen(u)][: page.get("max_new", 15)]
         log.info("vigía %s: %d enlaces de convocatoria, %d nuevos", name, len(links), len(new))
         for u, text in new:

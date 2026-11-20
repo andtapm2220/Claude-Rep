@@ -1,7 +1,8 @@
 """Directorio de empleadores (embajadas, organismos, mineras, transnacionales).
 
 - Los que tienen `empleo_url` los revisa el vigía a diario.
-- El resto entra en una rotación: alta cada 3 días, media cada 7, baja cada 14.
+- Los que tienen `cubierto_por` ya llegan por otra fuente diaria (p. ej. Impactpool) y no se buscan aparte.
+- El resto entra en una rotación: alta a diario, media cada 3 días, baja cada 7.
 """
 from __future__ import annotations
 
@@ -10,7 +11,7 @@ from pathlib import Path
 
 import yaml
 
-CADA = {"alta": 3, "media": 7, "baja": 14}
+CADA = {"alta": 1, "media": 3, "baja": 7}
 
 
 def load(root: Path, profile: dict) -> list[dict]:
@@ -26,14 +27,15 @@ def load(root: Path, profile: dict) -> list[dict]:
 
 
 def watch_pages(entries: list[dict]) -> list[dict]:
-    return [{"name": e["nombre"], "url": e["empleo_url"], "org": e["nombre"], "max_new": 10}
+    return [{"name": e["nombre"], "url": e["empleo_url"], "org": e.get("org", e["nombre"]), "max_new": e.get("max_new", 10),
+             "tipo": e.get("tipo"), "link_pattern": e.get("link_pattern")}
             for e in entries if e.get("empleo_url")]
 
 
 def rotation(entries: list[dict], today: date | None = None) -> list[dict]:
     """Empleadores sin página vigilable que toca buscar hoy (determinista por fecha)."""
     today = today or date.today()
-    pending = [e for e in entries if not e.get("empleo_url")]
+    pending = [e for e in entries if not e.get("empleo_url") and not e.get("cubierto_por")]
     picked = []
     for prio, every in CADA.items():
         tier = sorted((e for e in pending if e["prioridad"] == prio), key=lambda e: e["nombre"])
@@ -45,7 +47,7 @@ def rotation_markdown(picked: list[dict], today: date | None = None) -> str:
     today = today or date.today()
     lines = [f"# Rotación de empleadores para hoy ({today})",
              f"{len(picked)} empleadores sin página de empleo vigilable. Busca convocatorias ABIERTAS de cada uno "
-             "(agrupa 2-3 por búsqueda, p. ej. \"<empresa> Bolivia convocatoria OR vacante OR empleo 2026\"). "
+             "(agrupa 3-4 por búsqueda, p. ej. \"<empresa> Bolivia convocatoria OR vacante OR empleo 2026\"). "
              "Si un empleador ya no opera en Bolivia, anótalo en el informe para sacarlo del directorio.\n"]
     for cat in sorted({e["categoria"] for e in picked}):
         lines.append(f"## {cat}")
