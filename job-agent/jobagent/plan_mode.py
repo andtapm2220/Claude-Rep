@@ -17,7 +17,7 @@ import logging
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .filters import merge_duplicates, prefilter
+from .filters import merge_duplicates, prefilter, select_candidates
 from .http import Http, find_emails
 from .models import Job, job_from_dict, job_to_dict
 from .sources import all_fetchers, parse_iso
@@ -85,7 +85,8 @@ def collect(root: Path, profile: dict, limit_sources: int = 0) -> dict:
     found = merge_duplicates(found + web)
     for j in found:
         verify(j, max_age_days=agent.get("max_antiguedad_dias", 21))
-    cands = [j for j in prefilter(found, profile) if "vencida" not in j.flags][: agent.get("max_para_claude", 40)]
+    ranked = [j for j in prefilter(found, profile) if "vencida" not in j.flags]
+    cands = select_candidates(ranked, agent.get("max_para_claude", 40), agent.get("max_vigia", 15))
     cand_keys = {j.key for j in cands}
 
     (root / "state").mkdir(exist_ok=True)

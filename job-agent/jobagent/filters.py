@@ -70,3 +70,15 @@ def merge_duplicates(jobs: list[Job]) -> list[Job]:
         else:
             by_fp[fp] = j
     return list(by_fp.values())
+
+
+def select_candidates(ranked: list[Job], total: int = 40, max_curated: int = 15) -> list[Job]:
+    """Cupos para que ninguna fuente acapare la evaluación: primero lo que trajo la búsqueda web (ya elegido
+    para el perfil), luego portales y LinkedIn, y como máximo `max_curated` del vigía/PNUD/alertas."""
+    web = [j for j in ranked if j.source.startswith("web:")]
+    curated = [j for j in ranked if j.source.startswith(CURATED) and not j.source.startswith("web:")][:max_curated]
+    boards = [j for j in ranked if not j.source.startswith(CURATED)]
+    out = web[:total]
+    out += boards[: max(0, total - len(out) - len(curated))]
+    out += curated[: max(0, total - len(out))]
+    return out

@@ -15,6 +15,7 @@ from urllib.parse import urljoin
 
 from ..http import Http
 from ..models import Job
+from . import spanish_date
 from .generic import page_to_job
 
 log = logging.getLogger(__name__)
@@ -70,6 +71,17 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
             # quita emails del propio sitio (p. ej. el del boletín), no son de postulación
             host = re.sub(r"^https?://(www\.)?([^/]+).*$", r"\2", url)
             j.apply_emails = [e for e in j.apply_emails if host.split(".")[0] not in e.split("@")[-1]]
+            # Organización: "HELVETAS Swiss Intercooperation: Requiere..." -> "HELVETAS Swiss Intercooperation"
+            head = j.title.split(":")[0].strip()
+            if not j.company and ":" in j.title and 3 < len(head) < 70 and not head.lower().startswith(("convocatoria", "tdr")):
+                j.company = head
+            if not j.posted_at:  # la fecha suele estar en la cabecera: leerla antes de recortar
+                j.posted_at = spanish_date(j.description[:1500])
+            # Quita la cabecera del sitio: el texto útil empieza donde aparece el título de la convocatoria
+            probe = j.title[:40].lower()
+            pos = j.description.lower().find(probe, 30) if probe else -1
+            if pos > 0:
+                j.description = j.description[pos:]
             j.company = j.company or page.get("org", "")
             j.country = j.country or "BO"
             j.location = j.location or page.get("location", "Bolivia")

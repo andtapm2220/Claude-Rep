@@ -55,6 +55,21 @@ def relative_date(text: str, now: datetime | None = None) -> datetime | None:
                   "semana": timedelta(weeks=n), "mes": timedelta(days=30 * n)}[unit]
 
 
+MESES = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
+         "septiembre": 9, "setiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12}
+
+
+def spanish_date(text: str) -> datetime | None:
+    """Primera fecha tipo '10 de Noviembre de 2026' o '16 septiembre, 2026' en el texto."""
+    m = re.search(r"(\d{1,2})\s*(?:de\s+)?(" + "|".join(MESES) + r")\s*,?\s*(?:de(?:l)?\s+)?(20\d\d)", text, re.I)
+    if not m:
+        return None
+    try:
+        return datetime(int(m.group(3)), MESES[m.group(2).lower()], int(m.group(1)), 12, tzinfo=timezone(timedelta(hours=-4)))
+    except ValueError:
+        return None
+
+
 def all_fetchers() -> dict[str, Fetcher]:
     from . import (computrabajo, email_alerts, explorer, getonbrd, linkedin, reliefweb, remotive, trabajito,
                    trabajopolis, undp, watch)

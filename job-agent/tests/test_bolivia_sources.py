@@ -72,3 +72,16 @@ def test_networking_marks_unverified_sources(monkeypatch):
     assert [x["verified_source"] for x in t] == [True, False]
     msgs = networking.format_message(t)
     assert "linkedin.com/search/results/people" in msgs[1] and "no verificada" in msgs[2]
+
+
+def test_spanish_dates_and_quotas():
+    from jobagent.filters import select_candidates
+    from jobagent.sources import spanish_date
+    assert spanish_date("Boletín 20-141 EXTRA XI:  10 de Noviembre de 2026 REDESMA").month == 11
+    assert spanish_date("Fecha de publicación 16 septiembre, 2026").day == 16
+    web = [Job(source="web:x", url=f"https://w/{i}", title="t") for i in range(2)]
+    vig = [Job(source="vigia:R", url=f"https://v/{i}", title="t") for i in range(30)]
+    board = [Job(source="trabajito", url=f"https://b/{i}", title="t") for i in range(30)]
+    out = select_candidates(vig + board + web, total=40, max_curated=15)
+    assert len(out) == 40 and out[:2] == web
+    assert sum(j.source.startswith("vigia") for j in out) == 15 and sum(j.source == "trabajito" for j in out) == 23
