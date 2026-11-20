@@ -70,6 +70,18 @@ def spanish_date(text: str) -> datetime | None:
         return None
 
 
+def deadline_in_text(text: str) -> datetime | None:
+    """Plazo de postulación: 'vence el 26 de noviembre 2026', 'hasta el lunes 16 de noviembre de 2026'...
+    Si hay varios cargos con plazos distintos, devuelve el más tardío."""
+    found = []
+    for m in re.finditer(r"(?:vence|vencimiento|hasta|plazo|cierre|fecha l[ií]mite|deadline)[^.\n]{0,40}?"
+                         r"(\d{1,2}\s*(?:de\s+)?(?:" + "|".join(MESES) + r")\s*,?\s*(?:de(?:l)?\s+)?20\d\d)", text, re.I):
+        d = spanish_date(m.group(1))
+        if d:
+            found.append(d.replace(hour=23, minute=59))
+    return max(found) if found else None
+
+
 def all_fetchers() -> dict[str, Fetcher]:
     from . import (computrabajo, email_alerts, explorer, getonbrd, linkedin, reliefweb, remotive, trabajito,
                    trabajopolis, undp, watch)

@@ -85,3 +85,12 @@ def test_spanish_dates_and_quotas():
     out = select_candidates(vig + board + web, total=40, max_curated=15)
     assert len(out) == 40 and out[:2] == web
     assert sum(j.source.startswith("vigia") for j in out) == 15 and sum(j.source == "trabajito" for j in out) == 23
+
+
+def test_deadline_in_text_takes_latest():
+    from jobagent.sources import deadline_in_text
+    t = ("Técnico - Samaipata vence el 26 de noviembre 2026 a horas 17:59. Técnico - Tarija vence el 27 de noviembre 2026. "
+         "Presentar hasta el lunes 16 de noviembre de 2026.")
+    d = deadline_in_text(t)
+    assert (d.month, d.day) == (11, 27)
+    assert deadline_in_text("sin fechas") is None

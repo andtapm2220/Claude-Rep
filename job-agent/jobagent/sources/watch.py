@@ -15,7 +15,7 @@ from urllib.parse import urljoin
 
 from ..http import Http
 from ..models import Job
-from . import spanish_date
+from . import deadline_in_text, spanish_date
 from .generic import page_to_job
 
 log = logging.getLogger(__name__)
@@ -77,6 +77,12 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
                 j.company = head
             if not j.posted_at:  # la fecha suele estar en la cabecera: leerla antes de recortar
                 j.posted_at = spanish_date(j.description[:1500])
+            if not j.valid_through:
+                j.valid_through = deadline_in_text(j.description)
+            # Cabecera fija del boletín Redesma
+            cut = j.description.find("Canal de Boletín REDESMA")
+            if 0 < cut < 4000:
+                j.description = j.description[cut + len("Canal de Boletín REDESMA"):].strip()
             # Quita la cabecera del sitio: el texto útil empieza donde aparece el título de la convocatoria
             probe = j.title[:40].lower()
             pos = j.description.lower().find(probe, 30) if probe else -1

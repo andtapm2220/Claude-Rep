@@ -92,7 +92,7 @@ preferencias: |
 agente:
   max_para_claude: 40       # tras el prefiltro, cuántas ofertas puntúa Claude por día
   puntaje_minimo: 65        # sólo se notifican ofertas con este puntaje o más
-  confianza_minima: 50      # 0-100: por debajo, la oferta se marca como dudosa y no se notifica
+  confianza_minima: 35      # 0-100: por debajo, la oferta se considera dudosa y no se notifica
   max_antiguedad_dias: 21   # ofertas más viejas se descartan (señal de "oferta fantasma")
   modelo: "claude-opus-5-5" # para bajar costo ~40x: "claude-haiku-5-5"
   cartas_para_top: 5        # redacta carta de presentación para las N mejores
