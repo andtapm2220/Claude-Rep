@@ -137,3 +137,18 @@ def test_publish_parcial_keeps_unscored(tmp_path):
     assert out["recomendadas"] == 1 and out["pendientes"] == 1
     left = _json.loads((tmp_path / "state/pending.json").read_text())
     assert left["candidates"] == [b.key] and len(left["found"]) == 1
+
+
+def test_curated_never_takes_all_slots_but_fills_leftovers():
+    from jobagent.filters import select_candidates
+    vig = [Job(source="vigia:R", url=f"https://v/{i}", title="t") for i in range(20)]
+    board = [Job(source="linkedin", url=f"https://b/{i}", title="t") for i in range(20)]
+    out = select_candidates(vig + board, total=10, max_curated=20)
+    assert sum(j.source == "linkedin" for j in out) == 5 and len(out) == 10
+    out = select_candidates(vig + board[:2], total=10, max_curated=20)  # pocos portales: el vigía completa
+    assert len(out) == 10 and sum(j.source == "linkedin" for j in out) == 2
+
+
+def test_find_emails_skips_non_apply_addresses():
+    from jobagent.http import find_emails
+    assert find_emails("Escribe a rrhh@bid.org o accommodations@iadb.org, noreply@x.com") == ["rrhh@bid.org"]

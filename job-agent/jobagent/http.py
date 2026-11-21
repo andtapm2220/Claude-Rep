@@ -80,10 +80,17 @@ def html_to_text(html: str | None) -> str:
     return re.sub(r"\n\s*\n+", "\n", text).strip()
 
 
+# Direcciones que aparecen en avisos pero no sirven para postular
+NOT_APPLY = {"accommodations", "noreply", "no-reply", "donotreply", "privacy", "webmaster", "unsubscribe", "press",
+             "prensa", "soporte", "support"}
+
+
 def find_emails(text: str) -> list[str]:
     out = []
     for e in EMAIL_RE.findall(text or ""):
         e = e.strip(".").lower()
+        if e.split("@")[0] in NOT_APPLY:
+            continue
         if e not in out and not e.endswith((".png", ".jpg", ".jpeg", ".gif", ".webp")):
             out.append(e)
     return out

@@ -74,11 +74,15 @@ def merge_duplicates(jobs: list[Job]) -> list[Job]:
 
 def select_candidates(ranked: list[Job], total: int = 40, max_curated: int = 15) -> list[Job]:
     """Cupos para que ninguna fuente acapare la evaluación: primero lo que trajo la búsqueda web (ya elegido
-    para el perfil), luego portales y LinkedIn, y como máximo `max_curated` del vigía/PNUD/alertas."""
+    para el perfil), luego portales y LinkedIn, y del vigía/PNUD/alertas como máximo la mitad de las plazas
+    (o `max_curated`). Si los portales no llenan su parte, el vigía completa el resto."""
     web = [j for j in ranked if j.source.startswith("web:")]
-    curated = [j for j in ranked if j.source.startswith(CURATED) and not j.source.startswith("web:")][:max_curated]
+    curated_all = [j for j in ranked if j.source.startswith(CURATED) and not j.source.startswith("web:")]
     boards = [j for j in ranked if not j.source.startswith(CURATED)]
     out = web[:total]
+    cap = min(max_curated, max(1, total // 2))
+    curated = curated_all[:cap]
     out += boards[: max(0, total - len(out) - len(curated))]
     out += curated[: max(0, total - len(out))]
+    out += curated_all[cap: cap + max(0, total - len(out))]  # rellena si sobran plazas
     return out

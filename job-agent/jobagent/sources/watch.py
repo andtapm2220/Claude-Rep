@@ -96,7 +96,7 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
             continue
         links = extract_links(html, url, page.get("link_must_contain"), page.get("link_pattern"))
         # Impactpool y similares marcan estado en el texto del enlace
-        links = [(u, re.sub(r"^(new job|closing soon|job is closed)\s*:?\s*", "", t, flags=re.I))
+        links = [(u, re.sub(r"^(new job|closing soon|closing tomorrow|closing today|job is closed)\s*:?\s*", "", t, flags=re.I))
                  for u, t in links if not re.match(r"job is closed|closed", t, re.I)]
         new = [(u, t) for u, t in links if not is_seen(u)][: page.get("max_new", 15)]
         log.info("vigía %s: %d enlaces de convocatoria, %d nuevos", name, len(links), len(new))
@@ -117,6 +117,15 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
             head = j.title.split(":")[0].strip()
             if not j.company and ":" in j.title and 3 < len(head) < 70 and not head.lower().startswith(("convocatoria", "tdr")):
                 j.company = head
+            if not j.valid_through:  # Impactpool y similares: "Application deadline: November 22, 2026"
+                m = re.search(r"(?:application deadline|deadline)\s*:?\s*([A-Z][a-z]+ \d{1,2}, 20\d\d)", j.description)
+                if m:
+                    try:
+                        from datetime import datetime, timedelta, timezone
+                        j.valid_through = datetime.strptime(m.group(1), "%B %d, %Y").replace(
+                            hour=23, minute=59, tzinfo=timezone(timedelta(hours=-4)))
+                    except ValueError:
+                        pass
             if not j.posted_at:  # la fecha suele estar en la cabecera: leerla antes de recortar
                 j.posted_at = spanish_date(j.description[:1500])
             if not j.valid_through:
