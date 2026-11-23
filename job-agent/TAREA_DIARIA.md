@@ -1,5 +1,13 @@
 # Tarea diaria del agente de empleo (modo plan de Claude, sin API key)
 
+
+> **REGLA DE VIGENCIA (obligatoria).** `collect` abre la página real de cada candidata y marca su vigencia como
+> ABIERTA, CERRADA o SIN VERIFICAR. Las cerradas se descartan solas, y las publicadas hace más de 60 días
+> también, porque son ofertas fantasma.
+> - En el informe, **solo se presentan como recomendadas las ofertas ABIERTAS**, siempre con su fecha de cierre.
+> - Una oferta SIN VERIFICAR nunca se presenta como recomendada; si se menciona, lleva la advertencia "verificar plazo".
+> - Nunca se afirma que una oferta está abierta basándose en un resumen de búsqueda.
+
 Instrucciones que sigue Claude Code en la sesión programada cada mañana. Todo corre dentro del plan de
 Claude del usuario: la IA es la propia sesión; el código Python solo hace lo mecánico.
 

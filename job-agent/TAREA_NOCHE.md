@@ -1,5 +1,13 @@
 # Corrida nocturna liviana (lunes a sábado, 20:34 Bolivia)
 
+
+> **REGLA DE VIGENCIA (obligatoria).** `collect` abre la página real de cada candidata y marca su vigencia como
+> ABIERTA, CERRADA o SIN VERIFICAR. Las cerradas se descartan solas, y las publicadas hace más de 60 días
+> también, porque son ofertas fantasma.
+> - En el informe, **solo se presentan como recomendadas las ofertas ABIERTAS**, siempre con su fecha de cierre.
+> - Una oferta SIN VERIFICAR nunca se presenta como recomendada; si se menciona, lleva la advertencia "verificar plazo".
+> - Nunca se afirma que una oferta está abierta basándose en un resumen de búsqueda.
+
 Objetivo: enterarse el mismo día de convocatorias nuevas, gastando poco del plan
 (aproximadamente un 10-20 % de la corrida de la mañana). Usa los mismos datos fijos que
 `TAREA_DIARIA.md` (repo, CV en Drive, planilla).

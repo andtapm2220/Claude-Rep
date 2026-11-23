@@ -87,7 +87,19 @@ def collect(root: Path, profile: dict, limit_sources: int = 0, max_cands: int | 
         verify(j, max_age_days=agent.get("max_antiguedad_dias", 21))
     ranked = [j for j in prefilter(found, profile) if "vencida" not in j.flags]
     total = max_cands or agent.get("max_para_claude", 40)
-    cands = select_candidates(ranked, total, min(agent.get("max_vigia", 15), total))
+    # Validación OBLIGATORIA de vigencia: se abre la página real de cada candidata
+    from .validate import validate
+
+    pool = select_candidates(ranked, int(total * 1.6) + 2, min(agent.get("max_vigia", 15), total))
+    cands, cerradas = [], 0
+    for j in pool:
+        if len(cands) >= total:
+            break
+        if validate(j, http, max_age_days=agent.get("max_antiguedad_dias", 21)) == "cerrada":
+            cerradas += 1
+            continue
+        cands.append(j)
+    stats["descartadas_por_cerradas"] = cerradas
     cand_keys = {j.key for j in cands}
 
     (root / "state").mkdir(exist_ok=True)
@@ -101,6 +113,7 @@ def collect(root: Path, profile: dict, limit_sources: int = 0, max_cands: int | 
         lines.append(
             f"## id: {j.key}\n**{j.title}** — {j.company or '(empresa no indicada)'} · {j.location}"
             f"{' · remoto' if j.remote else ''} · {j.salary}\n"
+            f"Vigencia verificada: {next((f.split(':',1)[1] for f in j.flags if f.startswith('vigencia:')), '?').upper()} · "
             f"Publicada: {j.posted_at.date() if j.posted_at else '?'} · Cierra: {j.valid_through.date() if j.valid_through else '?'}"
             f" · Fuente: {j.source} · Confianza: {j.trust} [{', '.join(j.flags)}]\n{j.url}\n\n{j.description[:1800]}\n")
     (root / "output").mkdir(exist_ok=True)
@@ -126,7 +139,11 @@ def publish(root: Path, profile: dict, parcial: bool = False) -> dict:
             if j.red_flags:
                 j.trust = max(0, j.trust - 10 * len(j.red_flags))
     min_score, min_trust = agent.get("puntaje_minimo", 65), agent.get("confianza_minima", 50)
+    from .validate import status_of
+
+    # Solo se recomienda lo que el validador confirmó ABIERTO en la página real
     picks = sorted([j for j in found if j.score is not None and j.score >= min_score and j.trust >= min_trust
+                    and status_of(j) == "abierta"
                     and j.verdict != "descartar"], key=lambda j: (j.score, j.trust), reverse=True)
 
     store = Store(root / "state/jobs.db")
@@ -155,7 +172,8 @@ def publish(root: Path, profile: dict, parcial: bool = False) -> dict:
     for j in [x for x in found if x.score is not None and x.score >= 40]:
         rows.append([today, j.score, j.verdict, j.trust, j.title, j.company, j.location, "sí" if j.remote else "no",
                      j.salary, j.valid_through.date().isoformat() if j.valid_through else "", j.source,
-                     ", ".join(j.apply_emails), j.summary, j.url, "nuevo"])
+                     ", ".join(j.apply_emails), j.summary, j.url,
+                     "nuevo" if status_of(j) == "abierta" else "SIN VERIFICAR: revisar plazo antes de postular"])
     (root / "output").mkdir(exist_ok=True)
     mode = "a" if parcial else "w"
     with open(root / f"output/ofertas_{today}.md", mode, encoding="utf-8") as fh:

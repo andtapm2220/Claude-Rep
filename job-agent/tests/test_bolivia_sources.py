@@ -128,7 +128,7 @@ def test_publish_parcial_keeps_unscored(tmp_path):
     from jobagent.models import job_to_dict
     from jobagent.plan_mode import publish
     (tmp_path / "state").mkdir()
-    a = Job(source="t", url="https://x/a", title="A", description="d" * 300)
+    a = Job(source="t", url="https://x/a", title="A", description="d" * 300, flags=["vigencia:abierta"])
     b = Job(source="t", url="https://x/b", title="B", description="d" * 300)
     (tmp_path / "state/pending.json").write_text(_json.dumps(
         {"stats": {}, "found": [job_to_dict(a), job_to_dict(b)], "candidates": [a.key, b.key]}))
@@ -152,3 +152,56 @@ def test_curated_never_takes_all_slots_but_fills_leftovers():
 def test_find_emails_skips_non_apply_addresses():
     from jobagent.http import find_emails
     assert find_emails("Escribe a rrhh@bid.org o accommodations@iadb.org, noreply@x.com") == ["rrhh@bid.org"]
+
+
+def _fake_http(html, status=200):
+    from types import SimpleNamespace
+    resp = SimpleNamespace(status_code=status, headers={"content-type": "text/html"}, content=html.encode(), text=html)
+    return SimpleNamespace(get=lambda url: resp)
+
+
+def test_validate_detects_closed_and_expired():
+    from datetime import datetime, timezone
+    from jobagent.validate import validate
+    now = datetime(2026, 11, 23, tzinfo=timezone.utc)
+    j = Job(source="web:x", url="https://www.impactpool.org/jobs/1230232", title="UNICEF")
+    page = "<p>Consultant level Speaks Spanish Application deadline: August 13, 2026 Closed Summary by Impactpool</p>"
+    assert validate(j, _fake_http(page), now=now) == "cerrada"
+    j2 = Job(source="web:x", url="https://x/2", title="T")
+    assert validate(j2, _fake_http("<p>Plazo: hasta el 10 de octubre de 2026</p>"), now=now) == "cerrada"
+    j3 = Job(source="web:x", url="https://x/3", title="T")
+    assert validate(j3, _fake_http("<p>Application deadline: November 27, 2026 Closing soon Apply</p>"), now=now) == "abierta"
+    assert j3.valid_through.day == 27
+    j4 = Job(source="web:x", url="https://x/4", title="T")
+    assert validate(j4, _fake_http("<p>Sin fechas</p>"), now=now) == "no_verificada"
+    j5 = Job(source="web:x", url="https://x/5", title="T")
+    assert validate(j5, _fake_http("", status=404), now=now) == "no_verificada"
+
+
+def test_publish_only_recommends_verified_open(tmp_path):
+    import json as _json
+
+    from jobagent.models import job_to_dict
+    from jobagent.plan_mode import publish
+    (tmp_path / "state").mkdir()
+    ok = Job(source="t", url="https://x/ok", title="OK", flags=["vigencia:abierta"])
+    unk = Job(source="t", url="https://x/unk", title="UNK", flags=["vigencia:no_verificada"])
+    (tmp_path / "state/pending.json").write_text(_json.dumps(
+        {"stats": {}, "found": [job_to_dict(ok), job_to_dict(unk)], "candidates": [ok.key, unk.key]}))
+    (tmp_path / "state/scores.json").write_text(_json.dumps(
+        [{"id": ok.key, "score": 80, "verdict": "postular_ya"}, {"id": unk.key, "score": 90, "verdict": "postular_ya"}]))
+    out = publish(tmp_path, {"agente": {"confianza_minima": 0}})
+    assert [t["titulo"] for t in out["top"]] == ["OK"]
+    rows = _json.loads((tmp_path / "output/sheet_rows.json").read_text())
+    assert any(r[-1].startswith("SIN VERIFICAR") for r in rows)
+
+
+def test_validate_flags_ghost_jobs_with_auto_renewed_deadline():
+    from datetime import datetime, timezone
+    from jobagent.validate import validate
+    now = datetime(2026, 11, 23, tzinfo=timezone.utc)
+    page = ('<script type="application/ld+json">{"@type":"JobPosting","datePosted":"2026-03-31T14:03:33Z",'
+            '"validThrough":"2026-12-23T23:59:59Z"}</script><p>Fecha de publicación 31 mar 2026 Vigente hasta 23 dic 2026</p>')
+    j = Job(source="web:x", url="https://cazvid.com/empleo/x", title="T")
+    assert validate(j, _fake_http(page), now=now) == "cerrada"
+    assert "oferta_fantasma_publicada_hace_mas_de_60_dias" in j.flags
