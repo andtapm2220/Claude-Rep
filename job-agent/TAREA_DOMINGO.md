@@ -30,7 +30,6 @@ que `TAREA_DIARIA.md`.
    - Repite con las siguientes 20 hasta terminar.
 6. **Cierre:** `python -m jobagent publish` con un `state/scores.json` vacío (`[]`), para guardar como vistas
    las no candidatas. Luego, commit y push.
-7. **Informe:**
-   - Escribe en la conversación las recomendadas de la semana que encontraste esta noche.
-   - Agrega cualquier empleador del directorio que ya no opera en Bolivia, para sacarlo.
-   - Envía una notificación al celular solo si hay algo de 70 o más.
+7. **Informe (corto):** la mejor oferta recomendada de la noche (cargo, organización, puntaje, cierre y enlace), el
+   enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY) y, en una línea, los empleadores del directorio que ya no operan en Bolivia.
+   Envía una notificación al celular solo si hay algo de 70 o más.

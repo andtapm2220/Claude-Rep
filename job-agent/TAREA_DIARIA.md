@@ -45,19 +45,17 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
    `summary` (1-2 frases en español).
 6. **Publicar:** `python -m jobagent publish`. Genera `output/ofertas_<fecha>.md` y `output/sheet_rows.json`.
 7. **Planilla:** agrega las filas de `output/sheet_rows.json` a la planilla con `append_values` (rango `Hoja 1!A1`).
-8. **Informe en la sesión:** escribe las ofertas recomendadas, cada una con cargo, organización, puntaje, por qué
-   encaja, brechas, fecha de cierre y enlace. Para las 3 mejores, agrega:
-   - un borrador de email de postulación (en el idioma de la oferta, sin inventar experiencia);
-   - el checklist según el tipo de empleador (Estado: CV firmado, respaldos y declaración jurada; ONU o BID:
-     registro en su portal; ONG: CV de 3 páginas, pretensión salarial y referencias; remoto: CV en inglés).
-9. **Avisar:** envía una notificación al celular (PushNotification), de una línea, con el número de recomendadas y la mejor.
+8. **Informe en la sesión (corto, sin extras):** solo la mejor oferta recomendada, ABIERTA, con cargo, organización,
+   puntaje, fecha de cierre y enlace, más el enlace a la planilla: https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY
+   No escribas borradores de email, cartas, checklists ni comentarios sobre las demás.
+   Si no hay recomendadas: "Sin recomendadas hoy" + enlace a la planilla.
+9. **Avisar:** notificación al celular (PushNotification), una línea: la mejor oferta y su cierre. Solo si hay recomendada.
 10. **Guardar memoria:** ejecuta `git add -f state/jobs.db`, luego
     `git commit -m "job-agent: estado <fecha>"` y `git push origin claude/vigilant-archimedes-nvd4mi`,
     reintentando si falla la red.
-11. **Solo los lunes, pituto:** busca señales de contratación de las últimas semanas (préstamos o proyectos
-    nuevos del BID, BM, CAF o FONPLATA con Bolivia, programas de cooperación, ONG con fondos nuevos, empresas que
-    se expanden). Propón 5 organizaciones donde el perfil tenga ventaja; para cada una, a qué cargo escribirle, un
-    enlace de búsqueda de personas en LinkedIn y un mensaje corto que pida una conversación, no trabajo directo.
+11. **Solo los lunes, pituto:** busca señales de contratación de las últimas semanas (proyectos nuevos del BID, BM, CAF,
+    FONPLATA o cooperación con Bolivia). Agrega al informe una sola línea con las 3 organizaciones más prometedoras.
+    Sin mensajes ni borradores.
 
-Si una fuente falla, sigue con las demás y menciónalo en el informe. Si no hay recomendadas, dilo en una línea
+Si una fuente falla, sigue con las demás (no hace falta mencionarlo). Si no hay recomendadas, dilo en una línea
 y no envíes notificación.

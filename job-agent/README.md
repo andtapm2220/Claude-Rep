@@ -1,5 +1,14 @@
 # job-agent — tu buscador de empleo diario con Claude
 
+> **Cómo funciona hoy (modo plan, sin API key).** Tres tareas programadas abren cada una **una sesión nueva** de
+> Claude Code en la nube: diaria a las 06:34, nocturna liviana a las 20:34 (lunes a sábado) y profunda los domingos a
+> las 23:02 (hora de Bolivia). Cada sesión sigue `TAREA_DIARIA.md`, `TAREA_NOCHE.md` o `TAREA_DOMINGO.md`.
+> - **Datos:** portales, LinkedIn sin cuenta, PNUD, vigía de páginas (`config/directorio.yaml`) y búsqueda web de Claude.
+> - **Proceso:** `python -m jobagent collect` (recolecta y verifica la vigencia en la página real) → Claude puntúa →
+>   `python -m jobagent publish` → filas a la planilla de Google Sheets → commit de `state/jobs.db` (memoria).
+> - **Salida:** la mejor oferta abierta y el enlace a la planilla. Reglas para Claude en `CLAUDE.md`.
+> - **Pendiente:** validar las viñetas `VALIDAR` del CV. Lo que sigue abajo describe el modo con API (GitHub Actions), hoy secundario.
+
 Todos los días, a las 07:43 (hora de Bolivia), el agente:
 
 1. **Busca** ofertas nuevas en:

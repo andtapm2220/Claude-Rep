@@ -21,6 +21,6 @@ Objetivo: enterarse el mismo día de convocatorias nuevas, gastando poco del pla
 6. `python -m jobagent publish`. Luego agrega a la planilla las filas de `output/sheet_rows.json`.
 7. Guarda la memoria: `git add -f state/jobs.db`, `git commit -m "job-agent: estado noche <fecha>"` y
    `git push origin claude/vigilant-archimedes-nvd4mi`.
-8. **Solo si alguna oferta tiene 70 o más:** escribe un informe corto en la conversación (cargo, organización, puntaje,
-   por qué y enlace) y envía una notificación al celular. Si no hay, termina sin escribir nada más que
+8. **Solo si alguna oferta tiene 70 o más:** escribe una línea con la mejor (cargo, organización, puntaje, cierre y
+   enlace) más el enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY), y envía una notificación al celular. Si no hay, termina con
    "Noche: sin novedades".
