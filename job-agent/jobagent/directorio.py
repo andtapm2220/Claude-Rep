@@ -2,7 +2,7 @@
 
 - Los que tienen `empleo_url` los revisa el vigía a diario.
 - Los que tienen `cubierto_por` ya llegan por otra fuente diaria (p. ej. Impactpool) y no se buscan aparte.
-- El resto entra en una rotación: alta a diario, media cada 3 días, baja cada 7, mensual cada 30.
+- El resto entra en una rotación: alta cada 2 días (el domingo se busca todo), media cada 3 días, baja cada 7, mensual cada 30.
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from pathlib import Path
 
 import yaml
 
-CADA = {"alta": 1, "media": 3, "baja": 7, "mensual": 30}
+CADA = {"alta": 2, "media": 3, "baja": 7, "mensual": 30}
 
 
 def load(root: Path, profile: dict) -> list[dict]:

@@ -17,12 +17,12 @@ que `TAREA_DIARIA.md`.
    Después, `rm -f state/web_jobs.json state/pending.json state/scores.json`.
 2. **Leer** el CV desde Drive y `config/profile.yaml`.
 3. **Búsqueda amplia, en orden de prioridad:**
-   - `python -m jobagent rotacion --todo` lista los 141 empleadores del directorio sin página vigilada, con los de
+   - `python -m jobagent rotacion --todo` lista todos los empleadores del directorio sin página vigilada, con los de
      prioridad alta primero. Búscalos todos, agrupando 4-5 por búsqueda.
    - Después, búsquedas libres de: finanzas públicas y gestión fiscal (BID, BM, CAF, UE, cooperación), FP&A y
      finanzas remoto en USD/EUR, banca y microfinanzas en La Paz, y consultorías por producto.
    - Cada 10 búsquedas, guarda lo encontrado en `state/web_jobs.json`, con el mismo formato que la corrida diaria.
-4. `python -m jobagent collect --max 80`.
+4. `python -m jobagent collect --max 80 2>&1 | tail -2`.
 5. **Puntuar por tandas de 20**, en el orden en que aparecen en `output/candidatas.md`:
    - Escribe `state/scores.json` con esas 20.
    - Corre `python -m jobagent publish --parcial` y agrega las filas de `output/sheet_rows.json` a la planilla.

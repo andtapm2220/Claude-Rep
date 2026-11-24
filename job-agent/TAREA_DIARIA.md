@@ -34,7 +34,7 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
    Guárdalas en `state/web_jobs.json` como una lista de objetos con estos campos: `theme`, `url`, `title`,
    `organization`, `location`, `remote`, `posted_date` (AAAA-MM-DD o vacío), `deadline` (AAAA-MM-DD o vacío),
    `description`, `contact_email`.
-4. **Recolectar:** `python -m jobagent collect` (tarda 5-8 min; usa un timeout de 10 min). Genera `output/candidatas.md`.
+4. **Recolectar:** `python -m jobagent collect 2>&1 | tail -2` (tarda 5-8 min; usa un timeout de 10 min; el `tail` evita llenar el contexto con el registro). Genera `output/candidatas.md`.
 5. **Puntuar:** lee `output/candidatas.md` y evalúa cada `id` contra el CV y el perfil, como reclutador honesto y exigente:
    - 80+ = cumple casi todo y es lo que busca; 60-79 vale la pena; 40-59 parcial; menos de 40 no encaja.
    - **Anclas de calibración** (puntajes reales ya dados; mantén la misma escala):

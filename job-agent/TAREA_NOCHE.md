@@ -14,9 +14,9 @@ Objetivo: enterarse el mismo día de convocatorias nuevas, gastando poco del pla
 
 1. `cd /home/user/Claude-Rep && git pull --ff-only origin claude/vigilant-archimedes-nvd4mi && cd job-agent`.
 2. **No hagas búsqueda web ni rotación.** Borra cualquier resto: `rm -f state/web_jobs.json state/pending.json state/scores.json`.
-3. `python -m jobagent collect --max 10`. Solo fuentes gratuitas, con un tope de 10 candidatas.
+3. `python -m jobagent collect --max 10 2>&1 | tail -2`. Solo fuentes gratuitas, con un tope de 10 candidatas.
 4. Si `candidatas` es 0, salta al paso 7 y no escribas informe.
-5. Lee el CV desde Drive y `output/candidatas.md`, y escribe `state/scores.json` con el mismo formato y criterio que la
+5. Lee `output/candidatas.md` y el `resumen` de `config/profile.yaml` (no hace falta abrir el CV en Drive para 10 ofertas), y escribe `state/scores.json` con el mismo formato y criterio que la
    corrida de la mañana. Sé breve: `summary` de una frase, máximo 2 `reasons` y 2 `gaps`.
 6. `python -m jobagent publish`. Luego agrega a la planilla las filas de `output/sheet_rows.json`.
 7. Guarda la memoria: `git add -f state/jobs.db`, `git commit -m "job-agent: estado noche <fecha>"` y

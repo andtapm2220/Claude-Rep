@@ -108,7 +108,7 @@ def test_directorio_rotation_covers_everyone_in_14_days():
     days = [directorio.rotation(entries, d0 + timedelta(d)) for d in range(14)]
     seen = {e["nombre"] for day in days for e in day}
     assert len(seen) == 37 and "W" not in seen  # la que tiene página vigilada no entra en la rotación
-    assert all(sum(e["prioridad"] == "alta" for e in day) == 9 for day in days)  # alta: todos los días
+    assert all(sum(e["prioridad"] == "alta" for e in day) in (4, 5) for day in days)  # alta: día por medio
     assert directorio.watch_pages(entries)[0]["url"] == "https://w"
 
 

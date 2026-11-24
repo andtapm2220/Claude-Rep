@@ -195,3 +195,81 @@ sistema_financiero:   # Fuente: ASFI, entidades con licencia al 30-abr-2026; SAF
   - {nombre: "Cooperativas de Cochabamba: San Antonio, Inca Huasi, Quillacollo, San José de Punata, Loyola, Pío X, San Pedro, San Joaquín, San Carlos Borromeo, CACEF, COOPROLE, Cristo Rey, Cantera, Hospicio, San Pedro de Aiquile, Paulo VI", prioridad: mensual, verificado: si}
   - {nombre: "Cooperativas de Potosí, Chuquisaca y Oruro: El Chorolque, Catedral, Asunción, San Roque, Magisterio Rural de Chuquisaca, San Martín, Monseñor Félix Gainza", prioridad: mensual, verificado: si}
   - {nombre: "Cooperativas de Tarija, Beni y oriente: Catedral de Tarija, Educadores Gran Chaco, Magisterio Rural, San José de Bermejo, Madre y Maestra, Virgen de los Remedios, San Francisco Solano, Comarapa, Trinidad, San Mateo, La Merced, Progreso", prioridad: mensual, verificado: si}
+
+sector_publico:   # Agregado 24-nov-2026. Con empleo_url: la página respondió desde La Paz (200) el 24-nov-2026.
+  - {nombre: "Servicio de Impuestos Nacionales (SIN)", prioridad: alta, verificado: si, empleo_url: "https://www.impuestos.gob.bo/index.php/oportunidad-de-empleo/", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)"}
+  - {nombre: "FNDR - Fondo Nacional de Desarrollo Regional", prioridad: alta, verificado: si, empleo_url: "https://www.fndr.gob.bo/index.php/oportunidad-de-empleo/", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)"}
+  - {nombre: "UDAPE", prioridad: alta, verificado: si, empleo_url: "https://www.udape.gob.bo/convocatorias", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)", nota: "Convocatorias con TDR en PDF"}
+  - {nombre: "FPS - Fondo de Inversión Productiva y Social", prioridad: alta, verificado: si, empleo_url: "https://www.fps.gob.bo/terminos-de-referencia/", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)", nota: "TDR de consultorías"}
+  - {nombre: "Ministerio de Desarrollo Productivo y Economía Plural", prioridad: media, verificado: si, empleo_url: "https://produccion.gob.bo/empleo/", link_pattern: "/empleo/(?!feed)[a-z0-9-]+/?$"}
+  - {nombre: "AGETIC", prioridad: baja, verificado: si, empleo_url: "https://agetic.gob.bo/recursos-humanos/oportunidad-de-empleo", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)"}
+  - {nombre: "INE - Instituto Nacional de Estadística", prioridad: media, verificado: si, nota: "Expresiones de interés y pasantías en ine.gob.bo; la página no lista enlaces legibles"}
+  - {nombre: "ABC - Administradora Boliviana de Carreteras", prioridad: baja, verificado: si, empleo_url: "http://www.abc.gob.bo/oportunidad-de-empleo/", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)"}
+  - {nombre: "Vías Bolivia", prioridad: baja, verificado: si, empleo_url: "https://www.viasbolivia.gob.bo/index.php/oportunidad-de-empleo/", link_pattern: "(?i)wp-content/uploads/.*(convoc|tdr|terminos-de-referencia|consultor|requerimiento)"}
+  - {nombre: "Ministerio de Economía y Finanzas Públicas (MEFP)", prioridad: alta, verificado: si, nota: "Sin página de empleo; convocatorias de consultores en SICOES y redes oficiales"}
+  - {nombre: "Ministerio de Planificación del Desarrollo / VIPFE", prioridad: alta, verificado: si, nota: "Sin página de empleo; revisar SICOES y redes"}
+  - {nombre: "Contraloría General del Estado", prioridad: alta, verificado: si, nota: "Sin página de empleo confirmada; revisar SICOES"}
+  - {nombre: "SICOES - consultorías individuales del Estado", prioridad: alta, verificado: si, nota: "Portal dinámico (sicoes.gob.bo); buscar 'consultor individual línea finanzas OR presupuesto' recientes"}
+  - {nombre: "Aduana Nacional de Bolivia", prioridad: media, verificado: si, nota: "Sin sección de convocatorias de personal; SICOES y redes"}
+  - {nombre: "Entel S.A.", prioridad: media, verificado: si}
+  - {nombre: "BoA - Boliviana de Aviación", prioridad: media, verificado: si, nota: "Sitio con bloqueo anti-bot"}
+  - {nombre: "Mi Teleférico", prioridad: media, verificado: si, nota: "Convocatorias en Facebook oficial"}
+  - {nombre: "Gobierno Autónomo Municipal de La Paz (GAMLP)", prioridad: media, verificado: si}
+  - {nombre: "Gobernación de La Paz", prioridad: baja, verificado: si}
+  - {nombre: "EMAPA", prioridad: baja, verificado: si}
+  - {nombre: "ANH - Agencia Nacional de Hidrocarburos", prioridad: baja, verificado: si}
+  - {nombre: "ATT - Autoridad de Telecomunicaciones y Transportes", prioridad: baja, verificado: si}
+  - {nombre: "SEDEM - Empresas Públicas Productivas", prioridad: baja, verificado: si}
+  - {nombre: "Ministerio de Hidrocarburos y Energías", prioridad: baja, verificado: verificar}
+
+empresas_nacionales:   # Grupos privados y consultoras locales. Agregado 24-nov-2026.
+  - {nombre: "Farmacorp (Nexocorp)", prioridad: alta, verificado: si, empleo_url: "https://nexocorp.evaluar.com", nota: "Portal de vacantes del grupo"}
+  - {nombre: "Imcruz (Inchcape Bolivia)", prioridad: alta, verificado: si, nota: "Vacantes en inchcape.com/en/careers (filtro Bolivia, carga por JavaScript)"}
+  - {nombre: "Toyosa", prioridad: alta, verificado: si, nota: "Publica en LinkedIn y bolsas locales"}
+  - {nombre: "Hipermaxi", prioridad: media, verificado: si}
+  - {nombre: "Ketal", prioridad: media, verificado: si}
+  - {nombre: "Fidalga", prioridad: baja, verificado: si}
+  - {nombre: "Hansa Ltda", prioridad: media, verificado: si}
+  - {nombre: "IASA / Fino (Industrias de Aceite)", prioridad: media, verificado: si}
+  - {nombre: "Gravetal Bolivia", prioridad: media, verificado: si}
+  - {nombre: "Coboce", prioridad: media, verificado: si}
+  - {nombre: "Sofía Ltda", prioridad: baja, verificado: si}
+  - {nombre: "Delizia", prioridad: baja, verificado: si}
+  - {nombre: "Laboratorios Inti / Droguería Inti", prioridad: baja, verificado: si}
+  - {nombre: "Grupo Nacional Vida (seguros y empresas)", prioridad: media, verificado: verificar}
+  - {nombre: "Cooperativas telefónicas Cotel, Cotas y Comteco", prioridad: baja, verificado: si}
+  - {nombre: "Jalasoft", prioridad: baja, verificado: si, nota: "Ofertas casi todas técnicas"}
+  - {nombre: "Crowe Bolivia", prioridad: alta, verificado: si, nota: "Oficina en Calacoto; sitio bloquea acceso automático"}
+  - {nombre: "Ruizmier (Ruiz Mier, Rivera, Peláez, Auza)", prioridad: alta, verificado: verificar}
+  - {nombre: "Berthin Amengual & Asociados", prioridad: alta, verificado: verificar}
+  - {nombre: "Acevedo & Asociados", prioridad: media, verificado: verificar}
+  - {nombre: "RSM Bolivia", prioridad: media, verificado: verificar}
+  - {nombre: "Moore Bolivia", prioridad: media, verificado: verificar}
+
+ong_think_tanks_academia:   # Agregado 24-nov-2026.
+  - {nombre: "Oxfam Bolivia", prioridad: alta, verificado: si, empleo_url: "https://bolivia.oxfam.org/convocatorias", link_pattern: "oxfam\\.org/[a-z0-9-]*(?:consultor|servicio-de|evaluacion|tdr|puesto|oficial|coordinador|asistente|especialista|analista|tecnic)[a-z0-9-]*/?$", nota: "Convocatorias y consultorías"}
+  - {nombre: "WWF Bolivia", prioridad: baja, verificado: si, empleo_url: "https://www.wwf.org.bo/sobre_nosotros/staff_convocatorias/", link_pattern: "smartrecruiters\\.com/"}
+  - {nombre: "Fundación Jubileo", prioridad: alta, verificado: si, nota: "Finanzas públicas y fiscalidad; publica convocatorias como PDF en jubileobolivia.org.bo"}
+  - {nombre: "Fundación ARU", prioridad: alta, verificado: si}
+  - {nombre: "INESAD", prioridad: alta, verificado: si}
+  - {nombre: "IISEC - Universidad Católica Boliviana", prioridad: alta, verificado: si, nota: "Convocatorias como PDF 'Arte de Convocatoria' en lpz.ucb.edu.bo"}
+  - {nombre: "PROFIN (Fundación para el Desarrollo Productivo y Financiero)", prioridad: alta, verificado: si}
+  - {nombre: "Fundación Konrad Adenauer (KAS Bolivia)", prioridad: alta, verificado: si}
+  - {nombre: "Friedrich Ebert (FES Bolivia)", prioridad: alta, verificado: si, nota: "Publica requerimientos de personal como noticias en bolivia.fes.de"}
+  - {nombre: "Fundación Milenio", prioridad: media, verificado: si}
+  - {nombre: "CEDLA", prioridad: media, verificado: si}
+  - {nombre: "CIPCA", prioridad: media, verificado: si, nota: "cipca.org.bo/trabaja-con-nosotros bloquea acceso automático"}
+  - {nombre: "Save the Children Bolivia", prioridad: media, verificado: si, nota: "Portal global savethechildren.net/careers; filtrar Bolivia"}
+  - {nombre: "Plan International Bolivia", prioridad: media, verificado: si, nota: "Portal global jobs.plan-international.org; filtrar Bolivia"}
+  - {nombre: "World Vision Bolivia", prioridad: media, verificado: si}
+  - {nombre: "CARE Bolivia", prioridad: baja, verificado: verificar}
+  - {nombre: "Catholic Relief Services (CRS)", prioridad: media, verificado: si}
+  - {nombre: "Ayuda en Acción / Educo / Fundación Pueblo", prioridad: baja, verificado: si}
+  - {nombre: "Conservación Internacional / FAN Bolivia", prioridad: baja, verificado: si}
+  - {nombre: "Hábitat para la Humanidad Bolivia", prioridad: baja, verificado: si}
+  - {nombre: "Universidad Católica Boliviana (UCB)", prioridad: media, verificado: si, nota: "Docencia e investigación; convocatorias PDF"}
+  - {nombre: "UMSA (docencia e investigación)", prioridad: media, verificado: si, nota: "Convocatorias PDF bajo umsa.bo/documents/"}
+  - {nombre: "Universidad Privada Boliviana (UPB)", prioridad: media, verificado: si}
+  - {nombre: "Universidad Andina Simón Bolívar", prioridad: baja, verificado: si}
+  - {nombre: "ASOBAN / ASOFIN (asociaciones de bancos y microfinanzas)", prioridad: media, verificado: si}
+  - {nombre: "CAINCO / Cámara Nacional de Comercio / Cámara Nacional de Industrias", prioridad: baja, verificado: si}
