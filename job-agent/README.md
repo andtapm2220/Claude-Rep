@@ -7,6 +7,8 @@
 > - **Proceso:** `python -m jobagent collect` (recolecta y verifica la vigencia en la página real) → Claude puntúa →
 >   `python -m jobagent publish` → filas a la planilla de Google Sheets → commit de `state/jobs.db` (memoria).
 > - **Salida:** la mejor oferta abierta y el enlace a la planilla. Reglas para Claude en `CLAUDE.md`.
+> - **Aprendizaje:** marca en la columna P de la planilla `postulé`, `entrevista` o `no me interesa`; la corrida diaria
+>   la lee antes de puntuar. `python -m jobagent fuentes` mide qué fuentes rinden (el domingo se revisa).
 > - **Pendiente:** validar las viñetas `VALIDAR` del CV. Lo que sigue abajo describe el modo con API (GitHub Actions), hoy secundario.
 
 Todos los días, a las 07:43 (hora de Bolivia), el agente:

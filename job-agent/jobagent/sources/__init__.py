@@ -42,9 +42,9 @@ def relative_date(text: str, now: datetime | None = None) -> datetime | None:
 
     t = norm(text)
     now = now or datetime.now(timezone.utc)
-    if any(w in t for w in ("hoy", "minuto", "ahora", "minute", "just now", "today")):
+    if re.search(r"\b(?:hoy|minutos?|ahora|minutes?|just now|today)\b", t):
         return now
-    if "ayer" in t or "yesterday" in t:
+    if re.search(r"\b(?:ayer|yesterday)\b", t):
         return now - timedelta(days=1)
     m = re.search(r"(\d+)\s*(hora|hour|dia|day|semana|week|mes|month)", t)
     if not m:
@@ -74,7 +74,9 @@ def deadline_in_text(text: str) -> datetime | None:
     """Plazo de postulación: 'vence el 26 de noviembre 2026', 'hasta el lunes 16 de noviembre de 2026'...
     Si hay varios cargos con plazos distintos, devuelve el más tardío."""
     found = []
-    for m in re.finditer(r"(?:vence|vencimiento|hasta|plazo|cierre|fecha l[ií]mite|deadline)[^.\n]{0,40}?"
+    # "hasta" solo cuenta si habla de postular/enviar/recibir ("contrato hasta 2027" no es un plazo)
+    for m in re.finditer(r"(?:vence|vencimiento|(?:postula\w*|env[ií]\w*|recib\w*|recepci[oó]n|present\w*)[^.\n]{0,40}?hasta|"
+                         r"plazo|cierre|fecha l[ií]mite|deadline)[^.\n]{0,40}?"
                          r"(\d{1,2}\s*(?:de\s+)?(?:" + "|".join(MESES) + r")\s*,?\s*(?:de(?:l)?\s+)?20\d\d)", text, re.I):
         d = spanish_date(m.group(1))
         if d:

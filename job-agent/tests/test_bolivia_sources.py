@@ -205,3 +205,25 @@ def test_validate_flags_ghost_jobs_with_auto_renewed_deadline():
     j = Job(source="web:x", url="https://cazvid.com/empleo/x", title="T")
     assert validate(j, _fake_http(page), now=now) == "cerrada"
     assert "oferta_fantasma_publicada_hace_mas_de_60_dias" in j.flags
+
+
+def test_validate_audit_fixes_never_false_open():
+    """Hallazgos de la auditoría del 24-11-2026: ninguno de estos casos puede salir "abierta"."""
+    from datetime import datetime, timezone
+    from jobagent.filters import merge_duplicates
+    from jobagent.validate import validate
+    now = datetime(2026, 11, 23, tzinfo=timezone.utc)
+    casos = [
+        "<p>Plazo de postulación: 10 de noviembre de 2026. Contrato hasta el 31 de diciembre de 2027.</p>",
+        "<p>Inicio de labores: 15 de diciembre de 2026</p>",
+        "<p>This role has been filled. Posted 3 days ago</p>",
+        "<p>Applications have closed. Posted 2 days ago</p>",
+    ]
+    for i, page in enumerate(casos):
+        j = Job(source="web:x", url=f"https://x/a{i}", title="T")
+        assert validate(j, _fake_http(page), now=now) != "abierta", page
+    j = Job(source="web:x", url="https://x/naive", title="T", posted_at=datetime(2026, 11, 20))
+    assert validate(j, _fake_http("<p>Analista</p>"), now=now) == "abierta"  # fecha sin zona ya no se cae
+    a = Job(source="trabajito", url="https://x/1", title="Analista")
+    b = Job(source="trabajito", url="https://x/2", title="Analista")
+    assert len(merge_duplicates([a, b])) == 2  # sin empresa no se pisan

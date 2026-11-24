@@ -23,7 +23,8 @@ CLOSED = re.compile(
     r"\bjob is closed\b|\bposition (?:has been )?(?:closed|filled)\b|\bno longer (?:accepting|available)\b|"
     r"\bthis (?:job|vacancy|posting) has expired\b|\bapplications? (?:are )?closed\b|\bvacancy closed\b|"
     r"convocatoria (?:cerrada|finalizada|concluida|vencida)|oferta (?:cerrada|finalizada|vencida|expirada)|"
-    r"ya no (?:est[aá] disponible|acepta postulaciones)|proceso (?:cerrado|concluido)|"
+    r"\b(?:has|have) (?:been )?(?:filled|closed|expired)\b|\bno longer open\b|\bposting (?:has )?expired\b|"
+    r"ya no (?:est[aá] disponible|acepta postulaciones)|proceso (?:cerrado|concluido)|\bya cerr[oó]\b|"
     r"(?:application deadline|deadline)\s*:?\s*[A-Z][a-z]+ \d{1,2}, 20\d\d\s+closed\b|"
     r"^\s*closed\s*$",  # Impactpool: la palabra "Closed" sola en su línea
     re.I | re.M)
@@ -94,6 +95,9 @@ MAX_PUBLICADA_DIAS = 60  # más vieja que esto = oferta fantasma, aunque su "vig
 def validate(job: Job, http: Http, now: datetime | None = None, max_age_days: int = 21) -> str:
     """Devuelve 'abierta' | 'cerrada' | 'no_verificada' y actualiza job.valid_through / job.flags."""
     now = now or datetime.now(timezone.utc)
+    # fechas sin zona (p. ej. alertas por email) rompían las restas: se asumen hora de Bolivia
+    job.posted_at, job.valid_through = (d.replace(tzinfo=BO) if d and d.tzinfo is None else d
+                                        for d in (job.posted_at, job.valid_through))
     got = page_text(job.url, http)
     if got is None:
         status = "no_verificada"
@@ -118,13 +122,20 @@ def validate(job: Job, http: Http, now: datetime | None = None, max_age_days: in
         elif oldest and (now - oldest).days > MAX_PUBLICADA_DIAS:
             status = "cerrada"
             job.flags.append("oferta_fantasma_publicada_hace_mas_de_60_dias")
+        elif dls and min(dls) < now <= max(dls):
+            # un plazo vencido y otra fecha futura en la misma página (p. ej. "contrato hasta 2027" u otra
+            # oferta enlazada): no se puede saber cuál manda, así que no se recomienda
+            status = "no_verificada"
+            job.flags.append("plazos_contradictorios")
         elif job.valid_through:
             status = "abierta" if job.valid_through >= now else "cerrada"
         else:
+            # solo fechas que dicen ser de publicación; antes cualquier fecha del texto ("inicio de labores")
+            # contaba como publicación, y una fecha futura salía "abierta"
             ago = AGO.search(text)
-            posted = job.posted_at or spanish_date(text[:3000]) or (relative_date(ago.group(0)) if ago else None)
+            posted = job.posted_at or posted_page or (relative_date(ago.group(0)) if ago else None)
             age = (now - posted).days if posted else None
-            status = "abierta" if age is not None and age <= max_age_days else "no_verificada"
+            status = "abierta" if age is not None and 0 <= age <= max_age_days else "no_verificada"
             if status == "no_verificada":
                 job.flags.append("sin_fecha_verificable")
     job.flags = [f for f in job.flags if not f.startswith("vigencia:")] + [f"vigencia:{status}"]

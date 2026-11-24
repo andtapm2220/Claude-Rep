@@ -67,8 +67,8 @@ def merge_duplicates(jobs: list[Job]) -> list[Job]:
             if len(j.description) > len(main.description):
                 main.description = j.description
             main.apply_emails = list(dict.fromkeys(main.apply_emails + j.apply_emails))
-        else:
-            by_fp[fp] = j
+        else:  # sin empresa no se puede saber si es la misma oferta: se conserva aparte (antes se pisaba)
+            by_fp[fp if fp.split("|")[0] else fp + "|" + j.url] = j
     return list(by_fp.values())
 
 

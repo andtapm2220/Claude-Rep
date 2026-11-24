@@ -1,5 +1,10 @@
 """
-Uso:
+Uso (modo plan, el que corre a diario):
+  python -m jobagent collect [--max N]                      recolecta y verifica vigencia -> output/candidatas.md
+  python -m jobagent publish [--parcial]                    aplica state/scores.json -> resumen y filas de planilla
+  python -m jobagent rotacion [--todo]                      empleadores del directorio que toca buscar
+  python -m jobagent fuentes                                rendimiento por fuente -> output/fuentes.md
+Modo API (respaldo, GitHub Actions):
   python -m jobagent run [--no-llm] [--limit-sources N]   corrida diaria completa
   python -m jobagent poll                                   procesa botones de Telegram (postular/descartar)
   python -m jobagent chatid                                 muestra tu chat_id de Telegram (setup)
@@ -170,6 +175,28 @@ def cmd_rotacion(args) -> int:
     return 0
 
 
+def cmd_fuentes(args) -> int:
+    """Rendimiento por fuente desde state/jobs.db: cuántas vistas, puntuadas y recomendables (>= puntaje_minimo)."""
+    import sqlite3
+
+    profile, _ = load_profile()
+    minimo = int(profile.get("agente", {}).get("puntaje_minimo", 65))
+    db = sqlite3.connect(str(ROOT / "state/jobs.db"))
+    rows = db.execute(
+        "SELECT CASE WHEN instr(source, ':') > 0 AND source NOT LIKE 'vigia:%' "
+        "THEN substr(source, 1, instr(source, ':') - 1) ELSE source END AS fuente, "
+        "COUNT(*), COUNT(score), SUM(score >= ?), MAX(first_seen) "
+        "FROM jobs GROUP BY fuente ORDER BY SUM(score >= ?) DESC, COUNT(score) DESC", (minimo, minimo)).fetchall()
+    lines = [f"# Rendimiento por fuente (recomendable = puntaje >= {minimo})", "",
+             "| Fuente | Vistas | Puntuadas | Recomendables | Última vista |", "|---|---:|---:|---:|---|"]
+    lines += [f"| {f} | {v} | {p} | {r or 0} | {(u or '')[:10]} |" for f, v, p, r, u in rows]
+    md = "\n".join(lines) + "\n"
+    (ROOT / "output").mkdir(exist_ok=True)
+    (ROOT / "output/fuentes.md").write_text(md, encoding="utf-8")
+    print(md)
+    return 0
+
+
 def cmd_publish(args) -> int:
     from .plan_mode import publish
 
@@ -318,11 +345,12 @@ def main(argv=None) -> int:
     pb.add_argument("--parcial", action="store_true", help="guarda lo puntuado y deja el resto pendiente")
     ro = sub.add_parser("rotacion", help="empleadores del directorio que toca buscar hoy")
     ro.add_argument("--todo", action="store_true", help="todo el directorio (corrida profunda del domingo)")
+    sub.add_parser("fuentes", help="rendimiento por fuente (vistas, puntuadas, recomendables)")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
     return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network,
             "collect": cmd_collect, "publish": cmd_publish,
-            "rotacion": cmd_rotacion}[args.cmd](args)
+            "rotacion": cmd_rotacion, "fuentes": cmd_fuentes}[args.cmd](args)
 
 
 if __name__ == "__main__":

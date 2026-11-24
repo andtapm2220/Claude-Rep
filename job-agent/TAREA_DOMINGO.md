@@ -30,6 +30,8 @@ que `TAREA_DIARIA.md`.
    - Repite con las siguientes 20 hasta terminar.
 6. **Cierre:** `python -m jobagent publish` con un `state/scores.json` vacío (`[]`), para guardar como vistas
    las no candidatas. Luego, commit y push.
+6b. **Fuentes:** `python -m jobagent fuentes`. Si una fuente lleva 30 o más vistas y 0 recomendables, menciónala en una
+   línea del informe como candidata a quitarse. No la quites sin el OK de Fernando.
 7. **Informe (corto):** la mejor oferta recomendada de la noche (cargo, organización, puntaje, cierre y enlace), el
    enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY) y, en una línea, los empleadores del directorio que ya no operan en Bolivia.
    Envía una notificación al celular solo si hay algo de 70 o más.

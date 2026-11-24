@@ -173,7 +173,8 @@ def publish(root: Path, profile: dict, parcial: bool = False) -> dict:
         rows.append([today, j.score, j.verdict, j.trust, j.title, j.company, j.location, "sí" if j.remote else "no",
                      j.salary, j.valid_through.date().isoformat() if j.valid_through else "", j.source,
                      ", ".join(j.apply_emails), j.summary, j.url,
-                     "nuevo" if status_of(j) == "abierta" else "SIN VERIFICAR: revisar plazo antes de postular"])
+                     {"abierta": "nuevo", "cerrada": "CERRADA"}.get(
+                         status_of(j), "SIN VERIFICAR: revisar plazo antes de postular")])
     (root / "output").mkdir(exist_ok=True)
     mode = "a" if parcial else "w"
     with open(root / f"output/ofertas_{today}.md", mode, encoding="utf-8") as fh:

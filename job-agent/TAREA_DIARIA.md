@@ -37,6 +37,16 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
 4. **Recolectar:** `python -m jobagent collect` (tarda 5-8 min; usa un timeout de 10 min). Genera `output/candidatas.md`.
 5. **Puntuar:** lee `output/candidatas.md` y evalúa cada `id` contra el CV y el perfil, como reclutador honesto y exigente:
    - 80+ = cumple casi todo y es lo que busca; 60-79 vale la pena; 40-59 parcial; menos de 40 no encaja.
+   - **Anclas de calibración** (puntajes reales ya dados; mantén la misma escala):
+     - 80: Jefe Nacional de Planificación Financiera y Análisis (FP&A), ETIKA, La Paz. Es el rol buscado y cumple casi todo.
+     - 74: Especialista nacional en gestión financiera, BID, La Paz. Finanzas públicas y organismo internacional; pide
+       más años de experiencia fiduciaria.
+     - 66: Analista de Riesgo de Crédito, IDEPRO, La Paz. Finanzas aplicadas en microfinanzas; es un escalón lateral.
+     - 55: Analista de Operaciones, UNFPA. Es un organismo bueno, pero el rol es administrativo y no financiero.
+     - 42: Asistente administrativo con presupuestos, fuera de La Paz. Está por debajo del nivel.
+   - **Lo que Fernando decidió:** antes de puntuar, lee la columna P ("Decisión") de la planilla (rango `Hoja 1!E:P`)
+     y ajusta el criterio. Lo marcado `postulé` o `entrevista` indica qué valora; lo marcado `no me interesa` indica qué
+     bajar. Si coincide con una oferta nueva, súbela o bájala hasta 10 puntos y dilo en `reasons` o en `gaps`.
    - Licitaciones para empresas, eventos o puestos operativos van como `descartar`.
    - `red_flags` lista señales de estafa u oferta fantasma.
 
