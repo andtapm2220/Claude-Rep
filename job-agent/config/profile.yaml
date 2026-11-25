@@ -73,13 +73,21 @@ seniority: "semi-senior (unos 4-5 años de experiencia profesional; ha liderado 
 salario_minimo_bs: 0          # COMPLETAR si quieres filtrar por sueldo mínimo mensual en Bs
 ciudades: ["La Paz", "El Alto"]
 acepta_remoto: true
-paises_region: ["Bolivia"]    # presencial fuera de Bolivia: agrega países si te mudarías
+# presencial fuera de Bolivia: Fernando se mudaría por un puesto internacional (25-11-2026)
+paises_region: ["Bolivia", "Estados Unidos", "United States", "Washington", "Peru", "Lima", "Colombia", "Bogota",
+                "Chile", "Santiago", "Panama", "Mexico", "Uruguay", "Montevideo", "Ecuador", "Quito", "Paraguay",
+                "Argentina", "Brasil", "Brazil", "Espana", "Spain", "Francia", "France", "Belgica", "Belgium",
+                "Suiza", "Switzerland", "Ginebra", "Geneva", "Luxemburgo", "Paises Bajos", "Netherlands", "Alemania",
+                "Germany", "Italia", "Italy", "Roma", "Viena", "Austria", "Nueva York", "New York"]
 idiomas: ["Español (nativo)", "Inglés (C1)", "Francés (C1)"]
 
 preferencias: |
   - Prioridad alta: organismos internacionales y banca de desarrollo (BID, Banco Mundial, CAF, FONPLATA, ONU),
     cooperación (incluida la francófona: AFD, Enabel, Embajadas de Francia y Bélgica, donde su francés C1 suma),
     roles de finanzas públicas / presupuesto / gestión fiscal, y FP&A remoto pagado en USD o EUR.
+  - Puestos FUERA de Bolivia pagados como internacional (sede de BM/BID/FMI en Washington, CAF, CEPAL/ILPES,
+    Comunidad Andina, FLAR, ONU nivel P2/P3, programas de jóvenes profesionales): se mudaría. Puntúalos alto si el
+    rol es de finanzas públicas, presupuesto o economía y él cumple requisitos (28 años, maestría VUB, 4-5 años).
   - También interesan: banca y microfinanzas (riesgos, inversiones, planificación financiera), consultoras
     (Big 4), empresas multinacionales en Bolivia, análisis de negocio / datos financieros, innovación.
   - El puesto debe ser un paso adelante respecto a su rol actual en el MEFP (más responsabilidad, mejor paga

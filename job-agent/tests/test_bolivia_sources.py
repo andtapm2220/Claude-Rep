@@ -187,17 +187,18 @@ def test_publish_only_recommends_verified_open(tmp_path):
     ok = Job(source="t", url="https://x/ok", title="OK", flags=["vigencia:abierta"])
     unk = Job(source="t", url="https://x/unk", title="UNK", flags=["vigencia:no_verificada"])
     shut = Job(source="t", url="https://x/shut", title="SHUT", flags=["vigencia:cerrada"])
+    low = Job(source="t", url="https://x/low", title="LOW", flags=["vigencia:no_verificada"])
     (tmp_path / "state/pending.json").write_text(_json.dumps(
-        {"stats": {}, "found": [job_to_dict(ok), job_to_dict(unk), job_to_dict(shut)],
-         "candidates": [ok.key, unk.key, shut.key]}))
+        {"stats": {}, "found": [job_to_dict(ok), job_to_dict(unk), job_to_dict(shut), job_to_dict(low)],
+         "candidates": [ok.key, unk.key, shut.key, low.key]}))
     (tmp_path / "state/scores.json").write_text(_json.dumps(
         [{"id": ok.key, "score": 80, "verdict": "postular_ya"}, {"id": unk.key, "score": 90, "verdict": "postular_ya"},
-         {"id": shut.key, "score": 85, "verdict": "postular_ya"}]))
+         {"id": shut.key, "score": 85, "verdict": "postular_ya"}, {"id": low.key, "score": 55, "verdict": "parcial"}]))
     out = publish(tmp_path, {"agente": {"confianza_minima": 0}})
     assert [t["titulo"] for t in out["top"]] == ["OK"]
     rows = _json.loads((tmp_path / "output/sheet_rows.json").read_text())
     assert any(r[-1].startswith("SIN VERIFICAR") for r in rows)
-    assert not any(r[4] == "SHUT" for r in rows)  # las cerradas no van a la planilla
+    assert not any(r[4] in ("SHUT", "LOW") for r in rows)  # ni cerradas ni sin verificar de menos de 60
 
 
 def test_validate_flags_ghost_jobs_with_auto_renewed_deadline():

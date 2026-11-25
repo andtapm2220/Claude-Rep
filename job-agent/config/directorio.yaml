@@ -273,3 +273,28 @@ ong_think_tanks_academia:   # Agregado 24-nov-2026.
   - {nombre: "Universidad Andina Simón Bolívar", prioridad: baja, verificado: si}
   - {nombre: "ASOBAN / ASOFIN (asociaciones de bancos y microfinanzas)", prioridad: media, verificado: si}
   - {nombre: "CAINCO / Cámara Nacional de Comercio / Cámara Nacional de Industrias", prioridad: baja, verificado: si}
+internacional_sede_afuera:   # Agregado 25-11-2026: puestos FUERA de Bolivia pagados como internacional.
+  # Con empleo_url: el vigía la revisa a diario (páginas probadas el 25-11-2026). El resto entra en la rotación,
+  # que para esta categoría busca SIN la palabra "Bolivia". Fernando: 28 años, maestría VUB => califica a BM/BID/CAF.
+  - {nombre: "CAF - empleo (todas las sedes)", prioridad: alta, verificado: si, empleo_url: "https://www.caf.com/es/trabaja-con-nosotros/empleo/", link_pattern: "/trabaja-con-nosotros/empleo/[^/?#]+/?$", org: "CAF", nota: "Desde la red del MEFP falla el certificado (inspección TLS); en la nube debería abrir. Bolivia es accionista; también programa PRODES (jóvenes profesionales, hasta 32 años, maestría)"}
+  - {nombre: "FONPLATA - staff", prioridad: alta, verificado: si, empleo_url: "https://fonplata.org/en/opportunities/staff-recruitment", link_pattern: '^https://fonplata\.org/en/[a-z0-9-]*(professional|specialist|analyst|officer|consultant|manager|coordinator|assistant|intern|head|director|chief|lead|economist)[a-z0-9-]*/?$', org: "FONPLATA", nota: "Sedes Santa Cruz y Montevideo; también registro de consultores y pasantías"}
+  - {nombre: "SELA (Caracas)", prioridad: media, verificado: si, nota: "sela.org/convocatorias/ (sin enlaces legibles); Caracas; para nacionales de estados miembros (Bolivia lo es)"}
+  - {nombre: "Cancillería de Bolivia - convocatoria pública", prioridad: media, verificado: si, empleo_url: "https://cancilleria.gob.bo/mre/convocatoria-publica/", link_pattern: '(?i)/wp-content/uploads/\d{4}/\d{2}/convocatoria[^/]*\.pdf', org: "Ministerio de Relaciones Exteriores", nota: "Puestos en embajadas y consulados; la mayoría administrativos"}
+  - {nombre: "Cancillería de Bolivia - consultorías", prioridad: baja, verificado: si, nota: "cancilleria.gob.bo/mre/convocatorias/ (sin PDFs legibles el 25-11)"}
+  - {nombre: "Banco Mundial - vacantes (worldbankgroup.csod.com)", prioridad: alta, verificado: si, nota: "Busca 'World Bank vacancy economist OR financial analyst OR public finance OR budget 2026'. Young Professionals Program: abre ~1-sep, cierra ~30-sep (sin tope de edad; maestría + 2-6 años)"}
+  - {nombre: "BID - todas las sedes (jobs.iadb.org)", prioridad: alta, verificado: si, nota: "Staff y consultores en Washington y países; Programa de Jóvenes Profesionales (menos de 32, maestría), históricamente ene-feb; IDB Invest 'Crea tu futuro' (hasta 30)"}
+  - {nombre: "FMI - Research Assistant / analista", prioridad: media, verificado: si, nota: "imf.org/en/about/recruitment (Workday). Economist Program exige PhD: no aplica"}
+  - {nombre: "UNOPS (careers.unops.org)", prioridad: alta, verificado: si, nota: "Buscar 'UNOPS finance OR budget OR financial analyst' en careers.unops.org/careersmarketplace; hay puestos internacionales (IICA/LICA) y consultorías"}
+  - {nombre: "ONU Secretaría y agencias - nivel P (careers.un.org)", prioridad: alta, verificado: si, nota: "Puestos P2/P3 de finanzas y presupuesto (Budget Officer, Finance Officer, Programme Management). Sitio bloquea lectura automática: usar resultados de búsqueda"}
+  - {nombre: "PNUD sede y oficinas regionales (jobs.undp.org)", prioridad: media, verificado: si, nota: "Puestos internacionales de finanzas; Panamá es el centro regional"}
+  - {nombre: "CEPAL / ILPES (Santiago)", prioridad: alta, verificado: si, nota: "Vacantes vía careers.un.org; ILPES = planificación y presupuesto público, encaje directo"}
+  - {nombre: "Comunidad Andina - Secretaría General (Lima)", prioridad: alta, verificado: si, nota: "comunidadandina.org/convocatorias/vacantes-personal/ (lista por JS). Plazas para nacionales de BO/CO/EC/PE"}
+  - {nombre: "FLAR - Fondo Latinoamericano de Reservas (Bogotá)", prioridad: alta, verificado: si, nota: "flar.com/trabaje-con-nosotros/ (ofertas en ventanas sin enlace propio). Bolivia es país miembro; estudios económicos y riesgos"}
+  - {nombre: "CEMLA (Ciudad de México)", prioridad: media, verificado: si, nota: "cemla.org/oportunidades.html; vacantes ocasionales; pide maestría en economía o finanzas"}
+  - {nombre: "CIAT - Centro Interamericano de Administraciones Tributarias (Panamá)", prioridad: media, verificado: si, nota: "Sin página de empleo; convocatorias en noticias o LinkedIn"}
+  - {nombre: "OEA / OAS (Washington)", prioridad: media, verificado: si, nota: "oas.org/dhrs/consultancy.htm y vacantes en PDF; pasantías 3 veces al año"}
+  - {nombre: "ALADI (Montevideo)", prioridad: baja, verificado: si, nota: "Concursos en PDF por nacionalidad; en 2026 Bolivia no estuvo en la lista"}
+  - {nombre: "OLACDE, ex OLADE (Quito)", prioridad: baja, verificado: si, nota: "olacde.org/en/current-hirings/"}
+  - {nombre: "IICA (San José)", prioridad: baja, verificado: si, nota: "iica.int/en/oportunidades-de-empleo-en/"}
+  - {nombre: "EUROsociAL / FIIAPP (Madrid)", prioridad: media, verificado: verificar, nota: "Finanzas públicas y fiscalidad; buscar en fiiapp.org trabaja con nosotros"}
+  - {nombre: "Programas de cooperación francófona (AFD París, Expertise France, OIF)", prioridad: media, verificado: verificar, nota: "Tu francés C1 es ventaja; Expertise France publica misiones de finanzas públicas en LatAm"}

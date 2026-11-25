@@ -52,6 +52,14 @@ Todos los días, a las 07:43 (hora de Bolivia), el agente:
 > "enviar CV a rrhh@empresa", así que postular por email es el canal más directo y no viola los
 > términos de ningún portal.
 
+## Puestos internacionales (agregado 25-11-2026)
+- `config/directorio.yaml`, sección `internacional_sede_afuera`: organismos con sede fuera de Bolivia (BM, BID, CAF,
+  FONPLATA, FMI, ONU/CEPAL, CAN, FLAR, CEMLA, CIAT, OEA, Cancillería...). FONPLATA y la Cancillería se vigilan a
+  diario; el resto entra en la rotación, que para esta categoría busca sin la palabra "Bolivia".
+- `config/convocatorias_anuales.yaml`: programas de jóvenes profesionales y pasantías que abren una vez al año; la
+  corrida del domingo los revisa (paso 6c). `profile.yaml` acepta ahora puestos presenciales en esos países.
+- Planilla: no se escriben las CERRADAS ni las SIN VERIFICAR de menos de 60; antes de agregar se quitan duplicados.
+
 ## Configuración (una sola vez, ~20 min)
 
 ### 1. Tu perfil

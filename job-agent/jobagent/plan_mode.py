@@ -169,8 +169,12 @@ def publish(root: Path, profile: dict, parcial: bool = False) -> dict:
                   + (f"- 🚩 {'; '.join(j.red_flags)}\n" if j.red_flags else "")
                   + (f"- ✉️ Postular a: {', '.join(j.apply_emails)}\n" if j.apply_emails else "")
                   + f"- 🔗 {j.url}\n")
-    # Las CERRADAS (incluye fantasmas) no van a la planilla: solo ensucian la lista (decisión de Fernando, 25-11)
-    for j in [x for x in found if x.score is not None and x.score >= 40 and status_of(x) != "cerrada"]:
+    # Las CERRADAS (incluye fantasmas) no van a la planilla, y las SIN VERIFICAR solo si valen 60 o más:
+    # el resto ensucia la lista y verificarlas a mano gasta tokens (decisión de Fernando, 25-11)
+    def to_sheet(x):
+        st = status_of(x)
+        return st != "cerrada" and (st == "abierta" or x.score >= 60)
+    for j in [x for x in found if x.score is not None and x.score >= 40 and to_sheet(x)]:
         rows.append([today, j.score, j.verdict, j.trust, j.title, j.company, j.location, "sí" if j.remote else "no",
                      j.salary, j.valid_through.date().isoformat() if j.valid_through else "", j.source,
                      ", ".join(j.apply_emails), j.summary, j.url,

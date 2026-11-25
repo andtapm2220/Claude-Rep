@@ -58,8 +58,12 @@ def rotation_markdown(picked: list[dict], today: date | None = None) -> str:
              "Si un empleador ya no opera en Bolivia, anótalo en el informe para sacarlo del directorio.\n"]
     for cat in sorted({e["categoria"] for e in picked}):
         lines.append(f"## {cat}")
+        if cat.startswith("internacional"):
+            lines.append("Sede FUERA de Bolivia: busca SIN la palabra Bolivia (p. ej. \"<organismo> vacancies OR convocatoria "
+                         "OR vacantes 2026 finance OR economist OR budget\"), y si tiene `empleo_url` ábrela. Sirven "
+                         "puestos internacionales, de jóvenes profesionales y pasantías pagadas.")
         for e in (x for x in picked if x["categoria"] == cat):
             extra = f" — {e['nota']}" if e.get("nota") else ""
-            ver = "" if e.get("verificado") == "si" else " (verificar que opere en Bolivia)"
+            ver = "" if e.get("verificado") == "si" or cat.startswith("internacional") else " (verificar que opere en Bolivia)"
             lines.append(f"- {e['nombre']} [{e['prioridad']}]{ver}{extra}")
     return "\n".join(lines) + "\n"

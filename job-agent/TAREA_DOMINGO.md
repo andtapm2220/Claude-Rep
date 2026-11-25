@@ -20,6 +20,10 @@ que `TAREA_DIARIA.md`.
    - `python -m jobagent rotacion --todo` lista todos los empleadores del directorio sin página vigilada, con los de
      prioridad alta primero. Búscalos todos, agrupando 4-5 por búsqueda.
    - Facebook: 4-6 búsquedas `site:facebook.com` de convocatorias de finanzas, banca y presupuesto en La Paz.
+   - Internacional (sede fuera de Bolivia): 4-6 búsquedas SIN la palabra Bolivia, p. ej. "budget officer OR finance
+     officer OR public finance specialist vacancy 2026 Latin America", "economista OR especialista finanzas públicas
+     vacante organismo internacional Washington OR Lima OR Panamá OR Santiago". Sirven puestos en sede, regionales y
+     de jóvenes profesionales.
    - Después, búsquedas libres de: finanzas públicas y gestión fiscal (BID, BM, CAF, UE, cooperación), FP&A y
      finanzas remoto en USD/EUR, banca y microfinanzas en La Paz, y consultorías por producto.
    - Cada 10 búsquedas, guarda lo encontrado en `state/web_jobs.json`, con el mismo formato que la corrida diaria.
@@ -33,6 +37,10 @@ que `TAREA_DIARIA.md`.
    las no candidatas. Luego, commit y push.
 6b. **Fuentes:** `python -m jobagent fuentes`. Si una fuente lleva 30 o más vistas y 0 recomendables, menciónala en una
    línea del informe como candidata a quitarse. No la quites sin el OK de Fernando.
+6c. **Programas anuales:** lee `config/convocatorias_anuales.yaml`. Para cada uno con ajuste alta o media, haz UNA
+   búsqueda web ("<programa> 2027 application deadline" o "convocatoria 2027"). Si encuentras una convocatoria abierta,
+   o una que abre o cierra en los próximos 45 días, actualiza su `ventana` en el YAML (con la URL vista) y agrega al
+   informe una línea "Programa: <nombre>, abre/cierra <fecha>, <url>". Si ninguna, no escribas nada.
 7. **Informe (corto):** la mejor oferta recomendada de la noche (cargo, organización, puntaje, cierre y enlace), el
    enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY) y, en una línea, los empleadores del directorio que ya no operan en Bolivia.
    Envía una notificación al celular solo si hay algo de 70 o más.

@@ -28,6 +28,8 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
      ONU, UE/EUROsociAL, GIZ, AFD, Enabel);
    - vacantes de finanzas en organismos internacionales, banca y microfinanzas en La Paz;
    - FP&A o financial analyst remoto para LatAm pagado en USD/EUR;
+   - **1 búsqueda internacional** (sede fuera de Bolivia, SIN la palabra Bolivia): puestos de finanzas públicas,
+     presupuesto o economista en organismos internacionales y regionales (BM, BID, CAF, FMI, ONU, CEPAL, CAN, FLAR);
    - publicaciones públicas en Facebook o LinkedIn con convocatorias de finanzas en La Paz.
    - **Facebook, siempre 2 búsquedas propias** (según la encuesta del BID de 2022, entre 17 % y 33 % de las empresas
      bolivianas reclutan por Facebook/Instagram y solo 5 % por LinkedIn): `site:facebook.com convocatoria analista
