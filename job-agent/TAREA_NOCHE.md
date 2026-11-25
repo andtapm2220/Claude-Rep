@@ -18,7 +18,7 @@ Objetivo: enterarse el mismo día de convocatorias nuevas, gastando poco del pla
 4. Si `candidatas` es 0, salta al paso 7 y no escribas informe.
 5. Lee `output/candidatas.md` y el `resumen` de `config/profile.yaml` (no hace falta abrir el CV en Drive para 10 ofertas), y escribe `state/scores.json` con el mismo formato y criterio que la
    corrida de la mañana. Sé breve: `summary` de una frase, máximo 2 `reasons` y 2 `gaps`.
-6. `python -m jobagent publish`. Luego agrega a la planilla las filas de `output/sheet_rows.json`.
+6. `python -m jobagent publish`. Luego, antes de agregar, lee la columna N (URL) de la planilla (`Hoja 1!N:N`) y quita de las filas las que ya estén (misma URL, o mismo código de convocatoria y organización, p. ej. "ON - 334 - 2026" de Banco Unión), y agrega a la planilla las filas de `output/sheet_rows.json`.
 7. Guarda la memoria: `git add -f state/jobs.db`, `git commit -m "job-agent: estado noche <fecha>"` y
    `git push origin claude/vigilant-archimedes-nvd4mi`.
 8. **Solo si alguna oferta tiene 70 o más:** escribe una línea con la mejor (cargo, organización, puntaje, cierre y

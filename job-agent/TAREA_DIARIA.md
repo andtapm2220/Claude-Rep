@@ -29,6 +29,10 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
    - vacantes de finanzas en organismos internacionales, banca y microfinanzas en La Paz;
    - FP&A o financial analyst remoto para LatAm pagado en USD/EUR;
    - publicaciones públicas en Facebook o LinkedIn con convocatorias de finanzas en La Paz.
+   - **Facebook, siempre 2 búsquedas propias** (según la encuesta del BID de 2022, entre 17 % y 33 % de las empresas
+     bolivianas reclutan por Facebook/Instagram y solo 5 % por LinkedIn): `site:facebook.com convocatoria analista
+     financiero La Paz` y `site:facebook.com "trabajo" finanzas banco La Paz` (o variantes con FP&A, presupuesto,
+     riesgos). Solo cuentan publicaciones con cargo concreto y URL propia del post o de la página.
 
    Solo cuentan convocatorias concretas y **abiertas** cuya URL apareció en los resultados. Nunca inventes URLs.
    Guárdalas en `state/web_jobs.json` como una lista de objetos con estos campos: `theme`, `url`, `title`,
@@ -54,11 +58,15 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
    (postular_ya | vale_la_pena | parcial | descartar), `reasons` (lista), `gaps` (lista), `red_flags` (lista),
    `summary` (1-2 frases en español).
 6. **Publicar:** `python -m jobagent publish`. Genera `output/ofertas_<fecha>.md` y `output/sheet_rows.json`.
-7. **Planilla:** agrega las filas de `output/sheet_rows.json` a la planilla con `append_values` (rango `Hoja 1!A1`).
+7. **Planilla:** antes de agregar, lee la columna N (URL) de la planilla (`Hoja 1!N:N`) y quita de las filas las que ya estén (misma URL, o mismo código de convocatoria y organización, p. ej. "ON - 334 - 2026" de Banco Unión); luego agrega las filas de `output/sheet_rows.json` a la planilla con `append_values` (rango `Hoja 1!A1`).
 8. **Informe en la sesión (corto, sin extras):** solo la mejor oferta recomendada, ABIERTA, con cargo, organización,
    puntaje, fecha de cierre y enlace, más el enlace a la planilla: https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY
    No escribas borradores de email, cartas, checklists ni comentarios sobre las demás.
    Si no hay recomendadas: "Sin recomendadas hoy" + enlace a la planilla.
+   **Pituto (si la mejor tiene 70 o más):** haz 1-2 búsquedas web de perfiles públicos (LinkedIn) de gente del área
+   de finanzas o de RRHH de esa organización en La Paz, y agrega UNA línea "Pituto: <nombre> (<cargo>), <nombre>
+   (<cargo>)" con 1-3 nombres que aparezcan en los resultados. Nunca inventes nombres; si no aparece nadie, omite la línea.
+   Los referidos rinden ~8 veces más que postular por portal, por eso esta línea sí va.
 9. **Avisar:** notificación al celular (PushNotification), una línea: la mejor oferta y su cierre. Solo si hay recomendada.
 10. **Guardar memoria:** ejecuta `git add -f state/jobs.db`, luego
     `git commit -m "job-agent: estado <fecha>"` y `git push origin claude/vigilant-archimedes-nvd4mi`,

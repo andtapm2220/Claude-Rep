@@ -11,7 +11,10 @@ guardar la memoria en `state/jobs.db`. Claude busca en la web, puntúa y publica
 - **Privacidad:** el CV con datos personales vive en Drive y en `config/cv.local.md`, que no se sube al repo. Nunca
   se comparten el email ni los datos de Fernando con servicios externos.
 - **Salida de cada corrida:** solo la mejor oferta recomendada (cargo, organización, puntaje, cierre y enlace) más el
-  enlace a la planilla. Sin borradores de email, cartas, checklists ni sugerencias extra.
+  enlace a la planilla, y en la corrida diaria una línea "Pituto" con contactos públicos si la mejor tiene 70 o más.
+  Sin borradores de email, cartas, checklists ni sugerencias extra.
+- **Planilla:** las CERRADAS no se escriben (lo hace `publish`) y antes de agregar filas se quitan las que ya están
+  (misma URL o mismo código de convocatoria). Al final se ordena por Fecha y Puntaje, descendente.
 
 ## Ahorro de tokens
 - No leer archivos enteros si basta una parte. No releer lo que ya está en contexto.
