@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Páginas de empleo encontradas por `python -m jobagent descubrir` (26-11-2026) a partir de los
+#  registros oficiales (ASFI, APS, registro de auditoras) en config/universo/*.csv.
+#  Solo entra lo que se puede VIGILAR gratis (Python): enlaces por oferta (link_pattern) o
+#  `tipo: cambio` (renglones nuevos). Lo que no tiene página NO entra a la rotación de búsquedas,
+#  para no gastar tokens; se vuelve a probar el primer domingo de cada mes (TAREA_DOMINGO 6e).
+# ─────────────────────────────────────────────────────────────────────────────
+
+auditoras_y_calificadoras:
+  - {nombre: 'Ernst & Young (Auditoría y Asesoría) Ltda.', prioridad: 'media', verificado: 'si', empleo_url: 'https://careers.ey.com/ey/search/?q=&locationsearch=Bolivia', link_pattern: '/job/[^?#]+/\d+/?$', max_new: 5, nota: 'plataforma successfactors'}
+  - {nombre: 'Microfinanza Rating Bolivia Calificadora de Riesgo S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://mf-rating.com/careers/', tipo: 'cambio'}
+
+consultoras_de_seleccion:
+  - {nombre: 'Ejecutivos Bolivia', prioridad: 'media', verificado: 'si', empleo_url: 'https://ejecutivosbolivia.com/', tipo: 'cambio'}
+  - {nombre: 'Etika', prioridad: 'media', verificado: 'si', empleo_url: 'http://Etika.careers-page.com', link_pattern: '/jobs/[0-9a-f-]{36}/?$', max_new: 5, nota: 'plataforma careers-page'}
+
+empresas_comerciales:
+  - {nombre: 'Farmacorp / Nexocorp', prioridad: 'media', verificado: 'si', empleo_url: 'https://nexocorp.evaluar.com', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Hansa', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.hansa.com.bo/oportunidades_de_trabajo.php', tipo: 'cambio'}
+  - {nombre: 'PIL Andina', prioridad: 'media', verificado: 'si', empleo_url: 'https://pil-bolivia.careers-page.com', link_pattern: '/jobs/[0-9a-f-]{36}/?$', max_new: 5, nota: 'plataforma careers-page'}
+
+seguros_y_reaseguros:
+  - {nombre: 'Alianza Vida Seguros y Reaseguros S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'http://alianzaseguros.evaluar.com/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Asescor S.R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://asescor.com/careers/', tipo: 'cambio'}
+  - {nombre: 'BUPA Insurance (Bolivia) S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://bgla.na.teamtailor.com/', link_pattern: '/jobs/\d+-[^/?#]+$', max_new: 5, nota: 'plataforma teamtailor'}
+  - {nombre: 'Compañía de Seguros de Vida Fortaleza S.A. / Compañía de Seguros y Reaseguros Fortaleza S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://aseguradorafortaleza.evaluar.com/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Conseso Ltda.', prioridad: 'media', verificado: 'si', empleo_url: 'https://conseso.com/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Consultores de Seguros S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://consegsa.com/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Kieffer y Asociados S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.evaluatest.com/Kieffer/Evaluate/IUEvaluacion/KiefferBolsaTrabajo.asp', tipo: 'cambio'}
+  - {nombre: 'La Boliviana Ciacruz Seguros Personales S.A. / La Boliviana Ciacruz de Seguros y Reaseguros S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'http://www.lbc.bo/sobre-nosotros/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'Nacional Seguros Vida y Salud S.A. / Nacional Seguros Patrimoniales y Fianzas S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'http://www.nacionalseguros.com.bo/unete-a-nuestro-equipo-de-nacional-seguros', tipo: 'cambio'}
+  - {nombre: 'Previcor Corredores y Asesores de Seguros S.R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://previcor.com/careers/', tipo: 'cambio'}
+  - {nombre: 'Santa Cruz Vida y Salud Seguros y Reaseguros Personales S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.santacruzvidaysalud.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Seguros y Reaseguros Credinform International S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.credinformsa.com/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'Unibienes Seguros y Reaseguros Patrimoniales S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.unibienes.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+
+sistema_financiero_asfi:
+  - {nombre: 'Almacenes Internacionales S.A. (RAISA)', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.raisabisa.com/index.php/convocatorias/', tipo: 'cambio'}
+  - {nombre: 'Autoridad de Supervisión del Sistema Financiero (ASFI)', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.asfi.gob.bo/oportunidad-de-empleo', tipo: 'cambio'}
+  - {nombre: 'Banco BISA S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://bancobisa.evaluar.com/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Banco Central de Bolivia (BCB)', prioridad: 'media', verificado: 'si', empleo_url: 'https://registros.bcb.gob.bo/postulantes/convocatorias', link_pattern: '/(?:postulantes/convocatoria|jobs/detail)/[^/?#]+/?$', max_new: 5, nota: 'plataforma odoo'}
+  - {nombre: 'Banco Económico S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://baneco.com.bo/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'Banco Fortaleza S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bancofortaleza.com.bo/talento-humano', tipo: 'cambio'}
+  - {nombre: 'Banco Ganadero S.A. / Ganadero SAFI S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bg.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Banco Mercantil Santa Cruz S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://postulate.evaluar.com/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Banco PYME Ecofuturo S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bancoecofuturo.com.bo/Informacion/GEN', tipo: 'cambio'}
+  - {nombre: 'Banco PYME de la Comunidad S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bco.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Banco Solidario S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bancosol.com.bo/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'Banco de Desarrollo Productivo S.A.M. (BDP)', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bdp.com.bo/trabaja-bdp/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'Banco para el Fomento a Iniciativas Económicas S.A. (Banco FIE)', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bancofie.com.bo/trabaja-en-banco-fie/convocatorias', tipo: 'cambio'}
+  - {nombre: 'Bolsa Boliviana de Valores S.A. (BBV)', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.bbv.com.bo/acerca-de-la-bolsa/trabaja-con-nosotros/bolsa-de-trabajo/', tipo: 'cambio'}
+  - {nombre: 'CIDRE IFD', prioridad: 'media', verificado: 'si', empleo_url: 'https://cidre.org.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Asunción R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.cas.com.bo/web/?page_id=227', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta CACEF R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cacef.coop/convocatorias/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Catedral (Potosí) R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.catedral.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Cristo Rey Cochabamba R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cristorey.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta El Chorolque R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.chorolque.com.bo/convocatorias/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta La Sagrada Familia R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://coopsagradafamilia.com/recursoshumanos/convocatorias', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Magisterio Rural de Chuquisaca R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cmrsucre.com/publicaciones/convocatorias/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Monseñor Félix Gainza R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.gainza.com.bo/convocatorias.php', link_pattern: '/convocatorias/[^/?#]+/?$', max_new: 5}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Pío X R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.cooperativapiox.com/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Quillacollo R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cooperativaquillacollo.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Antonio R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.cacsa.com.bo/convocatorias', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Carlos Borromeo R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.coopsancarlos.com/index.php/institucional/mnuconvocatoria', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Francisco Solano R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://sfs.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Martín de Porres R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.cosmart.coop/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Mateo R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://sanmateo.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta San Pedro R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cooperativasanpedro.com/contrataciones/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Abierta Trinidad R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cactri.com.bo/convocatorias', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Societaria Hospicio R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.hospicio.com.bo/careers/', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Societaria San Martín (Potosí) R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://sanmartin.com.bo/convocatorias', tipo: 'cambio'}
+  - {nombre: 'Cooperativa de Ahorro y Crédito Societaria Unión Santiago de Machaca USAMA R.L.', prioridad: 'media', verificado: 'si', empleo_url: 'https://cooperativausama.com.bo/documentos.php?seccion=convocatorias', tipo: 'cambio'}
+  - {nombre: 'Diaconía FRIF IFD', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.diaconia.bo/unete-a-nuestro-equipo', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'El Progreso EFV', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.elprogresoefv.com.bo/?page_id=61', tipo: 'cambio'}
+  - {nombre: 'Empresa de Transporte de Valores E.T.V. S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.etv.com.bo/trabaja_nosotros/trabaja_nosotros.php', tipo: 'cambio'}
+  - {nombre: 'Entidad de Depósito de Valores de Bolivia S.A. (EDV)', prioridad: 'media', verificado: 'si', empleo_url: 'https://edv.com.bo/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'FONDECO IFD', prioridad: 'media', verificado: 'si', empleo_url: 'https://fondeco.org/trabaja-con-nosotros/', tipo: 'cambio'}
+  - {nombre: 'FUBODE IFD', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.fubode.org/index.php/unete-a-nuestro-equipo', tipo: 'cambio'}
+  - {nombre: 'Fortaleza SAFI S.A. / Compañía Americana de Inversiones S.A. (CAISA) Agencia de Bolsa', prioridad: 'media', verificado: 'si', empleo_url: 'https://grupofortaleza.evaluar.com/', link_pattern: '/trabajo/[^/?#]+/?$', max_new: 5, nota: 'plataforma evaluar'}
+  - {nombre: 'IMPRO IFD', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.improifd.org.bo/index.php/tconsulta/createSolicitud', tipo: 'cambio'}
+  - {nombre: 'La Primera EFV', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.laprimeraefv.com/trabaja-con-nosotros', link_pattern: '/trabaja\-con\-nosotros/[^/?#]+/?$', max_new: 5}
+  - {nombre: 'Mercantil Santa Cruz Agencia de Bolsa S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.mscbolsa.com.bo/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'SAFI Mercantil Santa Cruz S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.safimsc.com/trabaja-con-nosotros', tipo: 'cambio'}
+  - {nombre: 'SAFI Unión S.A.', prioridad: 'media', verificado: 'si', empleo_url: 'https://www.safiunion.com.bo/convocatorias/', tipo: 'cambio'}
+  - {nombre: 'Valores Unión S.A. Agencia de Bolsa', prioridad: 'media', verificado: 'si', empleo_url: 'https://valoresunion.com.bo/unete-a-nuestro-equipo/', tipo: 'cambio'}

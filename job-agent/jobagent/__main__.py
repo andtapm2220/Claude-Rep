@@ -197,6 +197,14 @@ def cmd_fuentes(args) -> int:
     return 0
 
 
+def cmd_descubrir(args) -> int:
+    from .descubrir import run
+
+    res = run(args.csv, args.out, args.inseguro)
+    print(json.dumps({"total": len(res)}, ensure_ascii=False))
+    return 0
+
+
 def cmd_publish(args) -> int:
     from .plan_mode import publish
 
@@ -346,11 +354,15 @@ def main(argv=None) -> int:
     ro = sub.add_parser("rotacion", help="empleadores del directorio que toca buscar hoy")
     ro.add_argument("--todo", action="store_true", help="todo el directorio (corrida profunda del domingo)")
     sub.add_parser("fuentes", help="rendimiento por fuente (vistas, puntuadas, recomendables)")
+    de = sub.add_parser("descubrir", help="una vez: encuentra la página de empleo de cada institución de un CSV")
+    de.add_argument("csv", nargs="+")
+    de.add_argument("--out", default="state/descubrimiento.json")
+    de.add_argument("--inseguro", action="store_true", help="no verificar TLS (sólo en la red del trabajo)")
     sub.add_parser("chatid")
     args = p.parse_args(argv)
     return {"run": cmd_run, "poll": cmd_poll, "chatid": cmd_chatid, "network": cmd_network,
             "collect": cmd_collect, "publish": cmd_publish,
-            "rotacion": cmd_rotacion, "fuentes": cmd_fuentes}[args.cmd](args)
+            "rotacion": cmd_rotacion, "fuentes": cmd_fuentes, "descubrir": cmd_descubrir}[args.cmd](args)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,8 @@
 """Prefiltro barato (sin IA): descarta lo obvio y ordena para gastar Claude sólo en lo prometedor."""
 from __future__ import annotations
 
+import re
+
 from .models import Job, norm
 
 
@@ -86,3 +88,26 @@ def select_candidates(ranked: list[Job], total: int = 40, max_curated: int = 15)
     out += curated[: max(0, total - len(out))]
     out += curated_all[cap: cap + max(0, total - len(out))]  # rellena si sobran plazas
     return out
+
+
+# Requisito de título: en las convocatorias bolivianas la "formación académica" es eliminatoria (cumple / no cumple).
+# Si la oferta sólo nombra carreras ajenas (p. ej. "Ingeniería de Sistemas o Informática"), no vale gastar Claude en ella.
+TITULO_VENTANA = re.compile(
+    r"(formacion academica|formacion profesional|titulo (?:en provision nacional|profesional|universitario|a nivel)|"
+    r"licenciatura en|licenciado en|grado academico|profesional (?:titulado |universitario )?en|degree in)(.{0,300})")
+TITULO_AJENO = re.compile(
+    r"sistemas|informatica|electronica|telecomunicaciones|ingenieria civil|mecanica|electrica|quimica|petrolera|"
+    r"minas|geolog|agronom|medicina|enfermeria|bioquimica|farmac|odontolog|derecho|abogad|arquitectura|psicolog|"
+    r"comunicacion social|trabajo social|veterinari|ambiental|computer science|software")
+
+
+def titulo_no_cumple(text: str, propios: list[str]) -> bool:
+    """True si la oferta pide títulos y NINGUNO es de la familia de Fernando (economía, finanzas, administración...)."""
+    t = norm(text)
+    ventanas = [m.group(2) for m in TITULO_VENTANA.finditer(t)]
+    if not ventanas:
+        return False
+    own = [norm(p) for p in propios]
+    if any(p in v for v in ventanas for p in own):
+        return False
+    return any(TITULO_AJENO.search(v) for v in ventanas)

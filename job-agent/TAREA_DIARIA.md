@@ -50,6 +50,11 @@ Claude del usuario: la IA es la propia sesión; el código Python solo hace lo m
      - 66: Analista de Riesgo de Crédito, IDEPRO, La Paz. Finanzas aplicadas en microfinanzas; es un escalón lateral.
      - 55: Analista de Operaciones, UNFPA. Es un organismo bueno, pero el rol es administrativo y no financiero.
      - 42: Asistente administrativo con presupuestos, fuera de La Paz. Está por debajo del nivel.
+     - 25 / descartar: Responsable de Inteligencia de Datos, BCB. Pide licenciatura en Ingeniería de Sistemas
+       (requisito eliminatorio) y Fernando es Ingeniero Financiero; la maestría no lo salva.
+   - La sección "Descartadas por título" de `candidatas.md` ya la filtró el código: no la puntúes.
+   - Las de bandera `cambio_pagina` son renglones nuevos de una página de empleo, no una oferta armada. Si no
+     describen una vacante concreta (cargo y forma de postular), van como `descartar` en una línea, sin buscar más.
    - **Lo que Fernando decidió:** antes de puntuar, lee la columna P ("Decisión") de la planilla (rango `Hoja 1!E:P`)
      y ajusta el criterio. Lo marcado `postulé` o `entrevista` indica qué valora; lo marcado `no me interesa` indica qué
      bajar. Si coincide con una oferta nueva, súbela o bájala hasta 10 puntos y dilo en `reasons` o en `gaps`.

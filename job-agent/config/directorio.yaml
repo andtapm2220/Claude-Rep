@@ -123,7 +123,7 @@ transnacionales:
   # Consumo masivo, industria y agroindustria
   - {nombre: "CBN - Cervecería Boliviana Nacional (AB InBev)", prioridad: alta, verificado: verificar}
   - {nombre: "Embol (embotelladora Coca-Cola)", prioridad: alta, verificado: verificar}
-  - {nombre: "PIL Andina (Grupo Gloria)", prioridad: media, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "PIL Andina (Grupo Gloria)", prioridad: media, verificado: verificar}
   - {nombre: "SOBOCE (Grupo Gloria)", prioridad: media, verificado: si}
   - {nombre: "Itacamba Cemento (Votorantim)", prioridad: baja, verificado: verificar}
   - {nombre: "Unilever Bolivia", prioridad: media, verificado: verificar}
@@ -137,20 +137,20 @@ transnacionales:
 sistema_financiero:   # Fuente: ASFI, entidades con licencia al 30-abr-2026; SAFI y agencias de bolsa: BBV/ABAV.
   # ── Grupos financieros: banco + SAFI + agencia de bolsa + seguros (comparten RRHH) ──
   - {nombre: "Grupo BNB: Banco Nacional de Bolivia, BNB SAFI, BNB Valores", prioridad: alta, verificado: si}
-  - {nombre: "Grupo Mercantil Santa Cruz: Banco, Santa Cruz Investments SAFI, Mercantil Santa Cruz Agencia de Bolsa", prioridad: alta, verificado: si}
-  - {nombre: "Grupo BISA: Banco BISA, BISA SAFI, BISA Agencia de Bolsa, BISA Seguros", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Grupo Mercantil Santa Cruz: Banco, Santa Cruz Investments SAFI, Mercantil Santa Cruz Agencia de Bolsa", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Grupo BISA: Banco BISA, BISA SAFI, BISA Agencia de Bolsa, BISA Seguros", prioridad: alta, verificado: si}
   - {nombre: "Grupo Credicorp: Banco de Crédito de Bolivia (BCP), Credifondo SAFI, Credibolsa, Crediseguro", prioridad: alta, verificado: si}
   - {nombre: "Grupo Unión: Banco Unión, SAFI Unión, Valores Unión", prioridad: alta, verificado: si, nota: "Estatal mayoritario"}
-  - {nombre: "Grupo Fortaleza: Banco Fortaleza, Fortaleza SAFI", prioridad: alta, verificado: si}
-  - {nombre: "Grupo Ganadero: Banco Ganadero, Ganadero SAFI, GanaValores", prioridad: media, verificado: si}
-  - {nombre: "Banco Económico", prioridad: media, verificado: si}
-  - {nombre: "BancoSol (Banco Solidario)", prioridad: alta, verificado: si}
-  - {nombre: "Banco FIE (Fomento a Iniciativas Económicas)", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Grupo Fortaleza: Banco Fortaleza, Fortaleza SAFI", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Grupo Ganadero: Banco Ganadero, Ganadero SAFI, GanaValores", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Banco Económico", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "BancoSol (Banco Solidario)", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Banco FIE (Fomento a Iniciativas Económicas)", prioridad: alta, verificado: si}
   - {nombre: "Banco Prodem", prioridad: media, verificado: si}
   - {nombre: "Banco de la Nación Argentina (sucursal Santa Cruz)", prioridad: baja, verificado: si}
-  - {nombre: "BDP - Banco de Desarrollo Productivo", prioridad: alta, verificado: si, nota: "Estatal; vacantes también en bdp.evaluar.com"}
-  - {nombre: "Banco PYME Ecofuturo", prioridad: media, verificado: si}
-  - {nombre: "Banco PYME de la Comunidad", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "BDP - Banco de Desarrollo Productivo", prioridad: alta, verificado: si, nota: "Estatal; vacantes también en bdp.evaluar.com"}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Banco PYME Ecofuturo", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Banco PYME de la Comunidad", prioridad: baja, verificado: si}
   # ── SAFI y agencias de bolsa independientes ──
   - {nombre: "Panamerican Investments SAFI y Panamerican Securities", prioridad: alta, verificado: si}
   - {nombre: "Capital+ SAFI", prioridad: alta, verificado: si}
@@ -163,32 +163,32 @@ sistema_financiero:   # Fuente: ASFI, entidades con licencia al 30-abr-2026; SAF
   - {nombre: "CAISA Agencia de Bolsa", prioridad: baja, verificado: si}
   - {nombre: "iBolsa Agencia de Bolsa", prioridad: baja, verificado: si}
   # ── Infraestructura del mercado, pensiones y reguladores ──
-  - {nombre: "Bolsa Boliviana de Valores (BBV)", prioridad: media, verificado: si}
-  - {nombre: "Entidad de Depósito de Valores (EDV)", prioridad: baja, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Bolsa Boliviana de Valores (BBV)", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Entidad de Depósito de Valores (EDV)", prioridad: baja, verificado: verificar}
   - {nombre: "Gestora Pública de la Seguridad Social de Largo Plazo", prioridad: media, verificado: verificar}
-  - {nombre: "ASFI - Autoridad de Supervisión del Sistema Financiero", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "ASFI - Autoridad de Supervisión del Sistema Financiero", prioridad: alta, verificado: si}
   - {nombre: "APS - Autoridad de Fiscalización de Pensiones y Seguros", prioridad: media, verificado: verificar}
-  - {nombre: "Banco Central de Bolivia (BCB)", prioridad: alta, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Banco Central de Bolivia (BCB)", prioridad: alta, verificado: si}
   # ── Instituciones Financieras de Desarrollo (ASFI) ──
   - {nombre: "IDEPRO IFD", prioridad: alta, verificado: si}
   - {nombre: "CRECER IFD", prioridad: alta, verificado: si}
   - {nombre: "Fundación Pro Mujer IFD", prioridad: alta, verificado: si}
-  - {nombre: "Diaconía FRIF IFD", prioridad: media, verificado: si}
-  - {nombre: "CIDRE IFD", prioridad: media, verificado: si}
-  - {nombre: "FUBODE IFD", prioridad: baja, verificado: si}
-  - {nombre: "IMPRO IFD", prioridad: baja, verificado: si}
-  - {nombre: "FONDECO IFD", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Diaconía FRIF IFD", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "CIDRE IFD", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "FUBODE IFD", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "IMPRO IFD", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "FONDECO IFD", prioridad: baja, verificado: si}
   - {nombre: "FINRURAL (asociación de IFD)", prioridad: baja, verificado: si}
   # ── Entidades Financieras de Vivienda (ASFI) ──
-  - {nombre: "EFV La Primera", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "EFV La Primera", prioridad: baja, verificado: si}
   - {nombre: "EFV La Promotora", prioridad: baja, verificado: si}
-  - {nombre: "EFV El Progreso", prioridad: baja, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "EFV El Progreso", prioridad: baja, verificado: si}
   # ── Aseguradoras (APS) ──
-  - {nombre: "Nacional Seguros (Vida y Patrimoniales)", prioridad: media, verificado: verificar}
-  - {nombre: "Alianza Seguros", prioridad: media, verificado: verificar}
-  - {nombre: "La Boliviana Ciacruz Seguros", prioridad: media, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Nacional Seguros (Vida y Patrimoniales)", prioridad: media, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Alianza Seguros", prioridad: media, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "La Boliviana Ciacruz Seguros", prioridad: media, verificado: verificar}
   - {nombre: "Seguros Univida", prioridad: baja, verificado: verificar, nota: "Estatal"}
-  - {nombre: "Santa Cruz Vida y Salud Seguros", prioridad: baja, verificado: verificar}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Santa Cruz Vida y Salud Seguros", prioridad: baja, verificado: verificar}
   # ── Cooperativas de Ahorro y Crédito (ASFI): 41 entidades ──
   - {nombre: "Cooperativas de La Paz: La Sagrada Familia, Solucredit San Silvestre, USAMA", prioridad: baja, verificado: si}
   - {nombre: "Cooperativas grandes: Jesús Nazareno, San Martín de Porres, Fátima (Santa Cruz)", prioridad: baja, verificado: si}
@@ -229,7 +229,7 @@ empresas_nacionales:   # Grupos privados y consultoras locales. Agregado 24-nov-
   - {nombre: "Hipermaxi", prioridad: media, verificado: si}
   - {nombre: "Ketal", prioridad: media, verificado: si}
   - {nombre: "Fidalga", prioridad: baja, verificado: si}
-  - {nombre: "Hansa Ltda", prioridad: media, verificado: si}
+  - {cubierto_por: vigía directorio_financiero, nombre: "Hansa Ltda", prioridad: media, verificado: si}
   - {nombre: "IASA / Fino (Industrias de Aceite)", prioridad: media, verificado: si}
   - {nombre: "Gravetal Bolivia", prioridad: media, verificado: si}
   - {nombre: "Coboce", prioridad: media, verificado: si}

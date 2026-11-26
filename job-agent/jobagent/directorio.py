@@ -15,14 +15,16 @@ CADA = {"alta": 2, "media": 3, "baja": 7, "mensual": 30}
 
 
 def load(root: Path, profile: dict) -> list[dict]:
-    path = root / profile.get("directorio", "config/directorio.yaml")
-    if not path.exists():
-        return []
-    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    paths = profile.get("directorio", "config/directorio.yaml")
     out = []
-    for categoria, items in data.items():
-        for it in items or []:
-            out.append({**it, "categoria": categoria, "prioridad": it.get("prioridad", "media")})
+    for p in [paths] if isinstance(paths, str) else paths:  # uno o varios archivos de directorio
+        path = root / p
+        if not path.exists():
+            continue
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        for categoria, items in data.items():
+            for it in items or []:
+                out.append({**it, "categoria": categoria, "prioridad": it.get("prioridad", "media")})
     return out
 
 

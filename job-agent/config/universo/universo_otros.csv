@@ -1,0 +1,52 @@
+nombre,categoria,sitio,empleo_url,plataforma,verificado,fuente
+PricewaterhouseCoopers S.R.L. (PwC Bolivia),auditoria,https://www.pwc.com/bo/es.html,https://www.pwc.com/bo/es/Oportunidades-laborales-carreras.html,propio,no,ASFI registro (Cat.1 ASFI 337/2015); URL de empleo vista en WebSearch; fetch dio 403; PwC Workday global no lista Bolivia
+Ernst & Young (Auditoría y Asesoría) Ltda.,auditoria,https://www.ey.com/es_bo,https://careers.ey.com/ey/search/?q=&locationsearch=Bolivia,propio,si,ASFI registro (Cat.1 ASFI 437/2015); WebFetch del buscador filtrado a Bolivia lista 1 vacante (Administrative Entry 1 Santa Cruz)
+Deloitte Bolivia Ltda.,auditoria,https://www.deloitte.com/latam/es/about/story/nuestros-marketplaces/deloitte-bolivia.html,https://www.deloitte.com/latam/es/careers.html,propio,no,WebSearch; no aparece en la tabla ASFI consultada (26-11-2026) aunque una ficha antigua cita ASFI/302/2019; apply.deloitte.com solo mostro portal US
+KPMG Bolivia,auditoria,https://home.kpmg/bo/es/home.html,,propio,no,WebSearch; pagina de empleo vieja y no confirmada; no figura en tabla ASFI consultada
+BerthinAssurance Group Auditoría y Consultoría S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.1 (UHY; ASFI 500/2015)
+Ruizmier Pelaez S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.1 (MGI Worldwide; ASFI/603/2024)
+Kreston Bolivia S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.1 (ASFI/1175/2025)
+Audinaco S.R.L. Auditores y Consultores,auditoria,,,ninguna,no,ASFI registro Cat.2
+Abaco S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2 (Cochabamba)
+Bolivian American Consulting S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2 (KUDOS)
+Consultora Interdisciplinaria de Empresas C.I.E. S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2
+Delta Consult Ltda.,auditoria,,,ninguna,no,ASFI registro Cat.2 (SMS Latinoamerica)
+ECA Aparicio Asociados Ltda.,auditoria,,,ninguna,no,ASFI registro Cat.2 (con prohibicion temporal)
+García Veramendi y Asociados S.R.L. (PKF),auditoria,,,ninguna,no,ASFI registro Cat.2 (suspendida)
+Pozo & Asociados C.P.A. S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2
+Tudela & TH Consulting Group S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2
+Encinas Auditores y Consultores S.R.L. (Russell Bedford),auditoria,,,ninguna,no,ASFI registro Cat.2
+Legal Accounting Services S.R.L.,auditoria,,,ninguna,no,ASFI registro Cat.2
+Acevedo y Asociados Consultores de Empresas S.R.L. (Grant Thornton Acevedo),auditoria,,,ninguna,no,ASFI registro Cat.2 (ASFI/455/2026); vinculo con Grant Thornton segun directorio WebSearch
+BDO Bolivia,auditoria,https://www.bdobolivia.com,,ninguna,no,WebSearch (sitio oficial); empleo no confirmado
+Baker Tilly Bolivia,auditoria,https://bakertillylatam.com/en/offices/bolivia/,,ninguna,no,WebSearch
+Crowe Bolivia,auditoria,,,ninguna,no,solo mencion en directorios; no en tabla ASFI
+RSM Bolivia,auditoria,,,ninguna,no,solo mencion en directorios; no en tabla ASFI
+Moore Bolivia,auditoria,,,ninguna,no,solo mencion en directorios; no en tabla ASFI
+AESA Ratings S.A. Calificadora de Riesgo,calificadora,https://www.aesa-ratings.bo,,ninguna,no,ASFI/BBV; sitio visto en WebSearch; empleo no confirmado
+Pacific Credit Rating S.A. (PCR Bolivia),calificadora,https://ww3.ratingspcr.com/bolivia/,,ninguna,no,ASFI tarjeta SPVS-IV-EC-004/2001; empleo no confirmado
+Moody's Local PE Clasificadora de Riesgo S.A. (Moody's Local Bolivia),calificadora,,,ninguna,no,ASFI/DSVSC-ECR-001/2018; sitio Bolivia propio no encontrado
+Microfinanza Rating Bolivia Calificadora de Riesgo S.A.,calificadora,https://www.mf-rating.com,,ninguna,no,ASFI tarjeta; activa jul-2026 (Banco FIE AA1); empleo no confirmado
+Etika,reclutamiento,https://www.etika.com.bo,https://seleccion.etika.com.bo/index.php/convocatorias,propio,no,WebFetch del sitio principal (enlace Convocatorias); subdominio no resolvio en prueba directa; tambien Etika.careers-page.com enlazado
+Manpower Bolivia (ManpowerGroup),reclutamiento,https://www.manpower.com.bo,,ninguna,no,WebFetch: sitio en mantenimiento sin listado; vacantes en LinkedIn bo.linkedin.com/company/manpower-bolivia
+Ejecutivos Bolivia,reclutamiento,https://ejecutivosbolivia.com/,https://ejecutivosbolivia.com/vacant.php,propio,no,WebFetch (URL completa deducida del enlace relativo)
+Atlantic Research Technologies (ART),reclutamiento,https://www.atlanticresearch.com/regions/la/sa/bolivia.htm,,ninguna,no,WebSearch
+Recluta Bolivia,reclutamiento,,,ninguna,no,solo mencion en guia Largotek
+Cazatalentos,reclutamiento,,,ninguna,no,solo mencion en guia Largotek
+Adecco Bolivia,reclutamiento,,,ninguna,no,sin evidencia de operacion en Bolivia
+Michael Page Bolivia,reclutamiento,,,ninguna,no,sin evidencia de operacion en Bolivia
+Farmacorp / Nexocorp,comercial,https://farmacorp.com,https://nexocorp.evaluar.com,evaluar,si,WebFetch: 34 ofertas; farmacorp.com/pages/work-with-us tambien enlaza jobs.airavirtual.com/farmacorp
+Imcruz (Inchcape),comercial,,https://careers.inchcape.com/talentcommunity/apply/1370361057/?locale=es_MX,successfactors,no,WebFetch: oferta Practicantes Bolivia en careers.inchcape.com (plataforma inferida por imagenes SAP); sin buscador por Bolivia
+PIL Andina,comercial,https://pilbolivia.com.bo,https://pil-bolivia.careers-page.com,propio,si,WebFetch de pilbolivia.com.bo/trabaja-con-nosotros/ (plataforma careers-page.com)
+Hansa,comercial,https://www.hansa.com.bo,https://www.hansa.com.bo/oportunidades_de_trabajo.php,propio,si,WebFetch
+Embol (Coca-Cola),comercial,https://www.embol.com,,ninguna,no,WebFetch: sin enlace de empleo
+Toyosa,comercial,https://toyosa.com,,ninguna,no,WebSearch: solo anuncios en Trabajopolis/Trabajando; sin pagina propia confirmada
+Hipermaxi,comercial,,,ninguna,no,hipermaxi.com.bo no resolvio; pagina de empleo solo citada por agregadores
+Ketal,comercial,,,ninguna,no,www.ketal.com.bo no resolvio
+CBN,comercial,,,ninguna,no,www.cbn.com.bo no resolvio
+Tigo Bolivia (Millicom),comercial,,,ninguna,no,WebSearch: vacantes solo en LinkedIn
+IASA,comercial,,,ninguna,no,sin pagina de empleo encontrada
+Sofía,comercial,,,ninguna,no,sin pagina de empleo encontrada
+Grupo Venado,comercial,,,ninguna,no,no verificado
+Droguería INTI,comercial,,,ninguna,no,no verificado
+Coboce,comercial,,,ninguna,no,no verificado

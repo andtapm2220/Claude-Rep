@@ -8,6 +8,7 @@ más recientes suelen estar arriba) para no inundarte con el histórico.
 """
 from __future__ import annotations
 
+import hashlib
 import logging
 import re
 from html import unescape
@@ -63,22 +64,101 @@ def extract_links(html: str, base: str, must_contain: str | None = None,
     return out
 
 
+def _lines(html: str) -> dict[str, str]:
+    """Renglones visibles de la página -> {huella: renglón}. Sin menús ni pie (líneas cortas o repetidas)."""
+    from ..http import html_to_text
+
+    html = re.sub(r"(?is)<(script|style|nav|footer|header|noscript)\b.*?</\1>", " ", html)
+    out = {}
+    for ln in html_to_text(html).splitlines():
+        ln = " ".join(ln.split())
+        if len(ln) >= 12 and not re.fullmatch(r"[\d\s/:.,-]+", ln):
+            out[hashlib.sha1(ln.lower().encode()).hexdigest()[:10]] = ln
+    return out
+
+
+def changed_job(page: dict, html: str, est: dict) -> Job | None:
+    """Modo `tipo: cambio`: páginas de empleo sin enlaces por oferta (texto, tablas, avisos).
+    Guarda la huella de cada renglón; si aparecen renglones nuevos que parecen una vacante, arma una oferta
+    con SOLO esos renglones (Claude ve el cambio, no la página entera). La primera visita sólo toma la foto."""
+    lines = _lines(html)
+    prev = est.get("lineas")
+    est["lineas"] = sorted(lines)
+    if prev is None:
+        return None
+    seen = set(prev)
+    new = [ln for h, ln in lines.items() if h not in seen]
+    if not any(JOBISH.search(ln) for ln in new):
+        return None
+    from datetime import date
+
+    url, name = page["url"], page.get("name", page["url"])
+    text = "\n".join(new)[:4000]
+    title = next((ln for ln in new if JOBISH.search(ln)), new[0])[:200]
+    return Job(source=f"vigia:{name}", url=f"{url}#cambio-{date.today().isoformat()}", title=title,
+               company=page.get("org", ""), country="BO", location=page.get("location", "Bolivia"),
+               description=f"Cambio nuevo en la página de empleo de {name} ({url}):\n{text}", apply_url=url,
+               posted_at=spanish_date(text), valid_through=deadline_in_text(text), flags=["fuente_oficial", "cambio_pagina"])
+
+
+def health_report(estado: dict, today: str) -> str:
+    """Páginas vigiladas que fallan 3 veces seguidas o que no muestran convocatorias hace 60 días."""
+    from datetime import date
+
+    bad = []
+    for url, e in sorted(estado.items()):
+        if e.get("fallos", 0) >= 3:
+            bad.append(f"- {e.get('nombre', url)}: no abre hace {e['fallos']} corridas ({e.get('error', '')}). {url}")
+        elif e.get("ultimo_enlace") and (date.fromisoformat(today) - date.fromisoformat(e["ultimo_enlace"])).days > 60:
+            bad.append(f"- {e.get('nombre', url)}: sin convocatorias desde {e['ultimo_enlace']} (¿cambió de sistema?). {url}")
+    head = f"# Salud del vigía ({today}): {len(estado)} páginas, {len(bad)} con problemas\n"
+    return head + ("\n".join(bad) + "\n" if bad else "Todo bien.\n")
+
+
 def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
+    import json
+    from datetime import date
+    from pathlib import Path
+
     jobs: list[Job] = []
     pages = list(src.get("pages", []))
+    root = Path(__file__).resolve().parents[2]
     if src.get("incluir_directorio", True):
-        from pathlib import Path
-
         from .. import directorio
 
-        root = Path(__file__).resolve().parents[2]
         pages += directorio.watch_pages(directorio.load(root, profile))
-    for page in pages:
-        url, name = page["url"], page.get("name", page["url"])
+    from ..store import Store
+
+    store = Store(root / "state/jobs.db")  # memoria del vigía en la misma base que ya se guarda con git
+    estado = json.loads(store.kv_get("vigia_estado", "{}") or "{}")
+    today = date.today().isoformat()
+    pages = list({p["url"]: p for p in reversed(pages)}.values())[::-1]  # misma página para 2 empresas: una vez
+
+    def bajar(page):  # descargas en paralelo (sitios distintos); el resto sigue en orden
         try:
-            html = http.text(url)
+            return page, Http(delay=http.delay, timeout=http.timeout).text(page["url"]), None
         except Exception as e:
-            log.warning("vigía %s: no se pudo abrir (%s)", name, e)
+            return page, None, e
+
+    from concurrent.futures import ThreadPoolExecutor
+
+    with ThreadPoolExecutor(src.get("paralelo", 8)) as ex:
+        bajadas = list(ex.map(bajar, pages))
+    for page, html, err in bajadas:
+        url, name = page["url"], page.get("name", page["url"])
+        est = estado.setdefault(url, {})
+        est["nombre"] = name
+        if err is not None:
+            log.warning("vigía %s: no se pudo abrir (%s)", name, err)
+            est["fallos"], est["error"] = est.get("fallos", 0) + 1, type(err).__name__
+            continue
+        est["fallos"] = 0
+        est.setdefault("ultimo_enlace", today)
+        if page.get("tipo") == "cambio":
+            j = changed_job(page, html, est)
+            if j:
+                est["ultimo_enlace"] = today
+                jobs.append(j)
             continue
         if page.get("tipo") == "rss":
             from ..http import find_emails, html_to_text
@@ -98,6 +178,8 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
         # Impactpool y similares marcan estado en el texto del enlace
         links = [(u, re.sub(r"^(new job|closing soon|closing tomorrow|closing today|job is closed)\s*:?\s*", "", t, flags=re.I))
                  for u, t in links if not re.match(r"job is closed|closed", t, re.I)]
+        if links:
+            est["ultimo_enlace"] = today
         new = [(u, t) for u, t in links if not is_seen(u)][: page.get("max_new", 15)]
         log.info("vigía %s: %d enlaces de convocatoria, %d nuevos", name, len(links), len(new))
         for u, text in new:
@@ -144,4 +226,8 @@ def fetch(src: dict, profile: dict, http: Http, is_seen) -> list[Job]:
             j.location = j.location or page.get("location", "Bolivia")
             j.flags.append("fuente_oficial")
             jobs.append(j)
+    store.kv_set("vigia_estado", json.dumps(estado, ensure_ascii=False))
+    store.commit()
+    (root / "output").mkdir(exist_ok=True)
+    (root / "output/vigia_salud.md").write_text(health_report(estado, today), encoding="utf-8")
     return jobs

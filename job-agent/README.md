@@ -60,6 +60,23 @@ Todos los días, a las 07:43 (hora de Bolivia), el agente:
   corrida del domingo los revisa (paso 6c). `profile.yaml` acepta ahora puestos presenciales en esos países.
 - Planilla: no se escriben las CERRADAS ni las SIN VERIFICAR de menos de 60; antes de agregar se quitan duplicados.
 
+## Sistema financiero, seguros y auditoras (agregado 26-11-2026)
+- **Universo:** `config/universo/*.csv`, armado desde los registros oficiales: ASFI (bancos, IFD, 41 cooperativas,
+  EFV, SAFI, agencias de bolsa, leasing, almacenes, BCB), APS (aseguradoras, corredores, Gestora) y el registro de
+  auditoras de ASFI, más calificadoras, consultoras de selección y comerciales grandes. Unas 230 instituciones.
+- **Descubrimiento (Python, sin IA):** `python -m jobagent descubrir config/universo/*.csv` busca la página de empleo
+  de cada una: enlaces de la portada, rutas típicas, mapa del sitio y plataformas conocidas (evaluar.com,
+  careers-page, Teamtailor, SuccessFactors, Odoo...). Lo vigilable quedó en `config/directorio_financiero.yaml`
+  (68 páginas el 26-11; revisadas a mano las dudosas). Lo que no tiene página NO entra a la rotación de búsquedas,
+  para no gastar tokens; se vuelve a probar el primer domingo de cada mes (TAREA_DOMINGO 6e).
+- **Dos modos del vigía:** con `link_pattern` saca cada oferta con su enlace; con `tipo: cambio` guarda la huella de
+  cada renglón de la página y, si aparecen renglones nuevos que parecen una vacante, Claude ve solo esos renglones.
+  La primera visita solo toma la foto. Las descargas van en paralelo (87 páginas en ~2 min).
+- **Salud:** `output/vigia_salud.md` lista las páginas que fallan 3 corridas seguidas o que no muestran convocatorias
+  hace 60 días (cambio de sistema); el domingo se arreglan hasta 3 (paso 6d).
+- **Filtro de título:** `titulos_propios` en `profile.yaml`. Si una convocatoria solo pide otras carreras (p. ej. el
+  BCB pidiendo Ingeniería de Sistemas), se descarta antes de llegar a Claude y se lista aparte en `candidatas.md`.
+
 ## Configuración (una sola vez, ~20 min)
 
 ### 1. Tu perfil

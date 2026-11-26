@@ -47,7 +47,7 @@ class Job:
     @property
     def key(self) -> str:
         """Id estable por URL (sin query/fragmento)."""
-        base = re.sub(r"[#?].*$", "", self.url.strip().lower())
+        base = re.sub(r"\?.*?(?=#cambio-|$)|#(?!cambio-).*$", "", self.url.strip().lower())
         return hashlib.sha1(base.encode()).hexdigest()[:16]
 
     @property

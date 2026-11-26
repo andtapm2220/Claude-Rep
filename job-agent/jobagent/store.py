@@ -11,7 +11,7 @@ from .models import Job
 
 
 def url_key(url: str) -> str:
-    return re.sub(r"[#?].*$", "", url.strip().lower())
+    return re.sub(r"\?.*?(?=#cambio-|$)|#(?!cambio-).*$", "", url.strip().lower())
 
 
 class Store:

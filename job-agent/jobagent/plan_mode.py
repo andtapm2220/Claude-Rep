@@ -91,15 +91,23 @@ def collect(root: Path, profile: dict, limit_sources: int = 0, max_cands: int | 
     from .validate import validate
 
     pool = select_candidates(ranked, int(total * 1.6) + 2, min(agent.get("max_vigia", 15), total))
-    cands, cerradas = [], 0
+    from .filters import titulo_no_cumple
+
+    propios = profile.get("titulos_propios", [])
+    cands, cerradas, sin_titulo = [], 0, []
     for j in pool:
         if len(cands) >= total:
             break
+        if propios and titulo_no_cumple(f"{j.title}\n{j.description}", propios):
+            j.flags.append("no_cumple_titulo")  # eliminatorio en Bolivia: no se gasta Claude en ella
+            sin_titulo.append(j)
+            continue
         if validate(j, http, max_age_days=agent.get("max_antiguedad_dias", 21)) == "cerrada":
             cerradas += 1
             continue
         cands.append(j)
     stats["descartadas_por_cerradas"] = cerradas
+    stats["descartadas_por_titulo"] = len(sin_titulo)
     cand_keys = {j.key for j in cands}
 
     (root / "state").mkdir(exist_ok=True)
@@ -116,6 +124,9 @@ def collect(root: Path, profile: dict, limit_sources: int = 0, max_cands: int | 
             f"Vigencia verificada: {next((f.split(':',1)[1] for f in j.flags if f.startswith('vigencia:')), '?').upper()} · "
             f"Publicada: {j.posted_at.date() if j.posted_at else '?'} · Cierra: {j.valid_through.date() if j.valid_through else '?'}"
             f" · Fuente: {j.source} · Confianza: {j.trust} [{', '.join(j.flags)}]\n{j.url}\n\n{j.description[:1800]}\n")
+    if sin_titulo:
+        lines.append("## Descartadas por título (piden otra carrera; no las puntúes)")
+        lines += [f"- {j.title} — {j.company} · {j.url}" for j in sin_titulo]
     (root / "output").mkdir(exist_ok=True)
     (root / "output/candidatas.md").write_text("\n".join(lines), encoding="utf-8")
     summary = {"nuevas": len(found), "candidatas": len(cands), "por_fuente": stats}

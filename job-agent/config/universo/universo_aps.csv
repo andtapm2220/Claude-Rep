@@ -1,0 +1,54 @@
+nombre,categoria,sitio,verificado,fuente
+Alianza Vida Seguros y Reaseguros S.A.,seguros_personas,http://www1.alianza.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Compañía de Seguros de Vida Fortaleza S.A.,seguros_personas,http://aseguradorafortaleza.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Crediseguro S.A. Seguros Personales,seguros_personas,http://www.crediseguro.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+La Boliviana Ciacruz Seguros Personales S.A.,seguros_personas,http://www.lbc.bo,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+La Vitalicia Seguros y Reaseguros de Vida S.A.,seguros_personas,http://www.lavitaliciaseguros.com/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Nacional Seguros Vida y Salud S.A.,seguros_personas,http://www.nacionalseguros.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Seguros y Reaseguros Personales Univida S.A.,seguros_personas,http://www.univida.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Santa Cruz Vida y Salud Seguros y Reaseguros Personales S.A.,seguros_personas,https://www.santacruzvidaysalud.com.bo,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Alianza Compañía de Seguros y Reaseguros S.A.,seguros_generales,http://www.alianza.com.bo,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+BISA Seguros y Reaseguros S.A.,seguros_generales,http://www.bisaseguros.com/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Compañía de Seguros y Reaseguros Fortaleza S.A.,seguros_generales,http://aseguradorafortaleza.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Crediseguro S.A. Seguros Generales,seguros_generales,http://www.crediseguro.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+La Boliviana Ciacruz de Seguros y Reaseguros S.A.,seguros_generales,http://www.lbc.bo,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Mercantil Santa Cruz Seguros y Reaseguros Generales S.A.,seguros_generales,https://www.segurosmsc.com,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Nacional Seguros Patrimoniales y Fianzas S.A.,seguros_generales,http://www.nacionalseguros.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Seguros y Reaseguros Credinform International S.A.,seguros_generales,http://www.credinformsa.com/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Seguros Illimani S.A.,seguros_generales,http://www.segurosillimani.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+Unibienes Seguros y Reaseguros Patrimoniales S.A.,seguros_generales,http://www.unibienes.com.bo/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-seguros/
+BUPA Insurance (Bolivia) S.A.,seguros_generales_salud,https://www.bupasalud.com,no,"https://www.aps.gob.bo/images/webdocs/UPCC/boletines/trimestrales/2025/Seguros/Boletin%20Trimestral%20Estadistico%20de%20Seguros%20-%203er%20Trimestre.pdf (via busqueda; no figura en pagina Entidades Fiscalizadas; dominio de Bupa Latinoamerica, no confirmado dominio local)"
+Seguros PROVIDA S.A.,seguros_previsionales,,no,https://www.aps.gob.bo/entidades-fiscalizadas-pensiones/
+La Vitalicia Seguros y Reaseguros de Vida S.A. (previsional),seguros_previsionales,http://www.lavitaliciaseguros.com/,si (listado en sitio APS),https://www.aps.gob.bo/entidades-fiscalizadas-pensiones/
+Gestora Pública de la Seguridad Social de Largo Plazo,pensiones_gestora,https://www.gestora.bo/,si (resultado de busqueda oficial; pagina APS trae enlace placeholder),https://www.aps.gob.bo/entidades-fiscalizadas-pensiones/
+PROVIVIENDA S.A. (entidad de recaudación y administración de aportes),pensiones_otros,,no,https://www.aps.gob.bo/entidades-fiscalizadas-pensiones/
+Asociación Boliviana de Aseguradores (ABA),gremio,https://ababolivia.org/,si,https://ababolivia.org/
+Asociación Boliviana de Corredores de Seguros y Reaseguros (ABOCOSER),gremio,https://abocoser.com/,si,https://abocoser.com/afiliados/
+A.E.C. Fides Brokers Ltda.,corredor_seguros,https://www.fidesbrokers.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Asescor S.R.L.,corredor_seguros,https://www.asescor.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Brokers Corporativos de Seguros (B.C.S.),corredor_seguros,,no,https://abocoser.com/afiliados/ (dominio dudoso/ausente en gremio)
+Consultores de Seguros S.A.,corredor_seguros,https://www.consegsa.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Conseso Ltda.,corredor_seguros,https://www.conseso.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Corresur S.R.L.,corredor_seguros,https://www.corresur.biz,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Cubre S.R.L.,corredor_seguros,https://www.cubreseguros.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Estratégica S.R.L.,corredor_seguros,,no,https://abocoser.com/afiliados/ (dominio dudoso/ausente en gremio)
+H.K.A. Corredores y Asesores de Seguros S.R.L.,corredor_seguros,https://hkacorredores.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+H.P. Brokers,corredor_seguros,https://www.hpbrokers.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+I.B.A. Corredores y Asesores de Seguros S.R.L.,corredor_seguros,https://www.ibacorredores.net,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Imcruz Corredores de Seguros S.R.L.,corredor_seguros,,no,https://abocoser.com/afiliados/ (dominio dudoso/ausente en gremio)
+International Insurance Brokers S.R.L.,corredor_seguros,https://www.iibrokers.net,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Interseguros S.A.,corredor_seguros,https://www.interseguros.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Justa S.R.L.,corredor_seguros,https://www.justa.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Kerkus Corredores de Seguros S.A.,corredor_seguros,https://kerkuscorredores.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Kieffer y Asociados S.A.,corredor_seguros,https://www.kieffer-asociados.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Patria S.A. Corredores y Asesores de Seguros,corredor_seguros,,no,https://abocoser.com/afiliados/ (dominio dudoso/ausente en gremio)
+Previcor Corredores y Asesores de Seguros S.R.L.,corredor_seguros,https://www.previcor.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Puerto Seguro Corredores y Asesores de Seguros S.R.L.,corredor_seguros,https://www.puertoseguro.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Sudamericana S.R.L. Corredores y Asesores de Seguros,corredor_seguros,https://www.tubroker.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Tocars Brokers S.R.L.,corredor_seguros,https://tocarsbrokers.com,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Universal Brokers S.A. Corredores y Consultores de Seguros (UNIBROSA),corredor_seguros,https://www.unibrosa.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio; no verificado en sitio propio)
+Conesa Kieffer & Asociados Corredores de Reaseguros S.A.,corredor_reaseguros,https://www.cka.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio)
+Risk Reinsurance Brokers S.A. (Risk Re),corredor_reaseguros,https://www.riskre.net,no,https://abocoser.com/afiliados/ (dominio segun gremio)
+Universal Brokers RE S.A. Corredores de Reaseguros (UNIBROSA R.E.),corredor_reaseguros,https://www.unibrosare.com.bo,no,https://abocoser.com/afiliados/ (dominio segun gremio)
+Special Risks Consultants S.A. (Buenos Aires),corredor_reaseguros_extranjero,,no,"https://aplicaciones.aps.gob.bo/reportes_asp/index.html (registro RMS N° 327, via busqueda)"
+ACCI (Bolivia) S.R.L.,perito_valuador,,no,https://aplicaciones.aps.gob.bo/reportes_asp/resumen.html?tc=316&c=55454&t=1

@@ -4,13 +4,17 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 nombre: "Fernando Tapia Magne"
-directorio: config/directorio.yaml   # embajadas, organismos, mineras y transnacionales
+directorio: [config/directorio.yaml, config/directorio_financiero.yaml]   # embajadas, organismos... + páginas de empleo del sistema financiero, seguros, auditoras (26-11)
 resumen: >
   Ingeniero Financiero (UPB) con Maestría en Business & Technology (VUB, Bruselas). Hoy Analista Presupuestario
   en el Ministerio de Economía y Finanzas Públicas (PGE). Antes: cofundador y responsable financiero de una
   e-commerce, analista de portafolio de microfinanzas (USD 12M+ en desembolsos), supply chain en París.
   Inglés y francés C1. Busca dar el siguiente paso en finanzas / finanzas públicas / FP&A, idealmente en
   organismos internacionales, banca, consultoría o roles remotos pagados en USD/EUR.
+
+# Carreras que cuentan como tu título. Si una convocatoria SOLO pide otras (Sistemas, Derecho...), se descarta
+# sin gastar Claude: en Bolivia la formación académica es eliminatoria (cumple / no cumple).
+titulos_propios: [financ, econom, administracion, contadur, auditor, comercial, empresas, negocios, business, finance, economics]
 
 roles_objetivo:
   - "Especialista / Analista en finanzas públicas o gestión fiscal"

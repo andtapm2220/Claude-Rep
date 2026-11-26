@@ -41,6 +41,14 @@ que `TAREA_DIARIA.md`.
    búsqueda web ("<programa> 2027 application deadline" o "convocatoria 2027"). Si encuentras una convocatoria abierta,
    o una que abre o cierra en los próximos 45 días, actualiza su `ventana` en el YAML (con la URL vista) y agrega al
    informe una línea "Programa: <nombre>, abre/cierra <fecha>, <url>". Si ninguna, no escribas nada.
+6d. **Salud del vigía:** lee `output/vigia_salud.md` (lo deja `collect`). Para hasta 3 páginas con problemas, abre el
+   sitio de la institución y busca su nueva página de empleo; si la encuentras, corrige `empleo_url` en
+   `config/directorio_financiero.yaml` o `config/directorio.yaml`. Si no, deja una línea en el informe.
+6e. **Solo el primer domingo del mes, redescubrir:** `python -m jobagent descubrir config/universo/*.csv --out
+   state/descubrimiento.json` (Python, sin IA, ~5 min). Compara con `config/directorio_financiero.yaml` y agrega las
+   instituciones que ahora tienen página (`modo` enlaces: con su `link_pattern`; `modo` cambio: con `tipo: cambio`).
+   Mira solo las filas nuevas, no el archivo entero.
 7. **Informe (corto):** la mejor oferta recomendada de la noche (cargo, organización, puntaje, cierre y enlace), el
-   enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY) y, en una línea, los empleadores del directorio que ya no operan en Bolivia.
+   enlace a la planilla (https://docs.google.com/spreadsheets/d/18mk6iS-QoWXZFO-MEaf9bgmnVXPWoYItaswq4sl03XY) y, en una línea, los empleadores del directorio que ya no operan en Bolivia. Si el vigía tiene páginas con problemas
+   sin resolver, una línea "Vigía: N páginas sin abrir (ver output/vigia_salud.md)".
    Envía una notificación al celular solo si hay algo de 70 o más.
